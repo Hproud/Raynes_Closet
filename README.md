@@ -4,6 +4,6 @@
 
 ![db-schema]
 
-[db-schema] : ...
+[db-schema]: ./images/rc_schema.png
 
 ## API Documentation
