@@ -335,15 +335,14 @@ Get information on a specific item.
     ```
 
 
+### Add an Item
+Create a product.
 
-
-
-<!--
-* Require Authentication:
-* Require proper authorization:
+* Require Authentication: true
+* Require proper authorization: user must be an admin
 * Request
-  * Method:
-  * URL:
+  * Method: POST
+  * URL: /api/items
   * Body:
 
 * Successful Response
@@ -352,6 +351,1227 @@ Get information on a specific item.
     * Content-Type: application/json
   * Body:
 
+     ```json
+     {
+      "name": "Blue TyDye",
+      "description": "this is a description",
+      "size": "Medium",
+      "price": 10.00,
+      "type": "hoodie"
+     }
+     ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+    {
+      "message" : "Bad Request",
+      "errors": {
+        "name" : "Item must have a name",
+        "description" : "Item must have a description",
+        "price" : "Price Must be greater than 0",
+        "type" : "Type of product is required"
+      }
+    }
+    ```
+### Edit Product by Id
+Edit an exsisting item.
+
+* Require Authentication: true
+* Require proper authorization: User must be an admin
+* Request
+  * Method: PUT
+  * URL: /api/items/:itemId
+  * Body:
+    ```json
+    {
+      "name": "Blue TyDye",
+      "description": "this is a new description",
+      "size": "Large",
+      "price": 15.00,
+      "type": "hoodie"
+    }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+      ```json
+      {
+        "id": 1,
+       "name": "Blue TyDye",
+       "description": "this is a new description",
+       "size": "Large",
+       "price": 15.00,
+       "type": "hoodie"
+      }
+    ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+   ```json
+    {
+      "message": "Bad Request"
+    }
+   ```
+
+### Delete product/Item by id
+Delete a product
+
+* Require Authentication: true
+* Require proper authorization: User must be an admin
+* Request
+  * Method: DELETE
+  * URL: /api/items/:itemId
+  * Body:
+    none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+    {
+      "message" : "Successfully Deleted"
+    }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+      {
+        "message": "product not found"
+      }
+    ```
+
+
+ ## Reviews
+
+ ### Get Reviews by itemId
+ Get all reviews for a product.
+
+* Require Authentication: false
+* Require proper authorization: none
+* Request
+  * Method: GET
+  * URL: /api/items/:itemId/reviews
+  * Body:
+    none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+     {
+      "id" : 1,
+      "userId": 1,
+      "review" : "This is my review for this product",
+      "stars" : 3.0
+     }
+    ```
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Product not found"
+      }
+  ```
+
+
+### Add Review for item
+  This is to add a review for a product/item.
+
+* Require Authentication: true
+* Require proper authorization: must be authorized user
+* Request
+  * Method: POST
+  * URL: /api/items/:itemId/reviews
+  * Body:
+    ```json
+      {
+        "review": "this is a great product",
+        "stars" : 4.5
+      }
+    ```
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+      {
+        "id": 2,
+        "user_id": 2,
+        "review" : "this is a great product",
+        "stars": 4.5
+      }
+    ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+   ```json
+    {
+      "message": "Bad request",
+      "errors" : {
+        "review" : "a review is required",
+        "stars": "star rating is required"
+      }
+    }
+   ```
+
+### Edit review by id
+Edit existing review
+
+* Require Authentication: true
+* Require proper authorization: must be author of review
+* Request
+  * Method: PUT
+  * URL: /api/reviews/:reviewId
+  * Body:
+    ```json
+      {
+        "review": "this is a great product",
+        "stars" : 4.4
+      }
+    ```
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+      {
+        "id": 2,
+        "user_id": 2,
+        "review" : "this is a great product",
+        "stars": 4.4
+      }
+    ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+   ```json
+    {
+      "message": "Bad request",
+      "errors" : {
+        "review" : "a review is required",
+        "stars": "star rating is required"
+      }
+    }
+   ```
+
+
+
+
+### Get all reviews by current user
+Get all the current users reviews
+
+* Require Authentication: true
+* Require proper authorization: must be authorized user
+* Request
+  * Method: get
+  * URL: /api/current/reviews
+  * Body:
+    none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+      {
+        "id": 2,
+        "user_id": 2,
+        "review" : "this is a great product",
+        "stars": 4.5
+      }
+    ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+   ```json
+    {
+      "message": "Bad request",
+      "errors" : {
+        "review" : "a review is required",
+        "stars": "star rating is required"
+      }
+    }
+   ```
+
+
+
+
+## Images
+
+### Add Image for Item/Products
+add an image to an product.
+
+* Require Authentication: true
+* Require proper authorization: user must be an admin
+* Request
+  * Method: POST
+  * URL: /api/items/:itemId/images
+  * Body:
+  ```json
+    {
+      "url" : "fake.jpg",
+      "preview" : true
+    }
+  ```
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+    {
+      "id":1,
+      "imageableId": 1,
+      "imageableType": "Product",
+      "url" : "fake.jpg",
+      "preview" : true
+    }
+    ```
+
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+    {
+      "message" : "Product not found"
+    }
+  ```
+
+
+### Add Image for review
+add an image to an product.
+
+* Require Authentication: true
+* Require proper authorization: user must be an admin
+* Request
+  * Method: POST
+  * URL: /api/reviews/:reviewId/images
+  * Body:
+  ```json
+    {
+      "url" : "fake.jpg",
+      "preview" : true
+    }
+  ```
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+    ```json
+    {
+      "id":1,
+      "imageableId": 2,
+      "imageableType": "Review",
+      "url" : "fake.jpg",
+      "preview" : true
+    }
+    ```
+
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+    {
+      "message" : "Review not found"
+    }
+  ```
+
+
+### Delete Image by id
+Delete an image from a product or review
+
+* Require Authentication: true
+* Require proper authorization: user must be the on who posted review or admin for product
+* Request
+  * Method: DELETE
+  * URL: /api/images/:imageId
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "Successfully Deleted"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Item/ review not found"
+      }
+  ```
+
+
+## Orders
+
+### Get all Orders
+Get all orders made.
+
+* Require Authentication: true
+* Require proper authorization: User must be an admin
+* Request
+  * Method: GET
+  * URL: /api/orders
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "user_id": 1,
+        "cart_id": 1,
+        "total": 120.50,
+        "status": "Pending"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "messages": "No orders Found"
+      }
+  ```
+
+
+### Update Order by orderId
+Update order status
+
+* Require Authentication: true
+* Require proper authorization: User must be admin
+* Request
+  * Method: PUT
+  * URL: /api/orders/:orderId
+  * Body:
+    ```json
+       {
+        "user_id": 1,
+        "cart_id": 1,
+        "total": 120.50,
+        "status": "Fufilled"
+      }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "user_id": 1,
+        "cart_id": 1,
+        "total": 120.50,
+        "status": "Fufilled"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Order Not found"
+      }
+  ```
+
+### Get order by Id
+Get information on specific orders
+
+* Require Authentication: true
+* Require proper authorization: Must be authorized user
+* Request
+  * Method: GET
+  * URL: /api/orders/:orderId
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "user_id": 1,
+        "cart_id": 1,
+        "total": 120.50,
+        "status": "Fufilled"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+          "message": "order not found"
+      }
+  ```
+
+
+### Delete Order
+delete orders.
+
+* Require Authentication: true
+* Require proper authorization: must be the user who placed order or Admin
+* Request
+  * Method: DELETE
+  * URL: /api/orders/:orderId
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "Order Deleted"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Order Not Found"
+      }
+  ```
+### Place Order
+allows for orders to be placed
+
+* Require Authentication: true
+* Require proper authorization: must be an authorized user
+* Request
+  * Method: POST
+  * URL: /api/orders
+  * Body:
+    ```json
+      {
+        "user_id": 1,
+        "cart_id": 1,
+        "total" : 125.25
+      }
+    ```
+
+
+* Successful Response
+  * Status Code:
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id":1,
+        "user_id": 1,
+        "cart_id": 1,
+        "total" : 125.25,
+        "status" : "Pending"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 500
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Something went wrong, Please try again later"
+      }
+  ```
+
+## Inventory
+
+### Get All Inventory
+Get Inventory of all Items
+
+* Require Authentication:
+* Require proper authorization:
+* Request
+  * Method: GET
+  * URL: /api/Inventory
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "item_id": 1,
+        "quantity" : 5
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "No items available"
+      }
+  ```
+
+
+### Get Inventory by Itemid
+Get Inventory of all Items
+
+* Require Authentication:
+* Require proper authorization:
+* Request
+  * Method: GET
+  * URL: /api/Inventory/:itemId
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "item_id": 1,
+        "quantity" : 5
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Item Not Found"
+      }
+  ```
+
+### Update Inventory by ItemId
+Get Inventory of all Items
+
+* Require Authentication:
+* Require proper authorization:
+* Request
+  * Method: PUT
+  * URL: /api/Inventory/:itemId
+  * Body:
+    ```json
+        {
+          "item_id": 1,
+          "quantity" : 0
+        }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "item_id": 1,
+        "quantity" : 0
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "No items available"
+      }
+  ```
+
+
+
+## Cart
+
+### Create new Cart
+Create a cart
+
+
+* Require Authentication: true
+* Require proper authorization: must be authorized user
+* Request
+  * Method:
+  * URL:
+  * Body:
+    ```json
+      {
+        "subtotal": 10.00,
+        "total": 12.50
+      }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "user_id" : 1,
+        "subtotal" : 10.00,
+        "total": 12.50,
+        "purchased" : false
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 500
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "Bad Request"
+      }
+  ```
+
+
+### Add Item to cart by id
+Add an item to your cart
+
+
+* Require Authentication: true
+* Require proper authorization: must be an authorized user
+* Request
+  * Method: Post
+  * URL: /api/cart/items
+  * Body:
+    ```json
+      {
+        "item_id" : 1
+      }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "cart_id": 1,
+        "item_id" : 2,
+        "price" : 12.00,
+        "size": "medium",
+        "quantity": 1
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "item out of stock"
+      }
+  ```
+
+
+### GET Cart-item by Id
+get an item by id
+
+* Require Authentication: true
+* Require proper authorization: must be authorized user
+* Request
+  * Method: GET
+  * URL: /api/cart/items/:itemId
+  * Body:
+     none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "cart_id": 1,
+        "item_id" : 2,
+        "price" : 12.00,
+        "size": "medium",
+        "quantity": 1
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Item not found"
+      }
+  ```
+
+
+### Get Full Cart
+Get all items in the cart
+
+* Require Authentication: true
+* Require proper authorization: must be an authenticated user
+* Request
+  * Method: GET
+  * URL: /api/cart/items
+  * Body:
+    none
+
+
+* Successful Response
+  * Status Code:
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+         "id": 1,
+        "cart_id": 1,
+        "item_id" : 2,
+        "price" : 12.00,
+        "size": "medium",
+        "quantity": 1
+      },
+      {
+         "id": 2,
+        "cart_id": 1,
+        "item_id" : 1,
+        "price" : 15.00,
+        "size": "Large",
+        "quantity": 1
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "No items in cart"
+      }
+  ```
+
+
+### Update Cart Items by Id
+update item in cart
+
+* Require Authentication: true
+* Require proper authorization: must be authenticated user
+* Request
+  * Method: PUT
+  * URL: /api/cart/items/:itemId
+  * Body:
+    ```json
+      {
+        "item_id": 1,
+        "quantity": 2
+      }
+    ```
+
+
+* Successful Response
+  * Status Code:
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "cart_id": 1,
+        "item_id" : 2,
+        "price" : 12.00,
+        "size": "medium",
+        "quantity": 2
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Item Not found"
+      }
+  ```
+
+### Get Checkout Page
+Get checkout page
+
+
+* Require Authentication: true
+* Require proper authorization: must be authenticated user
+* Request
+  * Method: GET
+  * URL:
+  * Body:
+     none
+
+
+* Successful Response
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "id": 1,
+        "cart": [
+                  {
+                   "id": 1,
+                    "cart_id": 1,
+                     "item_id" : 2,
+                     "price" : 12.00,
+                     "size": "medium",
+                     "quantity": 1
+                   },
+                   {
+                     "id": 2,
+                     "cart_id": 1,
+                     "item_id" : 1,
+                    "price" : 15.00,
+                    "size": "Large",
+                    "quantity": 1
+                    }
+                    ],
+        "subtotal": 17.00,
+        "tax" : 1.53,
+        "total": 18.53
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message" : "Bad Request"
+      }
+  ```
+
+
+## Suggestions
+
+### Get All Suggestions
+Get all suggestions submitted
+
+* Require Authentication: true
+* Require proper authorization: user must be admin
+* Request
+  * Method: GET
+  * URL: /api/suggestions
+  * Body:
+        none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "suggestions": [
+          {
+            "user_id": 1,
+            "suggestion": "This is my suggestion"
+          },
+          {
+            "user_id": 2,
+            "suggestion": "I want more cow stuff"
+          }
+        ]
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "Bad Request"
+      }
+  ```
+
+
+### Create Suggestion
+Create a suggestion
+
+* Require Authentication: true
+* Require proper authorization: must be authenticated user
+* Request
+  * Method: POST
+  * URL: /api/suggestions
+  * Body:
+    ```json
+      {
+        "suggestion" : "You should have more kitten stuff"
+      }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "user_id": 1,
+        "suggestion" : "You should have more Kitten stuff!"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "You must enter a suggestion"
+      }
+  ```
+
+
+
+### Edit suggestion by id
+user can edit their suggestions
+
+* Require Authentication: true
+* Require proper authorization: must be authenticated user, must be author of suggestion
+* Request
+  * Method: PUT
+  * URL: /api/suggestions/:suggestionId
+  * Body:
+    ```json
+      {
+        "suggestion" : "i think i prefer more dogs"
+      }
+    ```
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+         "user_id": 1,
+        "suggestion" : "i think i prefer more dogs"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "suggestion not found"
+      }
+  ```
+
+### Delete Suggestion by Id
+Delete a suggestion
+
+* Require Authentication: true
+* Require proper authorization: must be an authenticated user
+* Request
+  * Method: DELETE
+  * URL: /api/suggestions/:suggestionId
+  * Body:
+      none
+
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "Successfully deleted"
+      }
+  ```
+
+
+* Error response:
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+        "message": "Suggestion not found"
+      }
+  ```
+
+
+
+<!-- Template---------------------------------------------
+* Require Authentication:
+* Require proper authorization:
+* Request
+  * Method:
+  * URL:
+  * Body:
+    ```json
+      {
+
+      }
+    ```
+
+
+* Successful Response
+  * Status Code:
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+      {
+
+      }
+  ```
 
 
 * Error response:
@@ -359,4 +1579,10 @@ Get information on a specific item.
   * Headers:
     * Content-Type: application/json
   * Body:
-  -->
+  ```json
+      {
+
+      }
+  ```
+
+ --------------------------------------------------------------------------- -->
