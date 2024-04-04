@@ -2,6 +2,9 @@
 const express = require('express');
 const router = express.Router();
 
+const apiRouter = require('./api');
+
+router.use('/api', apiRouter);
 
 //! this is the test route
 // router.get('/hello/world', function(req, res) {
