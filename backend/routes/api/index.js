@@ -14,9 +14,9 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 
 // ! test function
-router.post("/test", function (req, res) {
-  res.json({ requestBody: req.body });
-});
+// router.post("/test", function (req, res) {
+//   res.json({ requestBody: req.body });
+// });
 
 const { setTokenCookie } = require("../../utils/auth.js");
 const { User } = require("../../db/models");
