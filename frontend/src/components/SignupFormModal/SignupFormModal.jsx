@@ -12,6 +12,10 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [address,setAddress] = useState('');
+  const [city,setCity] = useState("")
+  const [state,setState] = useState("")
+  const [zipcode,setZipcode] = useState("")
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
@@ -25,7 +29,11 @@ function SignupFormModal() {
           username,
           firstName,
           lastName,
-          password
+          password,
+          address,
+          city,
+          state,
+          zipcode
         })
       )
         .then(closeModal)
