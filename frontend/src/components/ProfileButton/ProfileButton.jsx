@@ -1,17 +1,20 @@
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import { useEffect } from 'react';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
+import {useNavigate } from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
 
 export default function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector(state => state.session.user)
+  const navigate = useNavigate()
+
 
   const logout = (e) => {
     e.preventDefault();
@@ -41,7 +44,7 @@ export default function ProfileButton() {
   return (
     <>
     <button>
-            <FaUserCircle onClick={toggleMenu} />
+            <CgProfile onClick={toggleMenu} />
     </button>
     {showMenu && user && (
     <ul>
