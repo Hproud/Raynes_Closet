@@ -18,11 +18,23 @@ module.exports = {
       cart_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references:{
+          model: 'Carts',
+          key: 'id',
+          onDelete: 'CASCADE',
+          hooks: true
+        }
 
       },
       item_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references:{
+          model: 'Products',
+          key: 'id',
+          onDelete: 'CASCADE',
+          hooks: true
+        }
 
       },
       size: {
@@ -36,6 +48,7 @@ module.exports = {
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 1
 
       },
       createdAt: {
