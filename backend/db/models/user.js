@@ -27,6 +27,13 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true
       })
 
+      User.hasMany(models.Suggestion,{
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        hooks: true
+      })
+
+
     } //end of the relationships
 
 
