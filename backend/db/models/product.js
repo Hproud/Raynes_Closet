@@ -18,11 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       )
 
-        Product.hasOne(
+        Product.belongsTo(
           models.inventory,{
             foreignKey: 'item_id',
-            onDelete: 'CASCADE',
-            hooks: true
+            
           }
         )
 
