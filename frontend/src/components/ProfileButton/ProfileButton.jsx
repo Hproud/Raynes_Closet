@@ -1,6 +1,7 @@
-import { CgProfile } from "react-icons/cg";
+
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
@@ -11,20 +12,21 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
+
   return (
     <>
-      <button>
-        <CgProfile />
-      </button>
-      <ul className="profile-dropdown">
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
-        <li>
-          <button onClick={logout}>Log Out</button>
-        </li>
-      </ul>
-    </>
+    <button>
+      <FaUserCircle />
+    </button>
+    <ul className="profile-dropdown">
+      <li>{user.username}</li>
+      <li>{user.firstName} {user.lastName}</li>
+      <li>{user.email}</li>
+      <li>
+        <button onClick={logout}>Log Out</button>
+      </li>
+    </ul>
+  </>
   );
 }
 
