@@ -33,6 +33,21 @@ module.exports = (sequelize, DataTypes) => {
             hooks: true
           })
 
+          Product.hasMany(
+            models.Image,
+            {
+              foreignKey: 'imageableId',
+              constraints:false,
+              onDelete:'CASCADE',
+              hooks:true,
+              scope:{
+                imageableType: 'Product'
+              }
+            }
+          )
+
+
+
     }
   }
   Product.init({
