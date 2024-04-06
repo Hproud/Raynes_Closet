@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       )
 
-        Product.belongsTo(
-          models.inventory,{
+        Product.hasOne(
+          models.Inventory,{
             foreignKey: 'item_id',
-            
+
           }
         )
 
