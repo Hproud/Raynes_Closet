@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         hooks: true
       })
-      
-    }
+
+      User.hasMany(models.Order,{
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        hooks: true
+      })
+
+    } //end of the relationships
 
 
 
