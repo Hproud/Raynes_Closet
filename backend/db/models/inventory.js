@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'item_id'
         }
       )
+
+      
     }
   }
   Inventory.init({

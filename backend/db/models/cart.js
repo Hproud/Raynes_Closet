@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
         }
       )
 
+        Cart.belongsTo(models.Order,{
+          foreignKey: 'cart_id'
+        })
+
+
+
     }
   }
   Cart.init({
