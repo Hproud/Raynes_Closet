@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'cart_id'
       })
 
-
+      Order.belongsTo(models.User,{
+        foreignKey: 'user_id'
+      })
 
     }
   }
@@ -21,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
         allowNull: false,
+      
     },
     cart_id: {
       type: DataTypes.INTEGER,
