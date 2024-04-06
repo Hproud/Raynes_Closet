@@ -27,6 +27,27 @@ module.exports = (sequelize, DataTypes) => {
           }
         )
 
+          Product.hasMany(models.Review,{
+            foreignKey: 'item_id',
+            onDelete: 'CASCADE',
+            hooks: true
+          })
+
+          Product.hasMany(
+            models.Image,
+            {
+              foreignKey: 'imageableId',
+              as: 'ProductImages',
+              constraints:false,
+              onDelete:'CASCADE',
+              hooks:true,
+              scope:{
+                imageableType: 'Product'
+              }
+            }
+          )
+
+
 
     }
   }

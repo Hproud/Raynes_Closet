@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         hooks: true
       })
 
+      User.hasMany(models.Review,{
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE',
+        hooks: true
+      })
+
     } //end of the relationships
 
 

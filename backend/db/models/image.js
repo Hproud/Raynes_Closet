@@ -8,7 +8,24 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+
+      Image.belongsTo(
+        models.Product,{
+          foreignKey: 'imageableId',
+          as: 'ProductImages',
+          constraints:false,
+        }
+      )
+
+      Image.belongsTo(
+        models.Review,{
+          foreignKey: 'imageableId',
+          as: 'ReviewImages',
+          constraints:false,
+        }
+      )
+
+
     }
   }
   Image.init({
@@ -32,6 +49,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Image',
+    defaultScope:{
+      attributes:{
+        include:['id','url'],
+        exclude: ['imageableId','imageableType','createdAt','updatedAt','preview']
+      }
+    },
   });
   return Image;
 };
