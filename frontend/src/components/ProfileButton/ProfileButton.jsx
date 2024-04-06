@@ -1,17 +1,23 @@
 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import { useEffect } from 'react';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import LoginFormModal from '../LoginFormModal/LoginFormModal';
+import SignupFormModal from '../SignupFormModal/SignupFormModal';
 
-export default function ProfileButton({ user }) {
+export default function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const user = useSelector(state => state.session.user)
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+   navigate("/", { replace: true });
+
   };
 
   useEffect(() => {
@@ -37,9 +43,9 @@ export default function ProfileButton({ user }) {
     <button>
             <FaUserCircle onClick={toggleMenu} />
     </button>
-    {showMenu && (
+    {showMenu && user && (
     <ul>
-      <li>{user.username}</li>
+      <li>Hello, {user.username}</li>
       <li>{user.firstName} {user.lastName}</li>
       <li>{user.email}</li>
       <li>
@@ -47,5 +53,21 @@ export default function ProfileButton({ user }) {
       </li>
     </ul>
     )}
+    {showMenu && !user && (
+        <ul>
+           <li>
+        <OpenModalButton
+          buttonText="Log In"
+          modalComponent={<LoginFormModal />}
+        />
+      </li>
+      <li>
+        <OpenModalButton
+          buttonText="Sign Up"
+          modalComponent={<SignupFormModal />}
+        />
+      </li>
+        </ul>
+      )}
   </>
   )} //end of return
