@@ -13,16 +13,21 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cart.init({
     user_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+        allowNull: false,
     },
     subtotal: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+        allowNull: false,
     },
     total: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+        allowNull: false,
     },
     purchased: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue:false
     }
   }, {
     sequelize,

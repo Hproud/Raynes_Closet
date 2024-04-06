@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Suggestion.init({
     user_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+        allowNull: false,
     },
     suggestion: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+        allowNull: false,
     }
   }, {
     sequelize,

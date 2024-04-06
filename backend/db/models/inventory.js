@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Inventory.init({
     item_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+        allowNull: false,
     },
     quantity: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+        allowNull: false,
     }
   }, {
     sequelize,

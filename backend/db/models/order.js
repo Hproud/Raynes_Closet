@@ -13,16 +13,21 @@ module.exports = (sequelize, DataTypes) => {
   }
   Order.init({
     user_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+        allowNull: false,
     },
     cart_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+        allowNull: false,
     },
     total: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 0.00
     },
     status: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+        allowNull: false,
     }
   }, {
     sequelize,
