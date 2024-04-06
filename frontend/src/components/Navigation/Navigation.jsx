@@ -13,18 +13,12 @@ export default function Navigation( {isLoaded} ) {
   const dispatch = useDispatch();
 const user = useSelector(state => state.session.user)
 
-const logout = (e) => {
-  e.preventDefault();
-  dispatch(sessionActions.logout());
-};
+
 
 const sessionLinks = user ? (
   <>
     <li>
       <ProfileButton user={user} />
-    </li>
-    <li>
-      <button onClick={logout}>Log Out</button>
     </li>
   </>
 ) : (
