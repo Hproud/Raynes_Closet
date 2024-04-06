@@ -16,6 +16,12 @@ module.exports = {
       item_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        refernces:{
+          model: 'Products',
+          key: 'id',
+          onDelete: 'CASCADE',
+          hooks: true
+        }
 
       },
       quantity: {
