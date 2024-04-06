@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         Product.hasOne(
           models.Inventory,{
             foreignKey: 'item_id',
-
+            onDelete:'CASCADE',
+            hooks: true
+            //! added the ondelete after last deployment
           }
         )
 
