@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
         constraints:false,
         onDelete: 'CASCADE',
         hooks:true,
-
       }
     )
+
+      Cart.belongsTo(
+        models.User,{
+          foreignKey: 'user_id'
+        }
+      )
+
     }
   }
   Cart.init({
