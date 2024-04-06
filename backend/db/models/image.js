@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Image.belongsTo(
         models.Product,{
           foreignKey: 'imageableId',
+          as: 'ProductImages',
           constraints:false,
         }
       )
