@@ -18,12 +18,12 @@ module.exports = {
       cart_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references:{
-          model: 'Carts',
-          key: 'id',
-          onDelete: 'CASCADE',
-          hooks: true
-        }
+        // references:{
+        //   model: 'Carts',
+        //   key: 'id',
+        //   onDelete: 'CASCADE',
+        //   hooks: true
+        // }
 
       },
       item_id: {
