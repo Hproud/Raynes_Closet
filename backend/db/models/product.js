@@ -1,5 +1,6 @@
 "use strict";
 const { Model,Validator } = require("sequelize");
+const inventory = require("./inventory");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -17,7 +18,13 @@ module.exports = (sequelize, DataTypes) => {
         }
       )
 
-
+        Product.hasOne(
+          models.inventory,{
+            foreignKey: 'item_id',
+            onDelete: 'CASCADE',
+            hooks: true
+          }
+        )
 
 
     }

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       CartItem.belongsTo(
         models.Cart,{
           foreignKey: 'cart_id',
-          constraints: false
+          // constraints: false
         }
       )
 
