@@ -6,7 +6,7 @@ const router = express.Router();
 
 //TODO--------------------------------------GET ALL PRODUCTS--------------------------------------------
 
-router.get("/", async (req, res, next) => {
+router.get("", async (req, res, next) => {
   const products = await Product.findAll({
     // attributes: ["id", "name", "description", "size", "price", "type"],
   });
