@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as sessionActions from '../../store/session';
-import './SignupForm.css';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -12,10 +12,10 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [address,setAddress] = useState('');
-  const [city,setCity] = useState("")
-  const [state,setState] = useState("")
-  const [zipcode,setZipcode] = useState("")
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
@@ -33,7 +33,7 @@ function SignupFormModal() {
           address,
           city,
           state,
-          zipcode
+          zipcode,
         })
       )
         .then(closeModal)
@@ -45,7 +45,8 @@ function SignupFormModal() {
         });
     }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
     });
   };
 
@@ -56,66 +57,111 @@ function SignupFormModal() {
         <label>
           Email
           <input
-            type="text"
+            type='text'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
+        <br />
         <label>
           Username
           <input
-            type="text"
+            type='text'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
+        <br />
+
         <label>
           First Name
           <input
-            type="text"
+            type='text'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </label>
         {errors.firstName && <p>{errors.firstName}</p>}
+        <br />
+
         <label>
           Last Name
           <input
-            type="text"
+            type='text'
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
+        <br />
+
         <label>
           Password
           <input
-            type="password"
+            type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
+        <br />
+
         <label>
           Confirm Password
           <input
-            type="password"
+            type='password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        <br />
+
+        <label>Address</label>
+        <input
+          type='text'
+          placeholder='Address'
+          onChange={(e) => setAddress(e.target.value)}
+        />
+
+        <br />
+        <label>
+          City
+          <input
+            type='text'
+            placeholder='city'
+            onChange={(e) => setCity(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          State
+          <input
+            type='text'
+            placeholder='state'
+            onChange={(e) => setState(e.target.value)}
+          />
+        </label>
+
+        <br />
+        <label>
+          Zipcode
+          <input
+            type='text'
+            placeholder='zipcode'
+            onChange={(e) => setZipcode(e.target.value)}
+          />
+        </label>
+        <br />
+        <button type='submit'>Sign Up</button>
       </form>
     </>
   );

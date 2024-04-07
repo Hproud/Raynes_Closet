@@ -1,32 +1,29 @@
 
-import { useDispatch, useSelector } from 'react-redux'
 import ProfileButton from "../ProfileButton/ProfileButton"
-import { NavLink } from 'react-router-dom';
-import * as sessionActions from '../../store/session';
-import OpenModalButton from '../OpenModalButton/OpenModalButton';
-import LoginFormModal from '../LoginFormModal/LoginFormModal';
-import SignupFormModal from '../SignupFormModal/SignupFormModal';
+import { NavLink, useNavigate } from 'react-router-dom';
+import './Navigation.css'
 
 
 
 export default function Navigation( {isLoaded} ) {
-  const dispatch = useDispatch();
-const user = useSelector(state => state.session?.user)
-
-
-
-
+const navigate=useNavigate()
   return (
+
+      <div className="navcom">
+        <img className='logo' src='./public/raynes_closet_logo.png' onClick={()=> navigate('/')}></img>
+      <h1>Raynes Closet</h1>
     <ul>
     <li>
       <NavLink to="/">Home</NavLink>
     </li>
 
     {isLoaded && (
-        <li>
+      <li>
           <ProfileButton />
         </li>
       )}
   </ul>
+      </div>
+
   )
 }
