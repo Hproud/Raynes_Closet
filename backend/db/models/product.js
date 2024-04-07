@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(
         models.CartItem,{
           foreignKey: 'item_id',
-          onDelete:'CASCADE',
-          hooks:true
+          // onDelete:'CASCADE',
+          // hooks:true
         }
       )
 
