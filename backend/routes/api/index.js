@@ -2,7 +2,11 @@ const router = require("express").Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const productRouter = require('./products.js');
-const cartRouter = require('./carts.js')
+const cartRouter = require('./carts.js');
+const orderRouter = require('./orders.js');
+const reviewsRouter = require('./reviews.js');
+const suggestionRouter = require('./suggestions.js');
+const inventoryRouter = require('./inventory.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 
@@ -16,6 +20,11 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/products',productRouter);
 router.use('/cart', cartRouter);
+router.use('/orders', orderRouter);
+router.use('/reviews', reviewsRouter);
+router.use('/suggestions', suggestionRouter);
+router.use('/inventory', inventoryRouter)
+
 // ! test function
 // router.post("/test", function (req, res) {
 //   res.json({ requestBody: req.body });
