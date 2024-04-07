@@ -4,6 +4,9 @@ const express = require("express");
 
 const router = express.Router();
 
+
+
+//&------------------------GET ALL CARTS---------------------------------------------------------------------------
 router.get("", async (req, res, next) => {
   // find the cart that is not purchased //! ADD USER LATER===============
   let cart = await Cart.findOne({
@@ -49,7 +52,7 @@ router.get("", async (req, res, next) => {
         },
       ],
     });
-    console.log(prodInfo, "found product-*-*-*-*-*-*-*-*-*-*-*-*-*");
+    // console.log(prodInfo, "found product-*-*-*-*-*-*-*-*-*-*-*-*-*");
     prods.push(prodInfo);
   }
 
@@ -58,5 +61,14 @@ router.get("", async (req, res, next) => {
     items: prods,
   });
 });
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
