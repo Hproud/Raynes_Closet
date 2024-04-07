@@ -9,10 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-      Order.hasOne(models.Cart,{
-        foreignKey: 'cart_id',
-        constraints: false
-      })
+      // Order.hasOne(models.Cart,{
+      //   foreignKey: 'cart_id'
+      // })
 
       Order.belongsTo(models.User,{
         foreignKey: 'user_id'

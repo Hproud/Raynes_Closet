@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       )
 
-        Cart.belongsTo(models.Order,{
+        Cart.hasOne(models.Order,{
           foreignKey: 'cart_id'
         })
 
