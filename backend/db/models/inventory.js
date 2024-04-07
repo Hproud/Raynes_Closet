@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Inventory.hasMany(
+      Inventory.belongsTo(
         models.Product,{
           foreignKey: 'item_id',
-          constraints:false
         }
       )
 
@@ -22,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     item_id: {
       type: DataTypes.INTEGER,
         allowNull: false,
-       
+
     },
     quantity: {
       type: DataTypes.INTEGER,
