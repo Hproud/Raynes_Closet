@@ -1,6 +1,6 @@
 "use strict";
 const { Model,Validator } = require("sequelize");
-const inventory = require("./inventory");
+
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(
         models.CartItem,{
           foreignKey: 'item_id',
-          onDelete:'CASCADE',
-          hooks:true
+          // onDelete:'CASCADE',
+          // hooks:true
         }
       )
 
@@ -36,13 +36,13 @@ module.exports = (sequelize, DataTypes) => {
           Product.hasMany(
             models.Image,
             {
-              foreignKey: 'imageableId',
-              as: 'ProductImages',
+              foreignKey: 'imageable_id',
+              // as: 'ProductImages',
               constraints:false,
               onDelete:'CASCADE',
               hooks:true,
               scope:{
-                imageableType: 'Product'
+                imageable_type: 'Product'
               }
             }
           )

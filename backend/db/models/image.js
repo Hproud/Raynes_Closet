@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
 
       Image.belongsTo(
         models.Product,{
-          foreignKey: 'imageableId',
-          as: 'ProductImages',
+          foreignKey: 'imageable_id',
+          // as: 'ProductImages',
           constraints:false,
         }
       )
 
       Image.belongsTo(
         models.Review,{
-          foreignKey: 'imageableId',
+          foreignKey: 'imageable_id',
           as: 'ReviewImages',
           constraints:false,
         }

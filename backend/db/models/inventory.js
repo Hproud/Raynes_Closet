@@ -10,17 +10,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Inventory.hasMany(
         models.Product,{
-          foreignKey: 'item_id'
+          foreignKey: 'item_id',
+          constraints:false
         }
       )
 
-      
+
     }
   }
   Inventory.init({
     item_id: {
       type: DataTypes.INTEGER,
         allowNull: false,
+       
     },
     quantity: {
       type: DataTypes.INTEGER,

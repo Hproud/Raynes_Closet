@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 
       Order.hasOne(models.Cart,{
-        foreignKey: 'cart_id'
+        foreignKey: 'cart_id',
+        constraints: false
       })
 
       Order.belongsTo(models.User,{
@@ -23,7 +24,12 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
         allowNull: false,
-      
+        references:{
+          model: 'Users',
+          key: 'id',
+          onDelete: 'CASCADE',
+          hooks: true
+        }
     },
     cart_id: {
       type: DataTypes.INTEGER,

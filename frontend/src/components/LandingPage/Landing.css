@@ -1,0 +1,16 @@
+.item {
+    border-style: dotted;
+    margin: 5px;
+    padding: 10px;
+}
+
+.productlist {
+    list-style: none;
+
+}
+
+.itempic {
+    height: 200px;
+}
+
+
