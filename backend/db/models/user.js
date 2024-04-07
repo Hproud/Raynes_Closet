@@ -1,5 +1,5 @@
 "use strict";
-const { Model,Validator } = require("sequelize");
+const { Model, Validator } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -8,45 +8,31 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      User.hasMany(models.Cart, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
 
-      User.hasMany(models.Cart,{
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        hooks: true
-      })
+      User.hasMany(models.Order, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
 
-      User.hasMany(models.Order,{
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        hooks: true
-      })
+      User.hasMany(models.Review, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
 
-      User.hasMany(models.Review,{
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        hooks: true
-      })
-
-      User.hasMany(models.Suggestion,{
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        hooks: true
-      })
-
-
+      User.hasMany(models.Suggestion, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     } //end of the relationships
-
-
-
-
-
   }
-
-
-
-
-
-
 
   User.init(
     {
@@ -76,8 +62,8 @@ module.exports = (sequelize, DataTypes) => {
             if (Validator.isEmail(value)) {
               throw new Error("Cannot be an email.");
             }
-          }
-        }
+          },
+        },
       },
       hashedPassword: {
         type: DataTypes.STRING,
@@ -98,8 +84,12 @@ module.exports = (sequelize, DataTypes) => {
       zipcode: {
         type: DataTypes.STRING,
         validate: {
-          len: [5,5]
-        }
+          len: [5,5],
+        },
+      },
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     {
