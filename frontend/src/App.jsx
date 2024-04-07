@@ -4,6 +4,7 @@ import { Outlet, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 import LandingPage from './components/LandingPage/LandingPage';
+import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <LandingPage />
       },
+      {
+        path: '/Products/:itemId',
+        element: <ProductDetailPage />
+      }
     ]
   }
 ]);
