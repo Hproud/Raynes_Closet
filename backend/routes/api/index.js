@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-const productRouter = require('./products.js')
+const productRouter = require('./products.js');
+const cartRouter = require('./carts.js')
 const { restoreUser } = require('../../utils/auth.js');
 
 
@@ -13,7 +14,8 @@ const { restoreUser } = require('../../utils/auth.js');
 router.use(restoreUser);
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
-router.use('/products',productRouter)
+router.use('/products',productRouter);
+router.use('/cart', cartRouter);
 // ! test function
 // router.post("/test", function (req, res) {
 //   res.json({ requestBody: req.body });
