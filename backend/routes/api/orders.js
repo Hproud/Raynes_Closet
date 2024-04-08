@@ -1,6 +1,7 @@
 express = require('express')
 const {Order,User} = require('../../db/models')
 const router = express.Router();
+const { requireAuth } = require("../../utils/auth");
 
 
 
@@ -28,7 +29,7 @@ router.get('', async (req,res,next) => {
         fullOrder.push(specificOrder)
     }
     //return structured array you created
-    res.json(fullOrder)
+   return res.json(fullOrder)
 })
 
 
