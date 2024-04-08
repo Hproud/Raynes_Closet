@@ -1,4 +1,5 @@
-const { CgProductHunt } = require("react-icons/cg");
+const { requireAuth } = require("../../utils/auth");
+
 const { Cart, CartItem, Image, Product } = require("../../db/models");
 const express = require("express");
 
@@ -63,7 +64,12 @@ router.get("", async (req, res, next) => {
 });
 
 
+//&------------create cart--------------------------------
 
+router.post("",requireAuth, async(req,res,next) => {
+
+  res.json('hit')
+})
 
 
 
