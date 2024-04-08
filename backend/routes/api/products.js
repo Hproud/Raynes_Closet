@@ -261,17 +261,70 @@ if(!item){
 }
 //if product does exist then add the new image with body info
 const newImage = Image.create({
-  
+  imageable_id: id,
+  imageable_type: 'Product',
+  url: req.body.url
 })
 
 //run query for all images with imageable_id with itemId and type of 'Product'
-
+const allImages = await Image.findAll({
+  where:{
+    imageable_id: id,
+    imageable_type: 'Product'
+  }
+})
 //return all photos for that product
 
 
-  res.json('hit')
+  res.json(allImages)
 })
 
+
+//^ --------------Delete Product Image by id -----------
+
+router.delete('/:itemId/images/:imageId',requireAuth, async (req,res,next) => {
+  //pull itemid imageId and user status
+
+  const itemId = Number(req.params.itemId);
+  const imageId = Number(req.params.imageId)
+  const admin = req.user.isAdmin
+
+  //search for the item
+const item = await Product.findByPk(itemId);
+
+//if not found throw error
+if(!item){
+  const err = Error("Product Not Found");
+  err.status = 404;
+  err.message= "Product Not Found"
+  return next(err)
+}else{
+  //search for the picture
+  const image = await Image.findByPk(imageId);
+  if (!image){
+    //if not found throw error
+    const err = Error("Image Not Found");
+    err.status = 404;
+    err.message= "Image Not Found"
+    return next(err)
+  }
+  if(image){
+    //!check that user is admin
+    if(!admin){
+      const err = Error("Not Authorized");
+      err.status = 401;
+      err.message= "Not Authorized"
+      return next(err)
+    }else{
+      //delete photo
+      await image.destroy();
+      //return success message
+      res.json("Successfully Deleted!")
+    }
+  }
+}
+return
+})
 
 
 
