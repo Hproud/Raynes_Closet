@@ -1,5 +1,5 @@
 const express = require("express");
-const { Product, Image, Review, Inventory } = require("../../db/models");
+const { Product, Image, Review, Inventory, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 const router = express.Router();
@@ -83,19 +83,15 @@ router.post("", requireAuth, async (req, res, next) => {
     },
   });
 
-
   //if item does exist return error
   if (exists) {
     const err = Error("Item Already Exists");
     err.status = 400;
     err.message = "Item Already Exists";
     next(err);
-
   } else {
-
     //if item does not exist create new instance for item
     const newProduct = await Product.create(proposed);
-
 
     //query new item to confirm it exists
     const prod = await Product.findOne({
@@ -105,7 +101,6 @@ router.post("", requireAuth, async (req, res, next) => {
         size: proposed.size,
       },
     });
-
 
     //create a new inventory item for your newly created item
     const newInventory = await Inventory.create({
@@ -119,58 +114,130 @@ router.post("", requireAuth, async (req, res, next) => {
   return;
 });
 
-
-
-
-
-
-router.delete('/:itemId', requireAuth, async (req,res,next) => {
-  const id = req.params.itemId
+router.delete("/:itemId", requireAuth, async (req, res, next) => {
+  const id = req.params.itemId;
   //check if item exists
- const item = await Product.findByPk(id)
-
+  const item = await Product.findByPk(id);
 
   //if item exists remove it
-if(item){
-  await item.destroy()
+  if (item) {
+    await item.destroy();
 
-  //return success message
-  res.json({message: 'Success'})
-}else{
+    //return success message
+    res.json({ message: "Success" });
+  } else {
+    //if item does not exist return the item not found error
+    const err = Error("Product Not Found");
+    err.status = 404;
+    err.message = "Product Not Found";
+    next(err);
+  }
 
-  //if item does not exist return the item not found error
-const err = Error('Product Not Found');
-err.status = 404;
-err.message = 'Product Not Found';
-next(err)
-}
-
-return
-})
-
-
+  return;
+});
 
 //Todo-----------Edit Product---------------------
 
-router.put('/:itemId',requireAuth,async (req,res,next) =>{
+router.put("/:itemId", requireAuth, async (req, res, next) => {
   //pull id from params
-  const id = Number(req.params.itemId)
+  const id = Number(req.params.itemId);
 
   //find our item
   const item = await Product.findByPk(id);
-  console.log(item)
 
   //update it
-  const updated = await item.update(req.body,{
+  const updated = await item.update(req.body, {
     where: {
-      id: id
+      id: id,
+    },
+  });
+  //return updated item
+  res.json(updated);
+});
+
+//&-----------------------------------------Get Review by ItemId---------------------------------------
+router.get("/:itemId/reviews", async (req, res, next) => {
+  // pull id from params
+  const id = Number(req.params.itemId);
+
+  //query all reviews
+  const reviews = await Review.findAll({
+    include: [
+      // include the users name who wrote the review and the createdAt
+      {
+        model: User,
+        attributes: ["firstName", "lastName"],
+      },
+
+      //include the pictures for that review
+      {
+        model: Image,
+        where: {
+          imageable_id: id,
+          imageable_type: "Review",
+        },
+        as: "ReviewImages",
+      },
+    ],
+  });
+
+  //return all reviews
+  res.json(reviews);
+});
+
+//&-------------Add review by itemId-------------------
+
+router.post("/:itemId/reviews", async (req, res, next) => {
+  //get the id and current user that is logged in
+  const id = Number(req.params.itemId);
+  const user = req.user.id;
+
+  //find the item
+  const item = await Product.findByPk(id, {
+    include: {
+      model: Review,
+      where: {
+        item_id: id,
+      },
+    },
+  });
+
+  if (item) {
+    //if item is found check if it has length to its reviews
+    const revs = item.Reviews;
+
+    //if so loop through the reviews to check if user has reviewed this already
+
+    if (revs.length > 0) {
+      revs.map((review) => {
+        if (review.user_id === user) {
+          //if a review is found from the user throw error so they can not do more than 1 per item
+          const err = Error("You can Only submit 1 review for this product.");
+          err.status = 401;
+          err.message = "You can Only submit 1 review for this product.";
+          next(err);
+        }
+      });
     }
-  })
-//return updated item
-  res.json(updated)
-})
 
+    //if not then create the new review
+    const newReview = await Review.create({
+      user_id: user,
+      review: req.body.review,
+      stars: req.body.stars,
+      item_id: id,
+    });
 
+    res.json(newReview);
+  } else {
+    //if no item found throw not found error
+    const err = Error("Product Not Found");
+    err.status = 404;
+    err.message = "Product Not Found";
+    next(err);
+  }
 
+  return;
+});
 
 module.exports = router;
