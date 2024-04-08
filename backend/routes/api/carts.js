@@ -64,10 +64,17 @@ router.get("", async (req, res, next) => {
 });
 
 
-//&------------create cart--------------------------------
+//&------------add a cart Item--------------------------------
 
-router.post("",requireAuth, async(req,res,next) => {
-
+router.post("/items",requireAuth, async(req,res,next) => {
+  // get user id
+  //check for any cart not purchased;
+  //if cart is found return error
+  //if no cart is found create an cart
+  //pull the new cart id
+  //create a new cart item
+  //query full cart
+  //return full cart
   res.json('hit')
 })
 
