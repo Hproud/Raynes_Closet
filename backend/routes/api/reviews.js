@@ -1,7 +1,6 @@
 express = require("express");
 const { Review, User, Product, Image } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
-const { route } = require("./products");
 const router = express.Router();
 
 //&-------------------------------------------Get All Reviews----------------------------------------
@@ -27,6 +26,44 @@ router.get("", async (req, res, next) => {
 
   res.json(reviews);
 });
+
+//& ----------------------Get all current users reviews ---------------------------
+
+
+router.get("/current", async (req, res, next) => {
+  //get user id
+  const user = req.user.id
+
+  // search for all reviews by user_id
+  const reviews = await Review.findAll({
+    where:{
+      user_id: user
+    },
+
+    //include the item with pictures
+    include: ([
+      {
+        model: Product,
+        include: ([{
+          model: Image,
+          where:{
+            imageable_type: 'Product'
+          }
+        }]),
+        attributes: ["name","size"]
+      }
+    ]),
+    attributes: ['review','stars','createdAt','updatedAt']
+  });
+
+if(!reviews){
+  res.json("You Have Not reviewed any products yet!")
+}
+  //return all reviews
+  res.json(reviews)
+});
+
+
 
 //&--------------------------------Get Review by review Id-------------------------------------
 
@@ -109,10 +146,6 @@ router.put("/:reviewId", requireAuth, async (req, res, next) => {
 
   return;
 });
-
-
-
-//& ----------------------Get all current users reviews ---------------------------
 
 
 

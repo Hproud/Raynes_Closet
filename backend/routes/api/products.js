@@ -234,10 +234,45 @@ router.post("/:itemId/reviews", async (req, res, next) => {
     const err = Error("Product Not Found");
     err.status = 404;
     err.message = "Product Not Found";
-    next(err);
+    return next(err);
   }
 
   return;
 });
+
+
+
+
+
+//^-------------Add Image for a product----------------
+
+router.post('/:itemId/images',requireAuth, async (req,res,next) => {
+//pull product id
+const id = Number(req.params.itemId)
+
+//search for product by PK
+const item = await Product.findByPk(id)
+//if doesnt exist throw error
+if(!item){
+  const err = Error("Product Not Found");
+  err.status = 404;
+  err.message= "Product Not Found"
+  return next(err)
+}
+//if product does exist then add the new image with body info
+const newImage = Image.create({
+  
+})
+
+//run query for all images with imageable_id with itemId and type of 'Product'
+
+//return all photos for that product
+
+
+  res.json('hit')
+})
+
+
+
 
 module.exports = router;

@@ -36,12 +36,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     total: {
       type: DataTypes.FLOAT,
-        allowNull: false,
-        defaultValue: 0.00
+        allowNull: false
     },
     status: {
       type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: 'Pending'
     }
   }, {
     sequelize,
