@@ -5,12 +5,13 @@ import './Navigation.css'
 
 
 
+
 export default function Navigation( {isLoaded} ) {
 const navigate=useNavigate()
   return (
 
       <div className="navcom">
-        <img className='logo' src='./public/raynes_closet_logo.png' onClick={()=> navigate('/')}></img>
+        <img className='logo' src="/raynes_closet_logo.png" onClick={()=> navigate('/')}></img>
       <h1>Raynes Closet</h1>
     <ul>
     <li>

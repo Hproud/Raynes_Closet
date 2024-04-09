@@ -20,11 +20,12 @@ const onlyOne = (product) => ({
 //! -------------------------------THUNKS----------------------------------------
 
 export const getAllProducts = () => async (dispatch)=>{
-    const all = await csrfFetch('/api/products/')
+    const all = await csrfFetch('/api/products')
 
     if (all.ok){
         const products = await all.json()
-        dispatch(allProducts(products.products))
+        console.log(products)
+        dispatch(allProducts(products))
         return products
     }
 }
