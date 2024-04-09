@@ -39,7 +39,7 @@ console.log(reviews,'reviewwwww')
                     <h2>Reviews</h2>
                     <ul>
                     {reviews && reviews.map((review) => (
-                            <li>
+                            <li key={review.id}>
                                 <p>{review.review}</p>
                                 <p>{review.User}</p>
                             </li>
