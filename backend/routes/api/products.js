@@ -46,9 +46,9 @@ const ValidateProduct = [
 router.get("", async (req, res, next) => {
   const products = await Product.findAll({
     // attributes: ["id", "name", "description", "size", "price", "type"],
-    where: {
-      id: 1000
-    }
+    // where: {
+    //   id: 1000
+    // }
   });
 if(!products.length){
   const err = Error("No Items Found");
