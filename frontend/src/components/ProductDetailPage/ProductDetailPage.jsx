@@ -18,7 +18,7 @@ export default function ProductDetailPage() {
 const product = useSelector((state) => state.products?.product)
     useEffect(()=>{
         dispatch(findOneProduct(itemId)).then(()=> setIsLoading(false))
-    },[dispatch])
+    },[dispatch,itemId])
 const url = product.Images[0].url
 const reviews = product.Reviews
 console.log(reviews,'reviewwwww')
