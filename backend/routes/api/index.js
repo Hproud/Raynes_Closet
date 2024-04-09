@@ -7,6 +7,7 @@ const orderRouter = require('./orders.js');
 const reviewsRouter = require('./reviews.js');
 const suggestionRouter = require('./suggestions.js');
 const inventoryRouter = require('./inventory.js');
+const masterRouter = require('./master_account.js')
 const { restoreUser } = require('../../utils/auth.js');
 
 
@@ -23,8 +24,8 @@ router.use('/cart', cartRouter);
 router.use('/orders', orderRouter);
 router.use('/reviews', reviewsRouter);
 router.use('/suggestions', suggestionRouter);
-router.use('/inventory', inventoryRouter)
-
+router.use('/inventory', inventoryRouter);
+router.use('/master', masterRouter);
 // ! test function
 // router.post("/test", function (req, res) {
 //   res.json({ requestBody: req.body });

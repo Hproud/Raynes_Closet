@@ -35,8 +35,9 @@ router.get("", async (req, res, next) => {
       final.push(newItem);
     }
 
-    res.json({ products: final });
+    return res.json({ products: final });
   }
+  return
 });
 
 //TODO--------------------------------GET PRODUCT BY ID--------------------------------------------
@@ -63,10 +64,10 @@ router.get("/:itemId", async (req, res, next) => {
       },
     ],
   });
-  console.log(prod.dataValues, "this is the prod");
+
   //query all pictures related to that item
   // return all info for the product to the front end
-  res.json({ product: prod });
+  return res.json({ product: prod });
 });
 
 //Todo-----------------------------------------ADD A PRODUCT---------------------------------------------------------------
@@ -88,7 +89,7 @@ router.post("", requireAuth, async (req, res, next) => {
     const err = Error("Item Already Exists");
     err.status = 400;
     err.message = "Item Already Exists";
-    next(err);
+   return next(err);
   } else {
     //if item does not exist create new instance for item
     const newProduct = await Product.create(proposed);
@@ -109,9 +110,9 @@ router.post("", requireAuth, async (req, res, next) => {
     });
     // console.log(newProduct,'this is my new product')
 
-    res.json(newProduct);
+    return res.json(newProduct);
   }
-  return;
+
 });
 
 router.delete("/:itemId", requireAuth, async (req, res, next) => {
@@ -124,16 +125,15 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
     await item.destroy();
 
     //return success message
-    res.json({ message: "Success" });
+    return res.json({ message: "Success" });
   } else {
     //if item does not exist return the item not found error
     const err = Error("Product Not Found");
     err.status = 404;
     err.message = "Product Not Found";
-    next(err);
+    return next(err);
   }
 
-  return;
 });
 
 //Todo-----------Edit Product---------------------
@@ -152,7 +152,7 @@ router.put("/:itemId", requireAuth, async (req, res, next) => {
     },
   });
   //return updated item
-  res.json(updated);
+  return res.json(updated);
 });
 
 //&-----------------------------------------Get Review by ItemId---------------------------------------
@@ -182,7 +182,7 @@ router.get("/:itemId/reviews", async (req, res, next) => {
   });
 
   //return all reviews
-  res.json(reviews);
+  return res.json(reviews);
 });
 
 //&-------------Add review by itemId-------------------
@@ -228,7 +228,7 @@ router.post("/:itemId/reviews", async (req, res, next) => {
       item_id: id,
     });
 
-    res.json(newReview);
+    return res.json(newReview);
   } else {
     //if no item found throw not found error
     const err = Error("Product Not Found");
@@ -237,7 +237,6 @@ router.post("/:itemId/reviews", async (req, res, next) => {
     return next(err);
   }
 
-  return;
 });
 
 
@@ -276,7 +275,7 @@ const allImages = await Image.findAll({
 //return all photos for that product
 
 
-  res.json(allImages)
+  return res.json(allImages)
 })
 
 
@@ -319,7 +318,7 @@ if(!item){
       //delete photo
       await image.destroy();
       //return success message
-      res.json("Successfully Deleted!")
+      return res.json("Successfully Deleted!")
     }
   }
 }

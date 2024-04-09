@@ -43,7 +43,7 @@ const user = req.user.id
     //return all photos for that review
 
 
-    res.json(allImages)
+   return  res.json(allImages)
   }
   return
   })
@@ -87,7 +87,7 @@ if(!review){
       //delete photo
       await image.destroy();
       //return success message
-      res.json("Successfully Deleted!")
+      return res.json("Successfully Deleted!")
     }
   }
 }
@@ -126,10 +126,10 @@ return
   });
 
   if(!reviews){
-    res.json("You Have Not reviewed any products yet!")
+   return  res.json("You Have Not reviewed any products yet!")
   }
   //return all reviews
-  res.json(reviews)
+  return res.json(reviews)
 });
 
 
@@ -158,9 +158,8 @@ if(review){
     return next(err)
   }else{
     await review.destroy()
-    res.json('Successfully Deleted')
+    return res.json('Successfully Deleted')
   }
-  return
 }
 //if not throw unauthorized error
 //if they are then delete the review
@@ -207,7 +206,7 @@ router.get("/:reviewId", async (req, res, next) => {
   }
 
   //if its found return the review
-  res.json(review);
+  return res.json(review);
 });
 
 //&--------------Edit Review---------------------------
@@ -240,7 +239,7 @@ router.put("/:reviewId", requireAuth, async (req, res, next) => {
     const end = await Review.findByPk(id);
 
     //return new review
-    res.json(end);
+    return res.json(end);
   } else {
     //if not found return not found error
     const err = Error("Review Not Found");
@@ -249,7 +248,6 @@ router.put("/:reviewId", requireAuth, async (req, res, next) => {
     return next(err);
   }
 
-  return;
 });
 
 
@@ -277,7 +275,7 @@ router.get("", async (req, res, next) => {
     attributes: ["id", "review", "stars"],
   });
 
-  res.json(reviews);
+  return res.json(reviews);
 });
 
 
