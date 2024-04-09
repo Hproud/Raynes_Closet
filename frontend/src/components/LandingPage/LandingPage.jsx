@@ -13,6 +13,8 @@ const navigate= useNavigate()
   useEffect(() => {
     dispatch(getAllProducts()).then(() => setIsLoading(false));
   }, [dispatch]);
+
+  
   if (!isLoading) {
     return (
       <div>
