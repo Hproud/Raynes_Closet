@@ -3,13 +3,39 @@ const { Product, Image, Review, Inventory, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const { check } = require('express-validator');
 const { handleValidationErrors}= require('../../utils/validation')
-
 const router = express.Router();
 
 
+
+
+
+const validateReview = [
+  check("review")
+    .trim()
+    .exists({ checkFalsy: true })
+    .isLength({ min: 5 })
+    .withMessage("Review text is required"),
+  handleValidationErrors,
+];
+
+
+
 const ValidateProduct = [
-  check('name')
+   check('name')
   .exists({checkFalsy: true})
+  .withMessage("Item must have a name"),
+  check('description')
+  .exists({checkFalsy: true})
+  .withMessage("Item must have a description"),
+  check('size')
+  .exists({checkFalsy: true})
+  .withMessage("Size is required"),
+   check('price')
+  .exists({checkFalsy: true})
+  .withMessage("Price Must be greater than 0"),
+  check('type')
+  .exists({checkFalsy: true})
+  .withMessage("Type of product is required"),
   handleValidationErrors
 ]
 
@@ -98,7 +124,7 @@ if(!prod){
 
 //Todo-----------------------------------------ADD A PRODUCT---------------------------------------------------------------
 
-router.post("", requireAuth, async (req, res, next) => {
+router.post("", requireAuth, ValidateProduct, async (req, res, next) => {
   //get info from the body
   const proposed = req.body;
 
@@ -150,7 +176,7 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
     await item.destroy();
 
     //return success message
-    return res.json({ message: "Success" });
+    return res.json({ message: "Successfully Deleted!" });
   } else {
     //if item does not exist return the item not found error
     const err = Error("Product Not Found");
@@ -162,7 +188,7 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
 
 //Todo-----------Edit Product---------------------
 
-router.put("/:itemId", requireAuth, async (req, res, next) => {
+router.put("/:itemId",ValidateProduct, requireAuth, async (req, res, next) => {
   //pull id from params
   const id = Number(req.params.itemId);
 
@@ -183,9 +209,14 @@ router.put("/:itemId", requireAuth, async (req, res, next) => {
 router.get("/:itemId/reviews", async (req, res, next) => {
   // pull id from params
   const id = Number(req.params.itemId);
-
+// console.log(id)
   //query all reviews
   const reviews = await Review.findAll({
+
+      where: {
+        item_id: id
+      }
+    ,
     include: [
       // include the users name who wrote the review and the createdAt
       {
@@ -193,25 +224,49 @@ router.get("/:itemId/reviews", async (req, res, next) => {
         attributes: ["firstName", "lastName"],
       },
 
-      //include the pictures for that review
-      {
-        model: Image,
-        where: {
-          imageable_id: id,
-          imageable_type: "Review",
-        },
-        as: "ReviewImages",
-      },
+
     ],
   });
 
-  //return all reviews
-  return res.json(reviews);
+
+const ReviewImages = []
+for (let i = 0; i< reviews.length;i++){
+  const review = reviews[i];
+  const pictures = await Image.findAll({
+
+        where: {
+          imageable_id: review.id,
+          imageable_type: "Review",
+        },
+        as: "ReviewImages",
+  })
+
+  for(let a=0; a < pictures.length;a++){
+    const pic = pictures[a];
+    ReviewImages.push(pic)
+  }
+}
+
+  //include the pictures for that review
+  console.log(reviews)
+
+  if( reviews.length === 0){
+    const err = Error("Product Not Found");
+    err.status = 404;
+    err.message = "Product Not Found";
+    return next(err);
+
+
+  }else{
+    //return all reviews
+    return res.json({reviews,ReviewImages});
+
+  }
 });
 
 //&-------------Add review by itemId-------------------
 
-router.post("/:itemId/reviews", requireAuth, async (req, res, next) => {
+router.post("/:itemId/reviews",validateReview, requireAuth, async (req, res, next) => {
   //get the id and current user that is logged in
   const id = Number(req.params.itemId);
   const user = req.user.id;

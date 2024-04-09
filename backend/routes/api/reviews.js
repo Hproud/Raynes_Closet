@@ -2,7 +2,20 @@ express = require("express");
 const { Review, User, Product, Image } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const router = express.Router();
+const { check } = require('express-validator');
+const { handleValidationErrors } = require("../../utils/validation");
 
+
+
+
+const validateReview = [
+  check("review")
+    .trim()
+    .exists({ checkFalsy: true })
+    .isLength({ min: 5 })
+    .withMessage("Review text is required"),
+  handleValidationErrors,
+];
 //^-------------Add Image for a review----------------
 
 router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
@@ -11,6 +24,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
   const user = req.user.id;
   //search for review by PK
   const review = await Review.findByPk(id);
+  console.log(review.dataValues)
   //if doesnt exist throw error
   if (!review) {
     const err = Error("Review Not Found");
@@ -18,7 +32,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     err.message = "Review Not Found";
     return next(err);
   } else {
-    if (review) {
+
       if (review.user_id !== user) {
         const err = Error("Forbidden");
         err.status = 401;
@@ -43,7 +57,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
 
         return res.json(allImages);
       }
-    }
+
   }
   return;
 });
@@ -128,8 +142,11 @@ router.get("/current", requireAuth, async (req, res, next) => {
     attributes: ["review", "stars", "createdAt", "updatedAt"],
   });
 
-  if (!reviews) {
-    return res.json("You Have Not reviewed any products yet!");
+  if (!reviews.length) {
+   const err = Error('No Reviews Found');
+   err.status=404;
+   err.message="No Reviews Found"
+   return next(err)
   }
   //return all reviews
   return res.json(reviews);
@@ -202,14 +219,16 @@ router.get("/:reviewId", async (req, res, next) => {
     const err = Error("Review Not Found");
     (err.status = 404), (err.message = "Review Not Found");
     return next(err);
+  }else{
+
+    //if its found return the review
+    return res.json(review);
   }
 
-  //if its found return the review
-  return res.json(review);
 });
 
 //&--------------Edit Review---------------------------
-router.put("/:reviewId", requireAuth, async (req, res, next) => {
+router.put("/:reviewId",validateReview, requireAuth, async (req, res, next) => {
   //get id
   const id = Number(req.params.reviewId);
   const user = req.user.id;

@@ -88,7 +88,12 @@ router.get('',requireAuth,async (req,res,next)=>{
         const admin = req.user.isAdmin
         //grab suggestion from req.body
         const {suggestion} = req.body
-
+ if(suggestion.length === 0 || !suggestion){
+    const err = Error("You must enter a suggestion");
+    err.status=401;
+    err.message="You must enter a suggestion"
+    return next(err)
+ }
         //if admin throw error
         if(admin){
             const err = Error("Admins Can Not Submit Suggestions");

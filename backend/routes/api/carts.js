@@ -7,13 +7,18 @@ const router = express.Router();
 
 //&------------------------GET ALL CARTS---------------------------------------------------------------------------
 router.get("", requireAuth, async (req, res, next) => {
-  // find the cart that is not purchased //! ADD USER LATER===============
+
   let cart = await Cart.findOne({
     where: {
       user_id: req.user.id,
       purchased: false,
     },
   });
+  if(!cart.length){
+    const err = Error("Cart Not Found")
+    err.status = 404;
+    err.message = "Cart Not Found"
+  }
   const newcart = cart.dataValues;
   const items = await CartItem.findAll({
     where: {
@@ -37,7 +42,7 @@ router.get("", requireAuth, async (req, res, next) => {
   for (let i = 0; i < items.length; i++) {
     const p = items[i];
     const item = p.dataValues;
-    console.log(item, "this is from the cart=======================");
+
     const prodInfo = await Product.findOne({
       where: {
         id: item.item_id,
@@ -52,7 +57,7 @@ router.get("", requireAuth, async (req, res, next) => {
         },
       ],
     });
-    // console.log(prodInfo, "found product-*-*-*-*-*-*-*-*-*-*-*-*-*");
+
     prods.push(prodInfo);
   }
 

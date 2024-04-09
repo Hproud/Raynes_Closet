@@ -6,7 +6,7 @@ const { requireAuth } = require("../../utils/auth");
 
 //~--------------------Get All Inventory---------------------------
 router.get('', requireAuth, async (req,res,next) => {
-    if(user.isAdmin){
+    if(req.user.isAdmin){
 
         //query all inventory
         const all = await Inventory.findAll({
@@ -15,6 +15,12 @@ router.get('', requireAuth, async (req,res,next) => {
             }
         })
         //create empty array so that you can structure data
+        if(!all.length){
+            const err = Error("No Items Available ");
+            err.status = 404;
+            err.message= "No Items Available"
+            return next(err)
+        }
         const inventory= [];
 
         //loop through your inventory to send the correct structured data to the array
@@ -47,6 +53,7 @@ router.get('', requireAuth, async (req,res,next) => {
         err.message = "Forbidden"
         return next(err)
     }
+
 })
 
 
@@ -64,31 +71,33 @@ router.get('/:itemId',requireAuth, async (req,res,next) => {
 
         //if not throw error
         if(!item){
-            const err = Error("Product Not Found");
+            const err = Error("Item Not Found");
             err.status = 404;
-            err.message= "Product Not Found"
+            err.message= "Item Not Found"
             return next(err)
+        }else{
+
+
+
+            //search inventory for itemId include products model
+            const inventoried = await Inventory.findOne({
+                where: {
+                    item_id: id
+                },
+                include:([{
+                    model: Product,
+                    attributes: ["name","size"]
+                }]),
+                attributes: ['quantity']
+            })
+
+
+            //return inventory for that item
+            return  res.json(inventoried)
         }
-
-
-        //search inventory for itemId include products model
-        const inventoried = await Inventory.findOne({
-            where: {
-                item_id: id
-            },
-            include:([{
-                model: Product,
-                attributes: ["name","size"]
-            }]),
-            attributes: ['quantity']
-        })
-
-
-        //return inventory for that item
-        return  res.json(inventoried)
-    }else{ const err= Error("Forbidden")
-    err.status = 401;
-    err.message = "Forbidden"
+        }else{ const err= Error("Forbidden")
+        err.status = 401;
+        err.message = "Forbidden"
     return next(err)}
     })
 
