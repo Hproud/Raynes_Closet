@@ -1,16 +1,35 @@
 const express = require("express");
 const { Product, Image, Review, Inventory, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
+const { check } = require('express-validator');
+const { handleValidationErrors}= require('../../utils/validation')
 
 const router = express.Router();
+
+
+const ValidateProduct = [
+  check('name')
+  .exists({checkFalsy: true})
+  handleValidationErrors
+]
+
+
 
 //TODO--------------------------------------GET ALL PRODUCTS--------------------------------------------
 
 router.get("", async (req, res, next) => {
   const products = await Product.findAll({
     // attributes: ["id", "name", "description", "size", "price", "type"],
+    where: {
+      id: 1000
+    }
   });
-
+if(!products.length){
+  const err = Error("No Items Found");
+  err.status = 404;
+  err.message = "No Items Found"
+  return next(err)
+}
   if (products.length) {
     const final = [];
 
@@ -35,9 +54,9 @@ router.get("", async (req, res, next) => {
       final.push(newItem);
     }
 
-    return res.json({ products: final });
+    return res.json(final);
   }
-  return
+  return res.json(products);
 });
 
 //TODO--------------------------------GET PRODUCT BY ID--------------------------------------------
@@ -49,6 +68,7 @@ router.get("/:itemId", async (req, res, next) => {
   const prod = await Product.findByPk(id, {
     // attributes: ["id", "name", "description", "size", "price", "type"],
     include: [
+      //query all pictures related to that item
       {
         model: Image,
         where: {
@@ -64,10 +84,16 @@ router.get("/:itemId", async (req, res, next) => {
       },
     ],
   });
-
-  //query all pictures related to that item
+if(!prod){
+  const err = Error("No Item Found");
+  err.status = 404;
+  err.message = "No Item Found"
+  return next(err)
+}else{
   // return all info for the product to the front end
-  return res.json({ product: prod });
+  return res.json(prod);
+}
+
 });
 
 //Todo-----------------------------------------ADD A PRODUCT---------------------------------------------------------------
@@ -89,7 +115,7 @@ router.post("", requireAuth, async (req, res, next) => {
     const err = Error("Item Already Exists");
     err.status = 400;
     err.message = "Item Already Exists";
-   return next(err);
+    return next(err);
   } else {
     //if item does not exist create new instance for item
     const newProduct = await Product.create(proposed);
@@ -112,7 +138,6 @@ router.post("", requireAuth, async (req, res, next) => {
 
     return res.json(newProduct);
   }
-
 });
 
 router.delete("/:itemId", requireAuth, async (req, res, next) => {
@@ -133,7 +158,6 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
     err.message = "Product Not Found";
     return next(err);
   }
-
 });
 
 //Todo-----------Edit Product---------------------
@@ -187,7 +211,7 @@ router.get("/:itemId/reviews", async (req, res, next) => {
 
 //&-------------Add review by itemId-------------------
 
-router.post("/:itemId/reviews", async (req, res, next) => {
+router.post("/:itemId/reviews", requireAuth, async (req, res, next) => {
   //get the id and current user that is logged in
   const id = Number(req.params.itemId);
   const user = req.user.id;
@@ -236,95 +260,101 @@ router.post("/:itemId/reviews", async (req, res, next) => {
     err.message = "Product Not Found";
     return next(err);
   }
-
 });
-
-
-
-
 
 //^-------------Add Image for a product----------------
 
-router.post('/:itemId/images',requireAuth, async (req,res,next) => {
-//pull product id
-const id = Number(req.params.itemId)
+router.post("/:itemId/images", requireAuth, async (req, res, next) => {
+  if (req.user.isAdmin) {
+    //pull product id
+    const id = Number(req.params.itemId);
 
-//search for product by PK
-const item = await Product.findByPk(id)
-//if doesnt exist throw error
-if(!item){
-  const err = Error("Product Not Found");
-  err.status = 404;
-  err.message= "Product Not Found"
-  return next(err)
-}
-//if product does exist then add the new image with body info
-const newImage = Image.create({
-  imageable_id: id,
-  imageable_type: 'Product',
-  url: req.body.url
-})
+    //search for product by PK
+    const item = await Product.findByPk(id);
+    //if doesnt exist throw error
+    if (!item) {
+      const err = Error("Product Not Found");
+      err.status = 404;
+      err.message = "Product Not Found";
+      return next(err);
+    }
+    //if product does exist then add the new image with body info
+    const newImage = Image.create({
+      imageable_id: id,
+      imageable_type: "Product",
+      url: req.body.url,
+    });
 
-//run query for all images with imageable_id with itemId and type of 'Product'
-const allImages = await Image.findAll({
-  where:{
-    imageable_id: id,
-    imageable_type: 'Product'
+    //run query for all images with imageable_id with itemId and type of 'Product'
+    const allImages = await Image.findAll({
+      where: {
+        imageable_id: id,
+        imageable_type: "Product",
+      },
+    });
+
+    //return all photos for that product
+    return res.json(allImages);
+  } else {
+    const err = Error("Forbidden");
+    err.status = 401;
+    err.message = "Forbidden";
+    return next(err);
   }
-})
-//return all photos for that product
-
-
-  return res.json(allImages)
-})
-
+});
 
 //^ --------------Delete Product Image by id -----------
 
-router.delete('/:itemId/images/:imageId',requireAuth, async (req,res,next) => {
-  //pull itemid imageId and user status
+router.delete(
+  "/:itemId/images/:imageId",
+  requireAuth,
+  async (req, res, next) => {
+    //pull itemid imageId and user status
+    if (req.user.isAdmin) {
+      const itemId = Number(req.params.itemId);
+      const imageId = Number(req.params.imageId);
 
-  const itemId = Number(req.params.itemId);
-  const imageId = Number(req.params.imageId)
-  const admin = req.user.isAdmin
+      //search for the item
+      const item = await Product.findByPk(itemId);
 
-  //search for the item
-const item = await Product.findByPk(itemId);
-
-//if not found throw error
-if(!item){
-  const err = Error("Product Not Found");
-  err.status = 404;
-  err.message= "Product Not Found"
-  return next(err)
-}else{
-  //search for the picture
-  const image = await Image.findByPk(imageId);
-  if (!image){
-    //if not found throw error
-    const err = Error("Image Not Found");
-    err.status = 404;
-    err.message= "Image Not Found"
-    return next(err)
-  }
-  if(image){
-    //!check that user is admin
-    if(!admin){
-      const err = Error("Not Authorized");
+      //if not found throw error
+      if (!item) {
+        const err = Error("Product Not Found");
+        err.status = 404;
+        err.message = "Product Not Found";
+        return next(err);
+      } else {
+        //search for the picture
+        const image = await Image.findByPk(imageId);
+        if (!image) {
+          //if not found throw error
+          const err = Error("Image Not Found");
+          err.status = 404;
+          err.message = "Image Not Found";
+          return next(err);
+        }
+        if (image) {
+          //check that user is admin
+          if (!admin) {
+            const err = Error("Forbidden");
+            err.status = 401;
+            err.message = "Forbidden";
+            return next(err);
+          } else {
+            //delete photo
+            await image.destroy();
+            //return success message
+            return res.json("Successfully Deleted!");
+          }
+        }
+      }
+    } else {
+      const err = Error("Forbidden");
       err.status = 401;
-      err.message= "Not Authorized"
-      return next(err)
-    }else{
-      //delete photo
-      await image.destroy();
-      //return success message
-      return res.json("Successfully Deleted!")
+      err.message = "Forbidden";
+      return next(err);
     }
   }
-}
-return
-})
-
-
+);
 
 module.exports = router;

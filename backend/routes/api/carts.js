@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 //&------------------------GET ALL CARTS---------------------------------------------------------------------------
-router.get("", async (req, res, next) => {
+router.get("", requireAuth, async (req, res, next) => {
   // find the cart that is not purchased //! ADD USER LATER===============
   let cart = await Cart.findOne({
     where: {
@@ -188,9 +188,9 @@ router.delete("/:cartId/items/:itemId", requireAuth, async (req, res, next) => {
     //check user is owner of cart
     if (cart.user_id !== userId) {
       //if not throw error
-      const err = Error("Not Authorized");
+      const err = Error("Forbidden");
       err.status = 401;
-      err.message = "Not Authorized";
+      err.message = "Forbidden";
       return next(err);
     } else {
       //search for item
@@ -236,9 +236,9 @@ router.delete("/:cartId", requireAuth, async (req, res, next) => {
     //if cart then check that user owns cart
   } else if (cart.user_id !== user) {
     //if not throw error
-    const err = Error("Not Authorized");
+    const err = Error("Forbidden");
     err.status = 401;
-    err.message = "Not Authorized";
+    err.message = "Forbidden";
     return next(err);
   } else {
     //if user owns delete cart

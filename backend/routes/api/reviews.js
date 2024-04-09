@@ -5,169 +5,168 @@ const router = express.Router();
 
 //^-------------Add Image for a review----------------
 
-router.post('/:reviewId/images',requireAuth, async (req,res,next) => {
+router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
   //pull review id
-  const id = Number(req.params.reviewId)
-const user = req.user.id
+  const id = Number(req.params.reviewId);
+  const user = req.user.id;
   //search for review by PK
-  const review = await Review.findByPk(id)
+  const review = await Review.findByPk(id);
   //if doesnt exist throw error
-  if(!review){
+  if (!review) {
     const err = Error("Review Not Found");
     err.status = 404;
-    err.message= "Review Not Found"
-    return next(err)
-  }
-  if(review){
-    if(review.user_id !== user){
-      const err = Error('Not Authorized');
-      err.status=401;
-      err.message= 'Not Authorized'
-      return next(err)
-    }
+    err.message = "Review Not Found";
+    return next(err);
+  } else {
+    if (review) {
+      if (review.user_id !== user) {
+        const err = Error("Forbidden");
+        err.status = 401;
+        err.message = "Forbidden";
+        return next(err);
+      } else {
+        //if review does exist then add the new image with body info
+        const newImage = Image.create({
+          imageable_id: id,
+          imageable_type: "Review",
+          url: req.body.url,
+        });
 
-    //if review does exist then add the new image with body info
-    const newImage = Image.create({
-      imageable_id: id,
-      imageable_type: 'Review',
-      url: req.body.url
-    })
+        //run query for all images with imageable_id with itemId and type of 'Review'
+        const allImages = await Image.findAll({
+          where: {
+            imageable_id: id,
+            imageable_type: "Review",
+          },
+        });
+        //return all photos for that review
 
-    //run query for all images with imageable_id with itemId and type of 'Review'
-    const allImages = await Image.findAll({
-      where:{
-        imageable_id: id,
-        imageable_type: 'Review'
+        return res.json(allImages);
       }
-    })
-    //return all photos for that review
-
-
-   return  res.json(allImages)
-  }
-  return
-  })
-
-  //^ --------------Delete Product Image by id -----------
-
-router.delete('/:reviewId/images/:imageId',requireAuth, async (req,res,next) => {
-  //pull itemid imageId and user status
-
-  const reviewId = Number(req.params.reviewId);
-  const imageId = Number(req.params.imageId)
-  const user = req.user.id
-
-  //search for the review
-const review = await Review.findByPk(reviewId);
-
-//if not found throw error
-if(!review){
-  const err = Error("Review Not Found");
-  err.status = 404;
-  err.message= "Review Not Found"
-  return next(err)
-}else{
-  //search for the picture
-  const image = await Image.findByPk(imageId);
-  if (!image){
-    //if not found throw error
-    const err = Error("Image Not Found");
-    err.status = 404;
-    err.message= "Image Not Found"
-    return next(err)
-  }
-  if(image){
-    // check that user is author
-    if(user !== review.user_id){
-      const err = Error("Not Authorized");
-      err.status = 401;
-      err.message= "Not Authorized"
-      return next(err)
-    }else{
-      //delete photo
-      await image.destroy();
-      //return success message
-      return res.json("Successfully Deleted!")
     }
   }
-}
-return
-})
+  return;
+});
 
+//^ --------------Delete Product Image by id -----------
 
+router.delete(
+  "/:reviewId/images/:imageId",
+  requireAuth,
+  async (req, res, next) => {
+    //pull itemid imageId and user status
 
-  //& ----------------------Get all current users reviews ---------------------------
+    const reviewId = Number(req.params.reviewId);
+    const imageId = Number(req.params.imageId);
+    const user = req.user.id;
 
+    //search for the review
+    const review = await Review.findByPk(reviewId);
 
-  router.get("/current",requireAuth, async (req, res, next) => {
-    //get user id
-    const user = req.user.id
+    //if not found throw error
+    if (!review) {
+      const err = Error("Review Not Found");
+      err.status = 404;
+      err.message = "Review Not Found";
+      return next(err);
+    } else {
+      //search for the picture
+      const image = await Image.findByPk(imageId);
+      if (!image) {
+        //if not found throw error
+        const err = Error("Image Not Found");
+        err.status = 404;
+        err.message = "Image Not Found";
+        return next(err);
+      }
+      if (image) {
+        // check that user is author
+        if (user !== review.user_id) {
+          const err = Error("Forbidden");
+          err.status = 401;
+          err.message = "Forbidden";
+          return next(err);
+        } else {
+          //delete photo
+          await image.destroy();
+          //return success message
+          return res.json("Successfully Deleted!");
+        }
+      }
+    }
+    return;
+  }
+);
 
-    // search for all reviews by user_id
-    const reviews = await Review.findAll({
-      where:{
-        user_id: user
+//& ----------------------Get all current users reviews ---------------------------
+
+router.get("/current", requireAuth, async (req, res, next) => {
+  //get user id
+  const user = req.user.id;
+
+  // search for all reviews by user_id
+  const reviews = await Review.findAll({
+    where: {
+      user_id: user,
     },
 
     //include the item with pictures
-    include: ([
+    include: [
       {
         model: Product,
-        include: ([{
-          model: Image,
-          where:{
-            imageable_type: 'Product'
-          }
-        }]),
-        attributes: ["name","size"]
-      }
-    ]),
-    attributes: ['review','stars','createdAt','updatedAt']
+        include: [
+          {
+            model: Image,
+            where: {
+              imageable_type: "Product",
+            },
+          },
+        ],
+        attributes: ["name", "size"],
+      },
+    ],
+    attributes: ["review", "stars", "createdAt", "updatedAt"],
   });
 
-  if(!reviews){
-   return  res.json("You Have Not reviewed any products yet!")
+  if (!reviews) {
+    return res.json("You Have Not reviewed any products yet!");
   }
   //return all reviews
-  return res.json(reviews)
+  return res.json(reviews);
 });
-
 
 //&---------------Delete Review-------------------------------------
 
-router.delete('/:reviewId',requireAuth, async (req,res, next) => {
-// grab id from params and curr user id
-const id = req.params.reviewId;
-const user = req.user.id;
-//search for the review
-const review = await Review.findByPk(id);
-//if not found throw error
-if(!review){
-  const err = Error('Review Not Found');
-  err.status = 404;
-  err.message= "Review Not Found"
-  return next(err)
-};
-
-if(review){
-  //if found check that user is author
-  if(review.user_id !== user){
-    const err = Error('Not Authorized');
-    err.status=401;
-    err.message= 'Not Authorized'
-    return next(err)
-  }else{
-    await review.destroy()
-    return res.json('Successfully Deleted')
+router.delete("/:reviewId", requireAuth, async (req, res, next) => {
+  // grab id from params and curr user id
+  const id = req.params.reviewId;
+  const user = req.user.id;
+  //search for the review
+  const review = await Review.findByPk(id);
+  //if not found throw error
+  if (!review) {
+    const err = Error("Review Not Found");
+    err.status = 404;
+    err.message = "Review Not Found";
+    return next(err);
   }
-}
-//if not throw unauthorized error
-//if they are then delete the review
-//return success message
 
-
-})
-
+  if (review) {
+    //if found check that user is author
+    if (review.user_id !== user) {
+      const err = Error("Forbidden");
+      err.status = 401;
+      err.message = "Forbidden";
+      return next(err);
+    } else {
+      await review.destroy();
+      return res.json("Successfully Deleted");
+    }
+  }
+  //if not throw unauthorized error
+  //if they are then delete the review
+  //return success message
+});
 
 //&--------------------------------Get Review by review Id-------------------------------------
 
@@ -247,12 +246,7 @@ router.put("/:reviewId", requireAuth, async (req, res, next) => {
     err.message = "Review Not Found";
     return next(err);
   }
-
 });
-
-
-
-
 
 //&-------------------------------------------Get All Reviews----------------------------------------
 
@@ -277,6 +271,5 @@ router.get("", async (req, res, next) => {
 
   return res.json(reviews);
 });
-
 
 module.exports = router;

@@ -105,9 +105,9 @@ router.get("", requireAuth, async (req, res, next) => {
     //return structured array you created
     return res.json(fullOrder);
   } else {
-    const err = Error("Not Authorized");
+    const err = Error("Forbidden");
     err.status = 401;
-    err.message = "Not Authorized";
+    err.message = "Forbidden";
     return next(err);
   }
 });
@@ -142,9 +142,9 @@ router.put("/:orderId", requireAuth, async (req, res, next) => {
     return res.json(order);
   } else {
     //if not admin throw error
-    const err = Error("Not Authorized");
+    const err = Error("Forbidden");
     err.status = 401;
-    err.message = "Not Authorized";
+    err.message = "Forbidden";
     return next(err);
   }
 });
