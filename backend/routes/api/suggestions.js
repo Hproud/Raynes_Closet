@@ -26,30 +26,49 @@ const router = express.Router();
 router.get('',async (req,res,next)=>{
     //check user status
     const admin = req.user.isAdmin
-    
+    const user = req.user.id;
     //if admin find all suggestions
-    if(admin){
+    if(admin || user){
+        
+        if(admin){
 
-        //query all suggestions include the user model include only first and last name attribute
-        const suggestions = await Suggestion.findAll({
-            include: ([{
-                model: User,
-                attributes: ['firstName','lastName']
-            }]),
-            attributes: ['id','suggestion']
-        })
+            //query all suggestions include the user model include only first and last name attribute
+            const suggestions = await Suggestion.findAll({
+                include: ([{
+                    model: User,
+                    attributes: ['firstName','lastName']
+                }]),
+                // attributes: ['id','suggestion']
+            })
 
-        //if no suggestions return error
-        if (!suggestions){
-            const err = Error("No Suggestions Found");
-            err.status = 404;
-            err.message = "No Suggestions Found"
-            return next(err)
+            //if no suggestions return error
+            if (!suggestions){
+                const err = Error("No Suggestions Found");
+                err.status = 404;
+                err.message = "No Suggestions Found"
+                return next(err)
+            }
+
+            //return data found
+            return res.json(suggestions)
+        }else{
+            const suggestions = await Suggestion.findAll({
+                where: {
+                    user_id: user
+                }
+            })
+            //if no suggestions return error
+            if (!suggestions){
+                const err = Error("No Suggestions Found");
+                err.status = 404;
+                err.message = "No Suggestions Found"
+                return next(err)
+            }
+
+            //return data found
+            return res.json(suggestions)
         }
-
-        //return data found
-        return res.json(suggestions)
-    }else{
+        }else {
         //if not admin throw error
         const err = Error("Not Authorized");
         err.status = 401;
