@@ -39,10 +39,12 @@ module.exports = (sequelize, DataTypes) => {
     subtotal: {
       type: DataTypes.FLOAT,
         allowNull: false,
+        defaultValue: 0.0
     },
     total: {
       type: DataTypes.FLOAT,
         allowNull: false,
+        defaultValue: 0.00
     },
     purchased: {
       type: DataTypes.BOOLEAN,

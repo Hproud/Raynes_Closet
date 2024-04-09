@@ -13,6 +13,19 @@ module.exports = {
 
     await User.bulkCreate([
       {
+        email: "master@email.com",
+      username: "master_account",
+      hashedPassword: bcrypt.hashSync('master'),
+      firstName: 'Mishelle',
+      lastName: 'Bryan',
+      address: '12 Boss St.',
+      city: "Big City",
+      state: "Vermont",
+      zipcode: '75364',
+      master: true
+    },
+
+      {
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),
@@ -88,6 +101,18 @@ module.exports = {
         city: 'Pleasantville',
         state: 'California',
         zipcode:'69691'
+      },
+      {
+        email: 'testAdmin@aa.io',
+        username: 'imanadmin',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Admin',
+        lastName: 'Tester',
+        address: '146 pleasnt pkwy',
+        city: 'Ready st',
+        state: 'Ohio',
+        zipcode:'24863',
+        isAdmin: true
       }
     ],{validate: true });
 
