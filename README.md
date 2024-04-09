@@ -60,18 +60,18 @@ Returns the information about the current user that is logged in.
 
     ```json
     {
-      "user": {
+    "user": {
         "id": 1,
-        "firstName": "John",
-        "lastName": "Smith",
-        "email": "john.smith@gmail.com",
-        "username": "JohnSmith",
-        "address": "123 Fake street",
-        "city":"Somewhere",
-        "state": "Nebraska",
-        "ZipCode": 12345
-      }
+        "email": "master@email.com",
+        "username": "master_account",
+        "firstName": "Mishelle",
+        "lastName": "Bryan",
+        "address": "12 Boss St.",
+        "city": "Big City",
+        "state": "Vermont",
+        "zipcode": "75364"
     }
+  }
     ```
 
 * Successful Response when there is no logged in user
@@ -113,15 +113,21 @@ information.
 
     ```json
     {
-      "user": {
+    "user": {
         "id": 1,
-        "firstName": "John",
-        "lastName": "Smith",
-        "email": "john.smith@gmail.com",
-        "username": "JohnSmith"
-      }
+        "email": "master@email.com",
+        "username": "master_account",
+        "firstName": "Mishelle",
+        "lastName": "Bryan",
+        "address": "12 Boss St.",
+        "city": "Big City",
+        "state": "Vermont",
+        "zipcode": "75364"
     }
-    ```
+  }
+
+  ```
+
 * Error Response: Invalid credentials
   * Status Code: 401
   * Headers:
@@ -314,12 +320,33 @@ Get information on a specific item.
 
      ```json
      {
-      "id": 1,
-      "name": "Blue Cow Print",
-      "description": "this is a description",
-      "size": "Medium",
-      "price": 15.00,
-      "type": "t-shirt"
+      "id": 2,
+      "name": "Digital illusions",
+      "description": "This is a great gift for any Techy friend or family!",
+      "size": "L",
+      "price": 12,
+      "type": "t-shirt",
+      "createdAt": "2024-04-09T02:52:52.639Z",
+      "updatedAt": "2024-04-09T02:52:52.639Z",
+      "Images": [
+         {
+            "id": 9,
+            "imageable_id": 2,
+            "imageable_type": "Product",
+            "url": "https://m.media-amazon.com/images/I/71h8IiUjjNL._AC_UY1000_.jpg"
+        }
+        ],
+      "Reviews": [
+          {
+            "id": 5,
+            "user_id": 6,
+            "review": "I got this yesterday and tried it on and let me tell you! I love how soft it is and the colors are so vibrant!",
+            "stars": 3.5,
+            "item_id": 2,
+            "createdAt": "2024-04-09T02:52:52.650Z",
+            "updatedAt": "2024-04-09T02:52:52.650Z"
+          }
+      ]
      }
      ```
 
@@ -344,6 +371,17 @@ Create a product.
   * Method: POST
   * URL: /api/items
   * Body:
+   ```json
+
+       {
+         "name": "Smile Shirt",
+         "description": "Sometimes you just need a good smile",
+         "size": "M",
+         "price": 3.00,
+        "type": "t-shirt",
+        "quantity": 4
+    }
+     ```
 
 * Successful Response
   * Status Code:
@@ -352,13 +390,16 @@ Create a product.
   * Body:
 
      ```json
-     {
-      "name": "Blue TyDye",
-      "description": "this is a description",
-      "size": "Medium",
-      "price": 10.00,
-      "type": "hoodie"
-     }
+       {
+    "id": 8,
+    "name": "Smile Shirt",
+    "description": "Sometimes you just need a good smile",
+    "size": "M",
+    "price": 3,
+    "type": "t-shirt",
+    "updatedAt": "2024-04-09T07:02:58.587Z",
+    "createdAt": "2024-04-09T07:02:58.587Z"
+        }
      ```
 
 
@@ -368,15 +409,15 @@ Create a product.
     * Content-Type: application/json
   * Body:
     ```json
-    {
-      "message" : "Bad Request",
-      "errors": {
-        "name" : "Item must have a name",
-        "description" : "Item must have a description",
-        "price" : "Price Must be greater than 0",
-        "type" : "Type of product is required"
-      }
-    }
+       { "message": "Bad request.",
+         "errors": {
+         "name": "Item must have a name",
+         "description": "Item must have a description",
+         "size": "Size is required",
+         "price": "Price Must be greater than 0",
+         "type": "Type of product is required"
+               }
+        }
     ```
 ### Edit Product by Id
 Edit an exsisting item.
@@ -421,9 +462,16 @@ Edit an exsisting item.
     * Content-Type: application/json
   * Body:
    ```json
-    {
-      "message": "Bad Request"
+     {
+    "message": "Bad request.",
+    "errors": {
+        "name": "Item must have a name",
+        "description": "Item must have a description",
+        "size": "Size is required",
+        "price": "Price Must be greater than 0",
+        "type": "Type of product is required"
     }
+     }
    ```
 
 ### Delete product/Item by id
@@ -463,6 +511,8 @@ Delete a product
 
  ## Reviews
 
+
+
  ### Get Reviews by itemId
  Get all reviews for a product.
 
@@ -480,12 +530,37 @@ Delete a product
     * Content-Type: application/json
   * Body:
     ```json
-     {
-      "id" : 1,
-      "userId": 1,
-      "review" : "This is my review for this product",
-      "stars" : 3.0
-     }
+        {
+    "reviews": [
+        {
+            "id": 5,
+            "user_id": 6,
+            "review": "I got this yesterday and tried it on and let me tell you! I love how soft it is and the colors are so vibrant!",
+            "stars": 3.5,
+            "item_id": 2,
+            "createdAt": "2024-04-09T08:56:59.538Z",
+            "updatedAt": "2024-04-09T08:56:59.538Z",
+            "User": {
+                "firstName": "jamie",
+                "lastName": "lester"
+            }
+        }
+    ],
+    "ReviewImages": [
+        {
+            "id": 4,
+            "imageable_id": 5,
+            "imageable_type": "Review",
+            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW9zeQWs-yqzuL0h0GYcvViXh62tr-EzY_bW1Anxn90Ak4nXKSnCC87uvv3uXwmwY_tWI&usqp=CAU"
+        },
+        {
+            "id": 7,
+            "imageable_id": 5,
+            "imageable_type": "Review",
+            "url": "https://www.kindredcoast.com/cdn/shop/files/KindredCoastRathrevor_17_2400x.jpg?v=1690155319"
+        }
+    ]
+  }
     ```
 
 * Error response:
@@ -540,8 +615,7 @@ Delete a product
     {
       "message": "Bad request",
       "errors" : {
-        "review" : "a review is required",
-        "stars": "star rating is required"
+        "review" : "Review text is required"
       }
     }
    ```
@@ -569,10 +643,13 @@ Edit existing review
   * Body:
     ```json
       {
-        "id": 2,
-        "user_id": 2,
-        "review" : "this is a great product",
-        "stars": 4.4
+    "id": 9,
+    "user_id": 9,
+    "review": "this is a great product",
+    "stars": 4.4,
+    "item_id": 1,
+    "createdAt": "2024-04-09T09:36:56.416Z",
+    "updatedAt": "2024-04-09T09:46:00.049Z"
       }
     ```
 
@@ -586,8 +663,7 @@ Edit existing review
     {
       "message": "Bad request",
       "errors" : {
-        "review" : "a review is required",
-        "stars": "star rating is required"
+        "review" : "Review text is required"
       }
     }
    ```
@@ -612,27 +688,36 @@ Get all the current users reviews
     * Content-Type: application/json
   * Body:
     ```json
-      {
-        "id": 2,
-        "user_id": 2,
-        "review" : "this is a great product",
-        "stars": 4.5
-      }
+       [
+        {
+        "review": "this is a great product",
+        "stars": 4.4,
+        "createdAt": "2024-04-09T09:36:56.416Z",
+        "updatedAt": "2024-04-09T09:46:00.049Z",
+        "Product": {
+            "name": "Crazy Cow",
+            "size": "M",
+             "Images": [
+                {
+                    "id": 8,
+                    "imageable_id": 1,
+                    "imageable_type": "Product",
+                    "url": "https://fridaystuff.com/wp-content/uploads/2021/06/The-first-time-you-meet-me-youll-think-Im-crazy-Grumpy-milk-cow.jpg"
+                }
+                      ]
+                  }
+        }
+       ]
     ```
 
 
 * Error response:
-  * Status Code: 400
-  * Headers:
+  * Status Code: 404  * Headers:
     * Content-Type: application/json
   * Body:
    ```json
     {
-      "message": "Bad request",
-      "errors" : {
-        "review" : "a review is required",
-        "stars": "star rating is required"
-      }
+    "message": "No Reviews Found"
     }
    ```
 
@@ -663,15 +748,15 @@ add an image to an product.
     * Content-Type: application/json
   * Body:
     ```json
-    {
-      "id":1,
-      "imageableId": 1,
-      "imageableType": "Product",
-      "url" : "fake.jpg",
-      "preview" : true
+      [
+       {
+        "id": 17,
+        "imageable_id": 2,
+        "imageable_type": "Product",
+        "url": "https://i5.walmartimages.com/seo/Men-s-Short-Sleeve-Tee-3D-Digital-Optical-Illusion-T-Shirts-Printed-Spring-Casual-Round-Neck-Shirts-for-Men-Tops_d9162177-f477-46da-8af4-b21a906156ac.4b85d0064f4636949362aa9edf36e0a3.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
     }
+      ]
     ```
-
 
 
 * Error response:
@@ -697,7 +782,7 @@ add an image to an product.
   * Body:
   ```json
     {
-      "url" : "fake.jpg",
+      "url" : "test.png",
       "preview" : true
     }
   ```
@@ -708,13 +793,14 @@ add an image to an product.
     * Content-Type: application/json
   * Body:
     ```json
-    {
-      "id":1,
-      "imageableId": 2,
-      "imageableType": "Review",
-      "url" : "fake.jpg",
-      "preview" : true
-    }
+      [
+       {
+        "id": 16,
+        "imageable_id": 10,
+        "imageable_type": "Review",
+        "url": "test.png"
+       }
+      ]
     ```
 
 
@@ -762,10 +848,16 @@ Delete an image from a product or review
   * Body:
   ```json
       {
-        "message" : "Item/ review not found"
+        "message" : "review not found"
       }
   ```
+#### OR
 
+    ```json
+      {
+        "message" : "Item not found"
+      }
+    ```
 
 ## Orders
 
@@ -787,13 +879,42 @@ Get all orders made.
     * Content-Type: application/json
   * Body:
   ```json
-      {
+      [
+    {
         "id": 1,
-        "user_id": 1,
+        "user": {
+            "firstName": "Mishelle",
+            "lastName": "Bryan"
+        },
         "cart_id": 1,
-        "total": 120.50,
-        "status": "Pending"
-      }
+        "cart": [
+            {
+                "id": 1,
+                "cart_id": 8,
+                "item_id": 1,
+                "size": "M",
+                "price": 10,
+                "quantity": 2,
+                "createdAt": "2024-04-09T09:36:41.414Z",
+                "updatedAt": "2024-04-09T09:36:41.414Z",
+                "Product": {
+                    "id": 1,
+                    "name": "Crazy Cow",
+                    "description": "A shirt for those who love crazy cow merch!",
+                    "size": "M",
+                    "price": 5,
+                    "type": "t-shirt",
+                    "createdAt": "2024-04-09T09:36:41.335Z",
+                    "updatedAt": "2024-04-09T09:36:41.335Z"
+                }
+            }
+        ],
+        "total": 10.23,
+        "status": "Fufilled",
+        "createdAt": "2024-04-09T09:36:41.375Z",
+        "updatedAt": "2024-04-09T09:36:41.375Z"
+    },
+    ]
   ```
 
 
@@ -994,11 +1115,26 @@ Get Inventory of all Items
     * Content-Type: application/json
   * Body:
   ```json
-      {
+      [
+        {
         "id": 1,
-        "item_id": 1,
-        "quantity" : 5
-      }
+        "product": {
+            "name": "Crazy Cow",
+            "size": "M",
+            "type": "t-shirt"
+        },
+        "quantity": 8
+         },
+         {
+        "id": 2,
+        "product": {
+            "name": "Digital illusions",
+            "size": "L",
+            "type": "t-shirt"
+                   },
+        "quantity": 5
+          },
+      ]
   ```
 
 
@@ -1033,10 +1169,12 @@ Get Inventory of all Items
   * Body:
   ```json
       {
-        "id": 1,
-        "item_id": 1,
-        "quantity" : 5
-      }
+        "quantity": 8,
+         "Product": {
+        "name": "Crazy Cow",
+        "size": "M"
+                }
+       }
   ```
 
 
@@ -1062,7 +1200,6 @@ Get Inventory of all Items
   * Body:
     ```json
         {
-          "item_id": 1,
           "quantity" : 0
         }
     ```
@@ -1089,7 +1226,7 @@ Get Inventory of all Items
   * Body:
   ```json
       {
-        "message" : "No items available"
+        "message" : "Product Not Found"
       }
   ```
 
@@ -1107,12 +1244,7 @@ Create a cart
   * Method:
   * URL:
   * Body:
-    ```json
-      {
-        "subtotal": 10.00,
-        "total": 12.50
-      }
-    ```
+    none
 
 
 * Successful Response
@@ -1138,7 +1270,7 @@ Create a cart
   * Body:
   ```json
       {
-        "message": "Bad Request"
+        "message": "User has an Active Cart"
       }
   ```
 
@@ -1155,8 +1287,11 @@ Add an item to your cart
   * Body:
     ```json
       {
-        "item_id" : 1
-      }
+    "item_id": 1,
+    "size": "XL",
+    "price": 5.00,
+    "quantity": 2
+       }
     ```
 
 
@@ -1167,12 +1302,14 @@ Add an item to your cart
   * Body:
   ```json
       {
-        "id": 1,
-        "cart_id": 1,
-        "item_id" : 2,
-        "price" : 12.00,
-        "size": "medium",
-        "quantity": 1
+    "id": 13,
+    "cart_id": "10",
+    "item_id": 1,
+    "size": "XL",
+    "price": 5,
+    "quantity": 2,
+    "updatedAt": "2024-04-09T10:30:41.234Z",
+    "createdAt": "2024-04-09T10:30:41.234Z"
       }
   ```
 
@@ -1184,10 +1321,15 @@ Add an item to your cart
   * Body:
   ```json
       {
-        "message": "item out of stock"
+        "message": "Item Not Found"
       }
   ```
-
+#### OR
+  ```json
+    {
+    "message": "Item already in cart"
+    }
+  ```
 
 ### GET Cart-item by Id
 get an item by id
@@ -1324,63 +1466,6 @@ update item in cart
       }
   ```
 
-### Get Checkout Page
-Get checkout page
-
-
-* Require Authentication: true
-* Require proper authorization: must be authenticated user
-* Request
-  * Method: GET
-  * URL:
-  * Body:
-     none
-
-
-* Successful Response
-  * Status Code: 400
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-  ```json
-      {
-        "id": 1,
-        "cart": [
-                  {
-                   "id": 1,
-                    "cart_id": 1,
-                     "item_id" : 2,
-                     "price" : 12.00,
-                     "size": "medium",
-                     "quantity": 1
-                   },
-                   {
-                     "id": 2,
-                     "cart_id": 1,
-                     "item_id" : 1,
-                    "price" : 15.00,
-                    "size": "Large",
-                    "quantity": 1
-                    }
-                    ],
-        "subtotal": 17.00,
-        "tax" : 1.53,
-        "total": 18.53
-      }
-  ```
-
-
-* Error response:
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-  ```json
-      {
-        "message" : "Bad Request"
-      }
-  ```
-
 
 ## Suggestions
 
@@ -1396,29 +1481,63 @@ Get all suggestions submitted
         none
 
 
+##### Successful Response for Authed User
+This will only show the user suggestions that they have written.
+
 * Successful Response
   * Status Code: 200
   * Headers:
     * Content-Type: application/json
   * Body:
   ```json
+
+    {
+        "id": 3,
+        "user_id": 3,
+        "suggestion": "I would like you to have more tank tops!",
+        "createdAt": "2024-04-09T02:52:52.662Z",
+        "updatedAt": "2024-04-09T02:52:52.662Z"
+    }
+
+  ```
+##### Successful Response for Admin
+This will show users marked as Admins to see all suggestions,
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+  ```json
+    [
       {
-        "suggestions": [
-          {
-            "user_id": 1,
-            "suggestion": "This is my suggestion"
-          },
-          {
-            "user_id": 2,
-            "suggestion": "I want more cow stuff"
-          }
-        ]
-      }
+        "id": 1,
+        "user_id": 1,
+        "suggestion": "I would like more cow stuff!",
+        "createdAt": "2024-04-09T02:52:52.662Z",
+        "updatedAt": "2024-04-09T02:52:52.662Z",
+        "User": {
+            "firstName": "Mishelle",
+            "lastName": "Bryan"
+        }
+    },
+    {
+        "id": 2,
+        "user_id": 2,
+        "suggestion": "I want to see some Dinos!",
+        "createdAt": "2024-04-09T02:52:52.662Z",
+        "updatedAt": "2024-04-09T02:52:52.662Z",
+        "User": {
+            "firstName": "Jane",
+            "lastName": "Doe"
+        }
+    },
+
+    ]
   ```
 
-
 * Error response:
-  * Status Code: 200
+  * Status Code: 401
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1433,31 +1552,31 @@ Get all suggestions submitted
 Create a suggestion
 
 * Require Authentication: true
-* Require proper authorization: must be authenticated user
+* Require proper authorization:  must be authenticated user
 * Request
   * Method: POST
   * URL: /api/suggestions
   * Body:
+     ```json
+     {
+      "suggestion": "It would be cool to have more cartoon stuff."
+     }
+     ```
+
+
     ```json
-      {
-        "suggestion" : "You should have more kitten stuff"
-      }
-    ```
-
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-  ```json
-      {
-        "user_id": 1,
-        "suggestion" : "You should have more Kitten stuff!"
-      }
-  ```
-
-
+        {
+        "id": 8,
+        "user_id": 2,
+        "suggestion": "I would totally buy shirts or stuff that have funny puns!",
+        "createdAt": "2024-04-09T09:36:41.355Z",
+        "updatedAt": "2024-04-09T09:36:41.355Z",
+        "User": {
+            "firstName": "Jane",
+            "lastName": "Doe"
+                }
+         }
+     ```
 * Error response:
   * Status Code: 400
   * Headers:
@@ -1468,7 +1587,13 @@ Create a suggestion
         "message": "You must enter a suggestion"
       }
   ```
+  #### OR
 
+  ```json
+      {
+    "message": "Admins Can Not Submit Suggestions"
+      }
+  ```
 
 
 ### Edit suggestion by id
