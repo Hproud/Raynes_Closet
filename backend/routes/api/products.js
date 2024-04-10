@@ -102,12 +102,6 @@ router.get("/:itemId", async (req, res, next) => {
           imageable_type: "Product",
         },
       },
-      {
-        model: Review,
-        where: {
-          item_id: id,
-        },
-      },
     ],
   });
 if(!prod){
@@ -116,8 +110,47 @@ if(!prod){
   err.message = "No Item Found"
   return next(err)
 }else{
+const revs = []
+  const reviews = await Review.findAll({
+    where:{
+      item_id: id
+    },
+  })
+  for (let i=0;i < reviews.length;i++){
+    const rev = reviews[i]
+    const pics = await Image.findAll({
+      where:{
+        imageable_id: rev.id,
+        imageable_type: 'Review'
+      }
+    })
+    console.log(pics,"dfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfafsd")
+    const newrev={
+      id: rev.id,
+      user_id: rev.user_id,
+      review: rev.review,
+      stars: rev.stars,
+      item_id: rev.itemId,
+      images: pics,
+      createdAt: rev.createdAt,
+      updatedAt: rev.updatedAt
+    }
+    revs.push(newrev)
+  }
+  console.log(reviews)
+  const final= {
+    id: id,
+    name: prod.name,
+    description: prod.description,
+    size: prod.size,
+    price: prod.price,
+    images: prod.Images,
+    reviews: revs,
+    createdAt: prod.createdAt,
+    updatedAt: prod.updatedAt
+  }
   // return all info for the product to the front end
-  return res.json(prod);
+  return res.json(final);
 }
 
 });
@@ -228,11 +261,10 @@ router.get("/:itemId/reviews", async (req, res, next) => {
     ],
   });
 
-
-const ReviewImages = []
-for (let i = 0; i< reviews.length;i++){
-  const review = reviews[i];
-  const pictures = await Image.findAll({
+const finalRevs = []
+  for (let i = 0; i< reviews.length;i++){
+    const review = reviews[i];
+  const pictures = await Image.findOne({
 
         where: {
           imageable_id: review.id,
@@ -240,15 +272,22 @@ for (let i = 0; i< reviews.length;i++){
         },
         as: "ReviewImages",
   })
+console.log(pictures,"787878787878787878e7r8w67e87r56qwe876rq87wetyfugasdjfgvasjhdgfjksahdfvah")
 
-  for(let a=0; a < pictures.length;a++){
-    const pic = pictures[a];
-    ReviewImages.push(pic)
+  const rev = {
+    id: review.id,
+    review: review.review,
+    stars: review.stars,
+    User: review.User,
+    imageUrl: pictures.url,
+    createdAt: review.createdAt,
+    updatedAt: review.updatedAt
   }
+finalRevs.push(rev)
 }
 
   //include the pictures for that review
-  console.log(reviews)
+  console.log(finalRevs,'----------------------------------------')
 
   if( reviews.length === 0){
     const err = Error("Product Not Found");
@@ -259,7 +298,7 @@ for (let i = 0; i< reviews.length;i++){
 
   }else{
     //return all reviews
-    return res.json({reviews,ReviewImages});
+    return res.json(finalRevs);
 
   }
 });
