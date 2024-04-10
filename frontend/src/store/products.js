@@ -24,7 +24,7 @@ export const getAllProducts = () => async (dispatch)=>{
 
     if (all.ok){
         const products = await all.json()
-        console.log(products)
+
         dispatch(allProducts(products))
         return products
     }
@@ -35,9 +35,10 @@ export const findOneProduct = (itemId) => async (dispatch)=> {
 
     if(first.ok){
         const product = await first.json();
+        console.log(product,"this is product")
 
+        dispatch(onlyOne(product))
 
-        dispatch(onlyOne(product.product))
 
 
     }

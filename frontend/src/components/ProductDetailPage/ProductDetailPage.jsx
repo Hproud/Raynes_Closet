@@ -4,10 +4,7 @@ import { useDispatch } from "react-redux";
 import { findOneProduct } from "../../store/products";
 import { useSelector } from "react-redux";
 
-
-
-
-
+import "./ProductDetailPage.css"
 
 
 export default function ProductDetailPage() {
@@ -19,16 +16,30 @@ const product = useSelector((state) => state.products?.product)
     useEffect(()=>{
         dispatch(findOneProduct(itemId)).then(()=> setIsLoading(false))
     },[dispatch,itemId])
-const url = product.Images[0].url
-const reviews = product.Reviews
-console.log(reviews,'reviewwwww')
 
-    if(!isLoading){
+const url = product.Images
 
-        return (
-            <>
+const reviews = product?.Reviews
+
+const reviewImages = [];
+if(reviews?.length){
+    reviews.map((review) => {
+        const images = review.ReviewImages;
+        reviewImages.push(images)
+    })
+}
+
+console.log(url[0].url,"****************************")
+
+
+if(!isLoading){
+
+    return (
+        <>
+            {url && url.map((pic) => (
+                <img src={pic.url} style={{height: '500px',maxWidth: '500px',minWidth:'200px'}} key={pic.url}/>
+            ))}
                 <h1>{product.name}</h1>
-                <img src={url} style={{height: '500px',maxWidth: '500px',minWidth:'200px'}}></img>
                 <div>
                     <p>{product.description}</p>
                     <p>$ {product.price.toFixed(2)}</p>
@@ -39,11 +50,18 @@ console.log(reviews,'reviewwwww')
                     <h2>Reviews</h2>
                     <ul>
                     {reviews && reviews.map((review) => (
-                            <li key={review.id}>
+
+                        <li key={review.id}>
                                 <p>{review.review}</p>
                                 <p>{review.User}</p>
                             </li>
                     ))}
+
+
+                    {url && url.map((img) => {
+                        <img src={img.url} key={img.key} />
+                    })}
+
                     </ul>
                 </div>
             </>
