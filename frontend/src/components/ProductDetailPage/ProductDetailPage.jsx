@@ -19,9 +19,10 @@ const product = useSelector((state) => state.products?.product)
 
 const url = product?.images
 const reviews = useSelector((state) => state.products.reviews)
+// const master = useSelector((state)=> state.session?.user)
+// const admin = useSelector((state)=> state.session?.user.isAdmin)
 
 
-console.log(reviews,'[][][][][][][][][')
 
 
 
@@ -38,6 +39,7 @@ if(!isLoading){
                     <p>{product.description}</p>
                     <p>$ {product.price.toFixed(2)}</p>
                     <p>{product.size}</p>
+                    
                 </div>
                 <button>Add to Cart</button>
                 <hr />
@@ -47,7 +49,8 @@ if(!isLoading){
                 <p>{review.review}</p>
                 <p>{review.stars}</p>
                 <p>{review.User.firstName} {review.User.lastName}</p>
-                <img src={review.imageUrl} />
+                <img src={review.imageUrl} style={{height: '50px',width:'50px',borderRadius:'20px'}} />
+                <hr />
                 </div>
             ))}
         </div>

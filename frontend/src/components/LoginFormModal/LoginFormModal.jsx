@@ -59,6 +59,16 @@ function LoginFormModal() {
   setPassword('password')
 
 }}>DemoUser</button>
+<button className='demo' type='submit' onClick={() => {
+  setCredential('master@email.com')
+  setPassword('master')
+
+}}>DemoMaster</button>
+<button className='demo' type='submit' onClick={() => {
+  setCredential('imanadmin')
+  setPassword('password')
+
+}}>DemoAdmin</button>
       </form>
     </>
   );
