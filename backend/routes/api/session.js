@@ -61,7 +61,9 @@ router.post(
         address: user.address,
         city: user.city,
         state: user.state,
-        zipcode: user.zipcode
+        zipcode: user.zipcode,
+        isAdmin: user.isAdmin,
+        isMaster: user.isMaster
       };
 
       await setTokenCookie(res, safeUser);
@@ -97,7 +99,9 @@ router.get(
         address: user.address,
         city: user.city,
         state: user.state,
-        zipcode: user.zipcode
+        zipcode: user.zipcode,
+        isAdmin: user.isAdmin,
+        isMaster: user.master
       };
       return res.json({
         user: safeUser
