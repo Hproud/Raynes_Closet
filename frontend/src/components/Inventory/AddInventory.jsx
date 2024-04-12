@@ -1,8 +1,8 @@
 import {  useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { addNewItem } from "../../store/products";
-import * as productActions from "../../store/products";
+import { addNewItem } from "../../store/products";
+// import * as productActions from "../../store/products";
 export default function AddInventory() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,19 +19,23 @@ export default function AddInventory() {
   const [pic4, setPic4] = useState("");
   const [errors, setErrors] = useState({});
 
-  const pictures = [];
-  if (pic1) {
-    pictures.push(pic1);
-  }
-  if (pic2) {
-    pictures.push(pic2);
-  }
-  if (pic3) {
-    pictures.push(pic3);
-  }
-  if (pic4) {
-    pictures.push(pic4);
-  }
+//  const pics = (id) =>{
+//   dispatch(addPreviewPic(id,preview))
+//   if (pic1) {
+//      dispatch(addMoreProductPics(id,pic1))
+//    }
+//    if (pic2) {
+//     dispatch(addMoreProductPics(id,pic2))
+//    }
+//    if (pic3) {
+//     dispatch(addMoreProductPics(id,pic3))
+//    }
+//    if (pic4) {
+//     dispatch(addMoreProductPics(id,pic4))
+//    }
+
+//  }
+
 
   const proposed = {
     name,
@@ -40,9 +44,11 @@ export default function AddInventory() {
     price,
     type,
     quantity,
-    preview,
-    pictures,
+    preview
   };
+
+// console.log(pics)
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -54,23 +60,24 @@ export default function AddInventory() {
           setErrors({type : "You must select a type for this product"});
         }
 
-    dispatch(productActions.addNewItem(proposed))
-      .then((res) => navigate(`/products/${res.id}`))
+    dispatch(addNewItem(proposed))
+    // .then((res)=>{dispatch(addPreviewPic(res,preview))})
+      .then((res) => navigate(`/products/${res}`))
       .catch(async (res) => {
         const data = await res.json()
         console.log(data, "this is the error we got");
        setErrors(data)
       });
-    // setName("");
-    // setDescription("");
-    // setSize("Select Size");
-    // setPrice(0);
-    // setQuantity(0);
-    // setPreview("");
-    // setPic1();
-    // setPic2();
-    // setPic3();
-    // setPic4();
+    setName("");
+    setDescription("");
+    setSize("Select Size");
+    setPrice(0);
+    setQuantity(0);
+    setPreview("");
+    setPic1();
+    setPic2();
+    setPic3();
+    setPic4();
   };
 
   console.log(proposed);
@@ -221,7 +228,7 @@ export default function AddInventory() {
         <br />
         <input
           type='file'
-          required={true}
+          // required={true}
           accept='image/jpeg, image/png'
           value={preview}
           onChange={(e) => {

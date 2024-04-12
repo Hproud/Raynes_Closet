@@ -225,6 +225,7 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
 router.put("/:itemId",ValidateProduct, requireAuth, async (req, res, next) => {
   //pull id from params
   const id = Number(req.params.itemId);
+if(req.user.isAdmin || req.user.master){
 
   //find our item
   const item = await Product.findByPk(id);
@@ -237,6 +238,12 @@ router.put("/:itemId",ValidateProduct, requireAuth, async (req, res, next) => {
   });
   //return updated item
   return res.json(updated);
+}else{
+  const err = Error('Not Authorized');
+  err.status=401;
+  err.message='Not Authorized';
+  return next(err)
+}
 });
 
 //&-----------------------------------------Get Review by ItemId---------------------------------------
@@ -288,7 +295,7 @@ finalRevs.push(rev)
 }
 
   //include the pictures for that review
-  console.log(finalRevs,'----------------------------------------')
+  // console.log(finalRevs,'----------------------------------------')
 
   if( reviews.length === 0){
     const err = Error("Product Not Found");
@@ -360,7 +367,7 @@ router.post("/:itemId/reviews",validateReview, requireAuth, async (req, res, nex
 //^-------------Add Image for a product----------------
 
 router.post("/:itemId/images", requireAuth, async (req, res, next) => {
-  if (req.user.isAdmin) {
+  if (req.user.isAdmin || req.user.master) {
     //pull product id
     const id = Number(req.params.itemId);
 
@@ -391,9 +398,9 @@ router.post("/:itemId/images", requireAuth, async (req, res, next) => {
     //return all photos for that product
     return res.json(allImages);
   } else {
-    const err = Error("Forbidden");
+    const err = Error("Not Authorized");
     err.status = 401;
-    err.message = "Forbidden";
+    err.message = "Not Authorized";
     return next(err);
   }
 });

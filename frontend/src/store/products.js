@@ -5,6 +5,7 @@ const ALL_PRODUCTS = 'products/allProducts'
 const GET_ONE = 'products/getOne'
 const GET_PRODREVIEWS = 'products/prodReviews'
 
+
 //& ------------------------------ACTIONS---------------------------------------
 const allProducts = (products) => ({
     type: ALL_PRODUCTS,
@@ -61,7 +62,72 @@ dispatch(productReviews(reviews))
 
 }
 
+// export const addPreviewPic=(itemId,url)=> async (dispatch) =>{
+//     const res = await csrfFetch(`/api/${itemId}/images`,{
+//         method: 'POST',
+//         body: JSON.stringify({
+//             imageable_id: itemId,
+//             imageable_type: 'Product',
+//             url: url,
+//             preview: true
+//         })
+//     })
+//     if(res.ok){
+//         // const image = res.json();
+//         dispatch(findOneProduct(itemId))
+//     }
+// }
 
+
+export const addMoreProductPics =(itemId,pic) => async (dispatch)=>{
+    const res = await csrfFetch(`/api/${itemId}/images`,{
+        method: 'POST',
+        body: JSON.stringify({
+            imageable_id: itemId,
+            imageable_type: 'Product',
+            url: pic,
+            preview: false
+        })
+    })
+    if(res.ok){
+        // const image = res.json();
+        dispatch(findOneProduct(itemId))
+    }
+}
+
+export const addNewItem = (proposed) => async(dispatch) =>{
+    const {name,description,size,price,type,quantity,preview} = proposed
+    const res = await csrfFetch('/api/products',{
+        method: 'POST',
+        body: JSON.stringify({
+            name:name,
+            description: description,
+            size:size,
+            price:price,
+            type: type,
+            quantity: quantity
+        })
+    })
+
+if(res.ok){
+    const product = await res.json()
+    console.log(product,'you got the product')
+    await csrfFetch(`/api/products/${product.id}/images`,{
+        method: 'POST',
+        body: JSON.stringify({
+            url: preview,
+            preview: true
+        })
+    })
+    dispatch(findOneProduct(product.id))
+
+    return product.id
+}else{
+    const data = res.json();
+    return data
+}
+
+}
 
 //TODO-------------------------------REDUCER--------------------------------------
 
