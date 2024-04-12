@@ -7,7 +7,7 @@ import LoginFormModal from "../LoginFormModal/LoginFormModal";
 import SignupFormModal from "../SignupFormModal/SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import AddInventory from "../Inventory/AddInventory";
+// import AddInventory from "../Inventory/AddInventory";
 
 
 

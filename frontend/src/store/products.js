@@ -32,7 +32,7 @@ export const getAllProducts = () => async (dispatch)=>{
         const products = await all.json()
 
         dispatch(allProducts(products))
-        return products
+
     }
 }
 
@@ -56,9 +56,6 @@ export const getProductReview = (itemId) => async (dispatch)=> {
         console.log(reviews)
 
 dispatch(productReviews(reviews))
-
-
-
 
         }
 

@@ -68,6 +68,7 @@ if(!products.length){
         },
         attributes: ["id", "url", "preview"],
       });
+      // console.log(pic,'this is pic *****************************************************************************')
       const newItem = {
         id: products[i].id,
         name: products[i].name,
