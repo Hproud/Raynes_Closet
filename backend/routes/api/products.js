@@ -39,6 +39,15 @@ const ValidateProduct = [
   handleValidationErrors
 ]
 
+const ValidateEdit =[
+  check('description')
+  .exists({checkFalsy: true})
+  .withMessage("Item must have a description"),
+   check('price')
+  .exists({checkFalsy: true})
+  .withMessage("Price Must be greater than 0"),
+  handleValidationErrors
+]
 
 
 //TODO--------------------------------------GET ALL PRODUCTS--------------------------------------------
@@ -76,7 +85,7 @@ if(!products.length){
         size: products[i].size,
         price: products[i].price,
         type: products[i].price,
-        preview: pic.dataValues.url,
+        preview: pic?.dataValues?.url,
       };
       final.push(newItem);
     }
@@ -85,6 +94,9 @@ if(!products.length){
   }
   return res.json(products);
 });
+
+
+
 
 //TODO--------------------------------GET PRODUCT BY ID--------------------------------------------
 
@@ -138,7 +150,7 @@ const revs = []
     }
     revs.push(newrev)
   }
-  console.log(reviews)
+  // console.log(reviews)
   const final= {
     id: id,
     name: prod.name,
@@ -147,6 +159,8 @@ const revs = []
     price: prod.price,
     images: prod.Images,
     reviews: revs,
+    type: prod.type,
+    preview: prod.preview,
     createdAt: prod.createdAt,
     updatedAt: prod.updatedAt
   }
@@ -190,7 +204,7 @@ router.post("", requireAuth, ValidateProduct, async (req, res, next) => {
     });
 
     //create a new inventory item for your newly created item
-    const newInventory = await Inventory.create({
+     await Inventory.create({
       item_id: prod.id,
       quantity: proposed.quantity,
     });
@@ -222,7 +236,7 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
 
 //Todo-----------Edit Product---------------------
 
-router.put("/:itemId",ValidateProduct, requireAuth, async (req, res, next) => {
+router.put("/:itemId",ValidateEdit, requireAuth, async (req, res, next) => {
   //pull id from params
   const id = Number(req.params.itemId);
 if(req.user.isAdmin || req.user.master){
@@ -280,7 +294,7 @@ const finalRevs = []
         },
         as: "ReviewImages",
   })
-console.log(pictures,"787878787878787878e7r8w67e87r56qwe876rq87wetyfugasdjfgvasjhdgfjksahdfvah")
+// console.log(pictures,"787878787878787878e7r8w67e87r56qwe876rq87wetyfugasdjfgvasjhdgfjksahdfvah")
 
   const rev = {
     id: review.id,
@@ -412,7 +426,7 @@ router.delete(
   requireAuth,
   async (req, res, next) => {
     //pull itemid imageId and user status
-    if (req.user.isAdmin) {
+    if (req.user.isAdmin || req.user.master) {
       const itemId = Number(req.params.itemId);
       const imageId = Number(req.params.imageId);
 
@@ -458,5 +472,56 @@ router.delete(
     }
   }
 );
+
+//^------------------------------Update preview--------------------------
+router.put('/:itemId/images/:imageId',requireAuth,async (req,res,next) =>{
+  if (req.user.isAdmin || req.user.master) {
+    const itemId = Number(req.params.itemId);
+    const imageId = Number(req.params.imageId);
+
+    //search for the item
+    const item = await Product.findByPk(itemId);
+
+    //if not found throw error
+    if (!item) {
+      const err = Error("Product Not Found");
+      err.status = 404;
+      err.message = "Product Not Found";
+      return next(err);
+    } else {
+      //search for the picture
+      const image = await Image.findByPk(imageId);
+      if (!image) {
+        //if not found throw error
+        const err = Error("Image Not Found");
+        err.status = 404;
+        err.message = "Image Not Found";
+        return next(err);
+      }
+      if (image) {
+        //check that user is admin
+
+          //update photo
+          const newOne = await image.update(req.body,{
+            where: {
+              id: imageId
+            }
+          })
+          //return success message
+          return res.json(newOne);
+        }
+
+    }
+  } else {
+    const err = Error("Not Authorized");
+    err.status = 401;
+    err.message = "Not Authorized";
+    return next(err);
+  }
+})
+
+
+
+
 
 module.exports = router;
