@@ -125,7 +125,7 @@ const revs = []
         imageable_type: 'Review'
       }
     })
-    console.log(pics,"dfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfafsd")
+    // console.log(pics,"dfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfafsd")
     const newrev={
       id: rev.id,
       user_id: rev.user_id,

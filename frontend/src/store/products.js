@@ -79,24 +79,22 @@ dispatch(productReviews(reviews))
 // }
 
 
-export const addMoreProductPics =(itemId,pic) => async (dispatch)=>{
-    const res = await csrfFetch(`/api/${itemId}/images`,{
-        method: 'POST',
-        body: JSON.stringify({
-            imageable_id: itemId,
-            imageable_type: 'Product',
-            url: pic,
-            preview: false
-        })
-    })
-    if(res.ok){
-        // const image = res.json();
-        dispatch(findOneProduct(itemId))
-    }
-}
+// export const addMoreProductPics =(itemId,pic) => async (dispatch)=>{
+//     const res = await csrfFetch(`/api/${itemId}/images`,{
+//         method: 'POST',
+//         body: JSON.stringify({
+//             url: pic,
+//             preview: false
+//         })
+//     })
+//     if(res.ok){
+//         // const image = res.json();
+//         dispatch(findOneProduct(itemId))
+//     }
+// }
 
 export const addNewItem = (proposed) => async(dispatch) =>{
-    const {name,description,size,price,type,quantity,preview} = proposed
+    const {name,description,size,price,type,quantity,preview,pictures} = proposed
     const res = await csrfFetch('/api/products',{
         method: 'POST',
         body: JSON.stringify({
@@ -119,6 +117,18 @@ if(res.ok){
             preview: true
         })
     })
+    if(pictures){
+        pictures.map(async (pic)=>{
+            await csrfFetch(`/api/${product.id}/images`,{
+                method: 'POST',
+                body: JSON.stringify({
+                    url: pic,
+                    preview: false
+                })
+            })
+        })
+    }
+
     dispatch(findOneProduct(product.id))
 
     return product.id

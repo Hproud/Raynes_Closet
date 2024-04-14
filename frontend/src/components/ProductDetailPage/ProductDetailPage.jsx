@@ -18,7 +18,7 @@ const product = useSelector((state) => state.products?.product)
     },[dispatch,itemId])
 
 const url = product?.images
-const reviews = useSelector((state) => state.products.reviews)
+const reviews = useSelector((state) => state.products?.reviews)
 // const master = useSelector((state)=> state.session?.user)
 // const admin = useSelector((state)=> state.session?.user.isAdmin)
 

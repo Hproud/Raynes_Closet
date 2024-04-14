@@ -19,23 +19,21 @@ export default function AddInventory() {
   const [pic4, setPic4] = useState("");
   const [errors, setErrors] = useState({});
 
-//  const pics = (id) =>{
-//   dispatch(addPreviewPic(id,preview))
-//   if (pic1) {
-//      dispatch(addMoreProductPics(id,pic1))
-//    }
-//    if (pic2) {
-//     dispatch(addMoreProductPics(id,pic2))
-//    }
-//    if (pic3) {
-//     dispatch(addMoreProductPics(id,pic3))
-//    }
-//    if (pic4) {
-//     dispatch(addMoreProductPics(id,pic4))
-//    }
+const pictures =[]
 
-//  }
+if(pic1){
+  pictures.push(pic1)
+}
+if(pic2){
+  pictures.push(pic2)
+}
+if(pic3){
+  pictures.push(pic3)
+}
 
+if(pic4){
+  pictures.push(pic4)
+}
 
   const proposed = {
     name,
@@ -44,7 +42,8 @@ export default function AddInventory() {
     price,
     type,
     quantity,
-    preview
+    preview,
+    pictures
   };
 
 // console.log(pics)
