@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Cart from "./Cart";
 import { getCurrCart } from "../../store/cart";
+import { useNavigate } from "react-router-dom";
 
 export default function CartButton() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 	const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -59,7 +61,16 @@ dispatch(getCurrCart()).catch(async(res) =>{
 
   const ulClassName = "cart-dropdown" + (showMenu ? "" : " hidden");
 
+const addItems = () => {
+  navigate('/')
+  setShowMenu(!showMenu)
+}
 
+
+const checkout = () => {
+  navigate('/checkout')
+  setShowMenu(!showMenu)
+}
 
 return(
   <div>
@@ -67,7 +78,7 @@ return(
     {showMenu && (
       <div className={ulClassName} hidden={!showMenu} ref={ulRef}>
         <Cart cart={cart} cartItems={allCartItems} user={user}/>
-        <button>Checkout</button> {" "}<button onClick={()=> navigate('/')}>Add More Items</button>
+        <button onClick={checkout}>Checkout</button> {" "}<button onClick={addItems}>Add More Items</button>
         </div>
     )}
   </div>
