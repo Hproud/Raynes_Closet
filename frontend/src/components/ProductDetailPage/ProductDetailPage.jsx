@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { findOneProduct, getProductReview } from "../../store/products";
+import { findOneProduct, getProductReview,deleteProduct } from "../../store/products";
 import { useSelector } from "react-redux";
 // import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
@@ -19,13 +19,21 @@ const navigate = useNavigate()
 
 const url = product?.images
 const reviews = useSelector((state) => state.products?.reviews)
-const master = useSelector((state)=> state.session?.user.isMaster)
-const admin = useSelector((state)=> state.session?.user.isAdmin)
+const master = useSelector((state)=> state.session?.user?.isMaster)
+const admin = useSelector((state)=> state.session?.user?.isAdmin)
 
 
 const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
 }
+
+
+const deleteProd = () =>{
+dispatch(deleteProduct(product.id))
+
+return navigate('/')
+}
+
 
 
 if(!isLoading){
@@ -48,7 +56,7 @@ if(!isLoading){
                 )}
                 {admin || master && (
                     <div>
-                        <button onClick={edit}>Edit Product</button>{" "}<button>Delete Product</button>{" "}<button>Add New Size</button>
+                        <button onClick={edit}>Edit Product</button>{" "}<button onClick={deleteProd}>Delete Product</button>
                         </div>
                 )}
                 <hr />

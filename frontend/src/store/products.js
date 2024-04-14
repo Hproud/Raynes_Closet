@@ -25,6 +25,8 @@ const productReviews =(reviews) => ({
 
 })
 
+
+
 //! -------------------------------THUNKS----------------------------------------
 
 export const getAllProducts = () => async (dispatch)=>{
@@ -133,6 +135,14 @@ export const editTheProuct = (id,info) => async (dispatch)=>{
 }
 
 
+export const deleteProduct = (id) => async (dispatch) => {
+await csrfFetch(`/api/products/${id}`,{
+    method: 'DELETE'
+})
+
+   dispatch(getAllProducts())
+
+}
 
 
 
