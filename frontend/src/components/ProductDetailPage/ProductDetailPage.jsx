@@ -3,27 +3,29 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { findOneProduct, getProductReview } from "../../store/products";
 import { useSelector } from "react-redux";
-
+// import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
-
+import { useNavigate } from "react-router-dom";
 
 export default function ProductDetailPage() {
     const  {itemId } = useParams()
     const [isLoading,setIsLoading] = useState(true)
     const dispatch = useDispatch()
 const product = useSelector((state) => state.products?.product)
-
+const navigate = useNavigate()
     useEffect(()=>{
         dispatch(findOneProduct(itemId)).then(()=>{ dispatch(getProductReview(itemId))}).then(()=> setIsLoading(false))
     },[dispatch,itemId])
 
 const url = product?.images
 const reviews = useSelector((state) => state.products?.reviews)
-// const master = useSelector((state)=> state.session?.user)
-// const admin = useSelector((state)=> state.session?.user.isAdmin)
+const master = useSelector((state)=> state.session?.user.isMaster)
+const admin = useSelector((state)=> state.session?.user.isAdmin)
 
 
-
+const edit = () =>{
+    return navigate(`/products/${product.id}/edit`)
+}
 
 
 if(!isLoading){
@@ -41,7 +43,14 @@ if(!isLoading){
                     <p>{product.size}</p>
 
                 </div>
-                <button>Add to Cart</button>
+                {!admin && !master && (
+                    <button>Add to Cart</button>
+                )}
+                {admin || master && (
+                    <div>
+                        <button onClick={edit}>Edit Product</button>{" "}<button>Delete Product</button>{" "}<button>Add New Size</button>
+                        </div>
+                )}
                 <hr />
                 <h2>Reviews</h2>
             {reviews && reviews.map((review)=>(

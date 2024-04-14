@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import LandingPage from './components/LandingPage/LandingPage';
 import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage';
 import AddInventory from './components/Inventory/AddInventory'
+import EditProduct from './components/Inventory/EditProduct';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: `/products/add`,
         element: <AddInventory />
+      },
+      {
+        path: '/products/:itemId/edit',
+        element: <EditProduct />
       }
     ]
   }

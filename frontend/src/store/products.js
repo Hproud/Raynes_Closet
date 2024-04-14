@@ -6,6 +6,7 @@ const GET_ONE = 'products/getOne'
 const GET_PRODREVIEWS = 'products/prodReviews'
 
 
+
 //& ------------------------------ACTIONS---------------------------------------
 const allProducts = (products) => ({
     type: ALL_PRODUCTS,
@@ -62,37 +63,6 @@ dispatch(productReviews(reviews))
 
 }
 
-// export const addPreviewPic=(itemId,url)=> async (dispatch) =>{
-//     const res = await csrfFetch(`/api/${itemId}/images`,{
-//         method: 'POST',
-//         body: JSON.stringify({
-//             imageable_id: itemId,
-//             imageable_type: 'Product',
-//             url: url,
-//             preview: true
-//         })
-//     })
-//     if(res.ok){
-//         // const image = res.json();
-//         dispatch(findOneProduct(itemId))
-//     }
-// }
-
-
-// export const addMoreProductPics =(itemId,pic) => async (dispatch)=>{
-//     const res = await csrfFetch(`/api/${itemId}/images`,{
-//         method: 'POST',
-//         body: JSON.stringify({
-//             url: pic,
-//             preview: false
-//         })
-//     })
-//     if(res.ok){
-//         // const image = res.json();
-//         dispatch(findOneProduct(itemId))
-//     }
-// }
-
 export const addNewItem = (proposed) => async(dispatch) =>{
     const {name,description,size,price,type,quantity,preview,pictures} = proposed
     const res = await csrfFetch('/api/products',{
@@ -110,13 +80,15 @@ export const addNewItem = (proposed) => async(dispatch) =>{
 if(res.ok){
     const product = await res.json()
     console.log(product,'you got the product')
-    await csrfFetch(`/api/products/${product.id}/images`,{
+     await csrfFetch(`/api/products/${product.id}/images`,{
         method: 'POST',
         body: JSON.stringify({
             url: preview,
             preview: true
         })
-    })
+    });
+
+
     if(pictures){
         pictures.map(async (pic)=>{
             await csrfFetch(`/api/${product.id}/images`,{
@@ -126,6 +98,7 @@ if(res.ok){
                     preview: false
                 })
             })
+
         })
     }
 
@@ -138,6 +111,31 @@ if(res.ok){
 }
 
 }
+
+
+
+export const editTheProuct = (id,info) => async (dispatch)=>{
+
+    const edited = await csrfFetch(`/api/products/${id}`,{
+        method: 'PUT',
+        body: JSON.stringify(info)
+    })
+
+    if(edited.ok){
+        const product = await edited.json();
+        dispatch(onlyOne(product));
+        return product
+    }else{
+        const error = edited.json();
+        return error
+    }
+
+}
+
+
+
+
+
 
 //TODO-------------------------------REDUCER--------------------------------------
 

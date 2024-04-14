@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addNewItem } from "../../store/products";
 // import * as productActions from "../../store/products";
+
+
+
 export default function AddInventory() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -226,9 +229,9 @@ if(pic4){
         <label>Primary Photo:</label>
         <br />
         <input
-          type='file'
+          type='text'
           // required={true}
-          accept='image/jpeg, image/png'
+
           value={preview}
           onChange={(e) => {
             setPreview(e.target.value);
@@ -240,38 +243,36 @@ if(pic4){
         <br />
         <br />
         <input
-          type='file'
-          accept='image/jpeg, image/png'
+          type='text'
+
           value={pic1}
           onChange={(e) => setPic1(e.target.value)}
         />
         <br />
         <br />
         <input
-          type='file'
-          accept='image/jpeg, image/png'
+          type='text'
+
           value={pic2}
           onChange={(e) => setPic2(e.target.value)}
         />
         <br />
         <br />
         <input
-          type='file'
-          accept='image/jpeg, image/png'
+          type='text'
           value={pic3}
           onChange={(e) => setPic3(e.target.value)}
         />
         <br />
         <br />
         <input
-          type='file'
-          accept='image/jpeg, image/png'
+          type='text'
           value={pic4}
           onChange={(e) => setPic4(e.target.value)}
         />
         <br />
         <br />
-        <button type='submit'>Submit</button> <button>Cancel</button>
+        <button type='submit'>Add Prouduct</button> <button>Cancel</button>
         <br />
       </form>
     </div>
