@@ -5,7 +5,7 @@ const express = require("express");
 
 const router = express.Router();
 
-//&------------------------GET ALL CARTS---------------------------------------------------------------------------
+//&------------------------GET CURRENT CART---------------------------------------------------------------------------
 router.get("", requireAuth, async (req, res, next) => {
 
   let cart = await Cart.findOne({
@@ -14,10 +14,13 @@ router.get("", requireAuth, async (req, res, next) => {
       purchased: false,
     },
   });
-  if(!cart.length){
+
+
+  if(!cart){
     const err = Error("Cart Not Found")
     err.status = 404;
     err.message = "Cart Not Found"
+    return next(err)
   }
   const newcart = cart.dataValues;
   const items = await CartItem.findAll({
@@ -39,6 +42,7 @@ router.get("", requireAuth, async (req, res, next) => {
     ],
   });
   const prods = [];
+
   for (let i = 0; i < items.length; i++) {
     const p = items[i];
     const item = p.dataValues;
@@ -57,8 +61,11 @@ router.get("", requireAuth, async (req, res, next) => {
         },
       ],
     });
-
-    prods.push(prodInfo);
+const currprod ={
+  prodInfo,
+  quantity: item.quantity
+}
+    prods.push(currprod);
   }
 
   return res.json({
