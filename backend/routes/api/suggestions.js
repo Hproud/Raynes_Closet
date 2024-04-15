@@ -72,9 +72,9 @@ router.get('',requireAuth,async (req,res,next)=>{
         }
         }else {
         //if not admin throw error
-        const err = Error("Forbidden");
+        const err = Error("Not Authorized");
         err.status = 401;
-        err.message = "Forbidden";
+        err.message = "Not Authorized";
         return next(err)
     }
     })
@@ -148,9 +148,9 @@ router.put('/:suggestionId',requireAuth,async (req,res,next) => {
         //confirm user wrote suggestion
         //if not throw error
         if(sugg.user_id !== user){
-            const err = Error("Forbidden");
+            const err = Error("Not Authorized");
             err.status = 401;
-            err.message = "Forbidden";
+            err.message = "Not Authorized";
             return next(err)
         }else{
             //if belongs to user then update
@@ -187,9 +187,9 @@ router.delete('/:suggestionId',requireAuth,async (req,res,next) => {
         //confirm user wrote suggestion
         //if not throw error
         if(sugg.user_id !== user){
-            const err = Error("Forbidden");
+            const err = Error("Not Authorized");
             err.status = 401;
-            err.message = "Forbidden";
+            err.message = "Not Authorized";
             return next(err)
         }else{
             //if belongs to user then update

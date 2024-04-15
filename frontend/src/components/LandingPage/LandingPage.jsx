@@ -4,22 +4,28 @@ import { getAllProducts } from "../../store/products";
 import { useSelector } from "react-redux";
 import {useNavigate} from "react-router-dom"
 import "./Landing.css";
+import { createCart, getCurrCart } from "../../store/cart";
 
 export default function LandingPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const products = useSelector((state) => state.products?.products);
 const navigate= useNavigate()
-
+const cart = useSelector(state => state.cart?.cart)
 
 useEffect(() => {
-    dispatch(getAllProducts()).then(() => {setIsLoading(false)})
+    dispatch(getAllProducts())
+    .then(() => {setIsLoading(false)})
     .catch(async (res) =>{
       const data = await res.json();
       console.log(data)
       // console.log(data,'this is the error in landing')
     })
-  }, [dispatch]);
+    dispatch(getCurrCart())
+    if(!cart){
+      dispatch(createCart())
+    }
+  }, [dispatch,cart?.id]);
 
 
   if (!isLoading) {

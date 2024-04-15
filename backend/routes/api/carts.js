@@ -74,7 +74,7 @@ const currprod ={
   });
 });
 
-//&------------add a cart Item--------------------------------
+//&------------add a cart--------------------------------
 
 router.post("", requireAuth, async (req, res, next) => {
   // get user id
@@ -127,10 +127,19 @@ router.post("/:cartId/items", requireAuth, async (req, res, next) => {
 
   //throw error if it is in cart
   if (item) {
-    const err = Error("Item already in cart");
-    err.status = 400;
-    err.message = "Item already in cart";
-    return next(err);
+    const newQuant = item.quantity + 1
+
+    await item.update({quantity: newQuant},{
+      where: {
+        cart_id: cart,
+        item_id: item_id
+      }
+    })
+return res.json(item)
+    // const err = Error("Item already in cart");
+    // err.status = 400;
+    // err.message = "Item already in cart";
+    // return next(err);
   } else {
     //if not in cart already create cartitem with req.body
     const newItem = await CartItem.create({
@@ -200,9 +209,9 @@ router.delete("/:cartId/items/:itemId", requireAuth, async (req, res, next) => {
     //check user is owner of cart
     if (cart.user_id !== userId) {
       //if not throw error
-      const err = Error("Forbidden");
+      const err = Error("Not Authorized");
       err.status = 401;
-      err.message = "Forbidden";
+      err.message = "Not Authorized";
       return next(err);
     } else {
       //search for item
@@ -248,9 +257,9 @@ router.delete("/:cartId", requireAuth, async (req, res, next) => {
     //if cart then check that user owns cart
   } else if (cart.user_id !== user) {
     //if not throw error
-    const err = Error("Forbidden");
+    const err = Error("Not Authorized");
     err.status = 401;
-    err.message = "Forbidden";
+    err.message = "Not Authorized";
     return next(err);
   } else {
     //if user owns delete cart

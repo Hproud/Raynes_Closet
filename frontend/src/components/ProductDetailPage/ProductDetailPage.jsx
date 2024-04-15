@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 // import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
 import { useNavigate } from "react-router-dom";
-import { addItem } from "../../store/cart";
+import { addItem} from "../../store/cart";
 
 export default function ProductDetailPage() {
     const  {itemId } = useParams()
@@ -23,10 +23,18 @@ const reviews = useSelector((state) => state.products?.reviews)
 const master = useSelector((state)=> state.session?.user?.isMaster)
 const admin = useSelector((state)=> state.session?.user?.isAdmin)
 const cartId = useSelector((state) => state.cart?.cart?.cart_id)
-
+// const cart = useSelector((state)=> state.cart?.cart)
 const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
 }
+
+
+// useEffect(()=>{
+//     if(!cart){
+//         dispatch(createCart()).then(()=> dispatch(getCurrCart()))
+//     }
+// },[dispatch])
+
 
 
 const deleteProd = () =>{
@@ -44,7 +52,7 @@ const addtoCart = () =>{
     }
     dispatch(addItem(cartId,item)).catch(async (res)=>{
         const error = await res.json()
-        console.log(error)
+        console.log(error,'hit in product detail ')
     })
 }
 console.log(cartId,'this is cartid')

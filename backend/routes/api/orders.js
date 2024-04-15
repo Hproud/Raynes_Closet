@@ -1,5 +1,5 @@
 express = require("express");
-const { Order, User, CartItem, Product } = require("../../db/models");
+const { Order, User, CartItem, Product,Cart } = require("../../db/models");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 
@@ -105,9 +105,9 @@ router.get("", requireAuth, async (req, res, next) => {
     //return structured array you created
     return res.json(fullOrder);
   } else {
-    const err = Error("Forbidden");
+    const err = Error("Not Authorized");
     err.status = 401;
-    err.message = "Forbidden";
+    err.message = "Not Authorized";
     return next(err);
   }
 });
@@ -144,11 +144,67 @@ router.put("/:orderId", requireAuth, async (req, res, next) => {
     return res.json(order);
   } else {
     //if not admin throw error
-    const err = Error("Forbidden");
+    const err = Error("Not Authorized");
     err.status = 401;
-    err.message = "Forbidden";
+    err.message = "Not Authorized";
     return next(err);
   }
 });
+
+
+
+
+//&-----------------Create Order----------------------------------------
+router.post('',requireAuth,async (req,res,next) => {
+  const {cart_id,total} = req.body;
+  const userId = req.user.id
+
+
+//just checkout if the cart exists
+const theCart = await Cart.findByPk(cart_id);
+if(!theCart){
+  const err = Error('Cart Does Not Exist')
+  err.status = 404
+err.message = 'Cart Does Not Exist'
+next(err)
+}
+
+
+  //search to make sure the order does not already exist
+const prevOrder = await Order.findOne({
+  where:{
+    cart_id: cart_id,
+  }
+})
+
+  //if exists throw error
+if(prevOrder){
+  const err = Error('Order Already Exists')
+  err.status = 400
+err.message = 'Order Already Exists'
+next(err)
+}
+  // if not exists create new order with cart info
+if(!prevOrder){
+  const newOrder = await Order.create({
+    user_id: userId,
+    cart_id: cart_id,
+    total: total
+  })
+
+  await theCart.update({purchased: true},{
+    where:{
+      id: cart_id
+    }
+  })
+  return res.json(newOrder)
+}
+
+
+return
+
+})
+
+
 
 module.exports = router;

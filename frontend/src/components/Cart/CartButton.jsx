@@ -3,7 +3,7 @@ import { FaShoppingCart} from 'react-icons/fa'
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Cart from "./Cart";
-import { getCurrCart } from "../../store/cart";
+import { createCart, getCurrCart } from "../../store/cart";
 import { useNavigate } from "react-router-dom";
 
 export default function CartButton() {
@@ -11,7 +11,8 @@ export default function CartButton() {
   const dispatch = useDispatch()
 	const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const user = useSelector(state => state.session?.user)
+  // const user = useSelector(state => state.session?.user)
+const product = useSelector((state) => state.products?.product)
 const cart = useSelector((state) => state.cart?.cart)
 const allCartItems = useSelector(state => state.cart?.cartItems)
 // const products = useSelector(state => state.products?.products)
@@ -23,7 +24,7 @@ if(allCartItems){
     subtotal += (item.prodInfo.price * item.quantity)
   })
 }
-console.log(subtotal,'this is the subtotal')
+// console.log(subtotal,'this is the subtotal')
 
 // console.log(totalItems,'------------------')
 
@@ -38,7 +39,9 @@ dispatch(getCurrCart()).catch(async(res) =>{
   const error = await res.json()
   console.log(error,'this is an error')
 })
-
+if(!cart){
+  dispatch(createCart)
+}
 },[dispatch,allCartItems?.length])
 
 
@@ -78,8 +81,16 @@ return(
     <button onClick={toggleMenu}><FaShoppingCart/> Cart · {totalItems}</button>
     {showMenu && (
       <div className={ulClassName} hidden={!showMenu} ref={ulRef}>
-        <Cart cart={cart} cartItems={allCartItems} user={user} subtotal={subtotal}/>
-        <button onClick={checkout}>Checkout</button> {" "}<button onClick={addItems}>Add More Items</button>
+        <Cart cart={cart} cartItems={allCartItems}  subtotal={subtotal} product={product}/>
+        {allCartItems && (
+<div>
+
+          <button onClick={checkout}>Checkout</button> {" "}<button onClick={addItems}>Add More Items</button>
+</div>
+        )}
+        {!allCartItems && cart && (
+          <button onClick={addItems}>Add Prouducts</button>
+        )}
         </div>
     )}
   </div>

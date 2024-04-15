@@ -47,8 +47,48 @@ export const addItem=(cartId,item)=>async (dispatch)=>{
     }
 }
 
+export const createCart = () => async (dispatch)=>{
+    const cart = await csrfFetch('/api/cart',{
+        method: 'POST'
+    })
+
+    if(cart.ok){
+        const newCart = await cart.json()
+        dispatch(getCurrCart())
+        return newCart
+    }
+}
+
+export const updateCartItem = (cartId,itemId,quant) => async (dispatch) =>{
+    console.log(cartId,'cartid in update func')
+    console.log(itemId,'itemid in update func')
+    console.log(quant,'quant in update func')
+const res = await csrfFetch(`/api/cart/${cartId}/items/${itemId}`,{
+    method: 'PUT',
+    body: JSON.stringify(quant)
+})
+
+if(res.ok){
+    await res.json();
+    console.log('hit')
+dispatch(getCurrCart())
+}else{
+    console.log('hit2')
+    const data = await res.json()
+    return data
+}
+}
 
 
+export const removeItem = (cartId,itemId) => async (dispatch) =>{
+    const remove = await csrfFetch(`/api/cart/${cartId}/items/${itemId}`,{
+        method: 'DELETE'
+    })
+
+    if (remove.ok){
+        dispatch(getCurrCart())
+    }
+}
 
 //TODO-------------------------------REDUCER--------------------------------------
 

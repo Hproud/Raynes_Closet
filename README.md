@@ -38,7 +38,7 @@ correct role(s) or permission(s).
 
     ```json
     {
-      "message": "Forbidden"
+      "message": "Not Authorized"
     }
     ```
 
