@@ -22,13 +22,7 @@ export const getCurrCart = () => async (dispatch) =>{
     if (res.ok){
         const cart = await res.json()
         dispatch(getCart(cart))
-        console.log(cart.items,'+++++++++++++++++')
-        // if(cart.items){
-        //    const items = cart.items
-        //   items.map((item)=>{
 
-        //     })
-        // }
         dispatch(allItems(cart.items))
     }else{
         const data = res.json()
@@ -36,6 +30,22 @@ export const getCurrCart = () => async (dispatch) =>{
     }
 }
 
+
+export const addItem=(cartId,item)=>async (dispatch)=>{
+    const newItem = await csrfFetch(`/api/cart/${cartId}/items`,{
+        method: 'POST',
+        body: JSON.stringify(item)
+    })
+
+    if (newItem.ok){
+        const item = await newItem.json()
+        dispatch(getCurrCart())
+        // return item
+    }else{
+        const data = await newItem.json()
+        return data
+    }
+}
 
 
 

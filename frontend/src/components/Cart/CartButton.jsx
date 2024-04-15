@@ -16,13 +16,14 @@ const cart = useSelector((state) => state.cart?.cart)
 const allCartItems = useSelector(state => state.cart?.cartItems)
 // const products = useSelector(state => state.products?.products)
 let totalItems = 0
-
+let subtotal = 0
 if(allCartItems){
   allCartItems.map((item)=>{
     totalItems += item.quantity
+    subtotal += (item.prodInfo.price * item.quantity)
   })
 }
-
+console.log(subtotal,'this is the subtotal')
 
 // console.log(totalItems,'------------------')
 
@@ -77,7 +78,7 @@ return(
     <button onClick={toggleMenu}><FaShoppingCart/> Cart · {totalItems}</button>
     {showMenu && (
       <div className={ulClassName} hidden={!showMenu} ref={ulRef}>
-        <Cart cart={cart} cartItems={allCartItems} user={user}/>
+        <Cart cart={cart} cartItems={allCartItems} user={user} subtotal={subtotal}/>
         <button onClick={checkout}>Checkout</button> {" "}<button onClick={addItems}>Add More Items</button>
         </div>
     )}

@@ -1,7 +1,7 @@
 // import { useNavigate } from "react-router-dom"
 
 
-export default function Cart({cartItems}) {
+export default function Cart({cartItems,subtotal}) {
 // const navigate = useNavigate();
 
 
@@ -24,7 +24,10 @@ export default function Cart({cartItems}) {
 </li>
 ))}
 </ul>
-
+<div>
+<h3>Subtotal: </h3>
+<p>$ {subtotal.toFixed(2)}</p>
+</div>
     </div>
   )
 }

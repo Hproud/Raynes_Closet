@@ -1,3 +1,4 @@
+import { imageListClasses } from "@mui/material"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
@@ -18,9 +19,20 @@ const [address, setaddress] = useState(user.address)
 const [city, setCity] = useState(user.city)
 const [state, setState] = useState(user.state)
 const [zipCode, setZipCode] = useState(user.zipcode)
-  return (
+console.log(allCartItems,'+++++++++++++++++++++++++++++++++')
+
+return (
     <div>
       <h1>Checkout</h1>
+      <h4>Order Summary: </h4>
+      {allCartItems && allCartItems.map((item)=>(
+        <div>
+          <img src={item.prodInfo.Images[0].url} style={{height:'80px',width:'80px'}} />
+          <p>Quantity: {item.quantity}</p>
+          <p>{item.prodInfo.name}</p>
+          <p>$ {(item.prodInfo.price * item.quantity).toFixed(2)}</p>
+          </div>
+      ))}
       <form>
         <label>First Name: </label>
         <br/>

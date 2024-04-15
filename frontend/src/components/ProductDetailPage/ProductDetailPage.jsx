@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 // import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
 import { useNavigate } from "react-router-dom";
+import { addItem } from "../../store/cart";
 
 export default function ProductDetailPage() {
     const  {itemId } = useParams()
@@ -21,7 +22,7 @@ const url = product?.images
 const reviews = useSelector((state) => state.products?.reviews)
 const master = useSelector((state)=> state.session?.user?.isMaster)
 const admin = useSelector((state)=> state.session?.user?.isAdmin)
-
+const cartId = useSelector((state) => state.cart?.cart?.cart_id)
 
 const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
@@ -34,8 +35,19 @@ dispatch(deleteProduct(product.id))
 return navigate('/')
 }
 
-
-
+const addtoCart = () =>{
+    const item ={
+        item_id: product.id,
+        size: product.size,
+        price: product.price,
+        quantity: 1
+    }
+    dispatch(addItem(cartId,item)).catch(async (res)=>{
+        const error = await res.json()
+        console.log(error)
+    })
+}
+console.log(cartId,'this is cartid')
 if(!isLoading){
 
     return (
@@ -52,7 +64,7 @@ if(!isLoading){
 
                 </div>
                 {!admin && !master && (
-                    <button>Add to Cart</button>
+                    <button onClick={addtoCart}>Add to Cart</button>
                 )}
                 {admin || master && (
                     <div>
