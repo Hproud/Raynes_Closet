@@ -38,7 +38,7 @@ export const addItem=(cartId,item)=>async (dispatch)=>{
     })
 
     if (newItem.ok){
-        const item = await newItem.json()
+        // const item = await newItem.json()
         dispatch(getCurrCart())
         // return item
     }else{
