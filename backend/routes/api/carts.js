@@ -62,6 +62,7 @@ router.get("", requireAuth, async (req, res, next) => {
       ],
     });
 const currprod ={
+  id: item.id,
   prodInfo,
   quantity: item.quantity
 }
