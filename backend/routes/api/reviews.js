@@ -34,9 +34,9 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
   } else {
 
       if (review.user_id !== user) {
-        const err = Error("Forbidden");
+        const err = Error("Not Authorized");
         err.status = 401;
-        err.message = "Forbidden";
+        err.message = "Not Authorized";
         return next(err);
       } else {
         //if review does exist then add the new image with body info
@@ -96,9 +96,9 @@ router.delete(
       if (image) {
         // check that user is author
         if (user !== review.user_id) {
-          const err = Error("Forbidden");
+          const err = Error("Not Authorized");
           err.status = 401;
-          err.message = "Forbidden";
+          err.message = "Not Authorized";
           return next(err);
         } else {
           //delete photo
@@ -171,9 +171,9 @@ router.delete("/:reviewId", requireAuth, async (req, res, next) => {
   if (review) {
     //if found check that user is author
     if (review.user_id !== user) {
-      const err = Error("Forbidden");
+      const err = Error("Not Authorized");
       err.status = 401;
-      err.message = "Forbidden";
+      err.message = "Not Authorized";
       return next(err);
     } else {
       await review.destroy();

@@ -5,7 +5,7 @@ const express = require("express");
 
 const router = express.Router();
 
-//&------------------------GET ALL CARTS---------------------------------------------------------------------------
+//&------------------------GET CURRENT CART---------------------------------------------------------------------------
 router.get("", requireAuth, async (req, res, next) => {
 
   let cart = await Cart.findOne({
@@ -14,10 +14,13 @@ router.get("", requireAuth, async (req, res, next) => {
       purchased: false,
     },
   });
-  if(!cart.length){
+
+
+  if(!cart){
     const err = Error("Cart Not Found")
     err.status = 404;
     err.message = "Cart Not Found"
+    return next(err)
   }
   const newcart = cart.dataValues;
   const items = await CartItem.findAll({
@@ -39,6 +42,7 @@ router.get("", requireAuth, async (req, res, next) => {
     ],
   });
   const prods = [];
+
   for (let i = 0; i < items.length; i++) {
     const p = items[i];
     const item = p.dataValues;
@@ -57,8 +61,12 @@ router.get("", requireAuth, async (req, res, next) => {
         },
       ],
     });
-
-    prods.push(prodInfo);
+const currprod ={
+  id: item.id,
+  prodInfo,
+  quantity: item.quantity
+}
+    prods.push(currprod);
   }
 
   return res.json({
@@ -67,7 +75,7 @@ router.get("", requireAuth, async (req, res, next) => {
   });
 });
 
-//&------------add a cart Item--------------------------------
+//&------------add a cart--------------------------------
 
 router.post("", requireAuth, async (req, res, next) => {
   // get user id
@@ -120,10 +128,19 @@ router.post("/:cartId/items", requireAuth, async (req, res, next) => {
 
   //throw error if it is in cart
   if (item) {
-    const err = Error("Item already in cart");
-    err.status = 400;
-    err.message = "Item already in cart";
-    return next(err);
+    const newQuant = item.quantity + 1
+
+    await item.update({quantity: newQuant},{
+      where: {
+        cart_id: cart,
+        item_id: item_id
+      }
+    })
+return res.json(item)
+    // const err = Error("Item already in cart");
+    // err.status = 400;
+    // err.message = "Item already in cart";
+    // return next(err);
   } else {
     //if not in cart already create cartitem with req.body
     const newItem = await CartItem.create({
@@ -193,9 +210,9 @@ router.delete("/:cartId/items/:itemId", requireAuth, async (req, res, next) => {
     //check user is owner of cart
     if (cart.user_id !== userId) {
       //if not throw error
-      const err = Error("Forbidden");
+      const err = Error("Not Authorized");
       err.status = 401;
-      err.message = "Forbidden";
+      err.message = "Not Authorized";
       return next(err);
     } else {
       //search for item
@@ -241,9 +258,9 @@ router.delete("/:cartId", requireAuth, async (req, res, next) => {
     //if cart then check that user owns cart
   } else if (cart.user_id !== user) {
     //if not throw error
-    const err = Error("Forbidden");
+    const err = Error("Not Authorized");
     err.status = 401;
-    err.message = "Forbidden";
+    err.message = "Not Authorized";
     return next(err);
   } else {
     //if user owns delete cart

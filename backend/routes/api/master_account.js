@@ -12,9 +12,9 @@ router.put('',requireAuth, async (req,res,next)=>{
     const master = req.user.master
     //if not throw auth err
     if(!master){
-        const err = Error("Forbidden");
+        const err = Error("Not Authorized");
         err.status = 401;
-        err.message = "Forbidden";
+        err.message = "Not Authorized";
         return next(err)
     }else{
         //if is master find person by given info
@@ -46,9 +46,9 @@ router.delete('',requireAuth, async (req,res,next)=>{
     const master = req.user.master
     //if not throw auth err
     if(!master){
-        const err = Error("Forbidden");
+        const err = Error("Not Authorized");
         err.status = 401;
-        err.message = "Forbidden";
+        err.message = "Not Authorized";
         return next(err)
     }else{
         //if is master find person by given info

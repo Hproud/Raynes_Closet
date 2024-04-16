@@ -452,9 +452,9 @@ router.delete(
         if (image) {
           //check that user is admin
           if (!admin) {
-            const err = Error("Forbidden");
+            const err = Error("Not Authorized");
             err.status = 401;
-            err.message = "Forbidden";
+            err.message = "Not Authorized";
             return next(err);
           } else {
             //delete photo
@@ -465,9 +465,9 @@ router.delete(
         }
       }
     } else {
-      const err = Error("Forbidden");
+      const err = Error("Not Authorized");
       err.status = 401;
-      err.message = "Forbidden";
+      err.message = "Not Authorized";
       return next(err);
     }
   }

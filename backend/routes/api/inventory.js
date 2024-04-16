@@ -48,9 +48,9 @@ router.get('', requireAuth, async (req,res,next) => {
         //return array made with structured data
         return res.json(inventory)
     }else{
-        const err= Error("Forbidden")
+        const err= Error("Not Authorized")
         err.status = 401;
-        err.message = "Forbidden"
+        err.message = "Not Authorized"
         return next(err)
     }
 
@@ -95,9 +95,9 @@ router.get('/:itemId',requireAuth, async (req,res,next) => {
             //return inventory for that item
             return  res.json(inventoried)
         }
-        }else{ const err= Error("Forbidden")
+        }else{ const err= Error("Not Authorized")
         err.status = 401;
-        err.message = "Forbidden"
+        err.message = "Not Authorized"
     return next(err)}
     })
 
@@ -124,9 +124,9 @@ if(!item){
 
 //if not admin throw error
 if(!admin){
-    const err = Error("Forbidden");
+    const err = Error("Not Authorized");
     err.status = 401;
-    err.message= "Forbidden"
+    err.message= "Not Authorized"
     return next(err)
 }
     //update quantity of item

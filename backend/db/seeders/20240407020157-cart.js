@@ -60,7 +60,7 @@ await Cart.bulkCreate([
   purchased: true
    },
 {
-  user_id: 1,
+  user_id: 2,
   subtotal: 36.00,
   total: 39.24,
   purchased: false
