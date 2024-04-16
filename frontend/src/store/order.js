@@ -32,6 +32,7 @@ export const placeOrder = (info) => async (dispatch) =>{
         const order = await place.json()
         dispatch(newOrder(order))
         dispatch(clearCart())
+        // dispatch(getCurrCart())
         return order
     }else{
         const data = place.json()
