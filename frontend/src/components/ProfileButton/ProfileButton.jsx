@@ -57,11 +57,11 @@ export default function ProfileButton() {
           </li>
           <li>{user.email}</li>
           {user && !isMaster && !admin && (
-            <Link>My Orders</Link>
+            <Link to={'/orders'}>My Orders</Link>
           )}
           {isMaster && (
-            <>
-            <Link>Orders</Link>
+            <div>
+            <Link to='/orders'>Orders</Link>
             <br/>
               {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
               <Link to={'/products/add'}>Add A Product</Link>
@@ -69,11 +69,11 @@ export default function ProfileButton() {
               <Link>View Inventory</Link>
               <br />
               <Link>Add Admin</Link>
-            </>
+            </div>
           )}
           {!isMaster && admin && (
             <div>
-              <Link>Orders</Link>
+              <Link to={'/orders'}>Orders</Link>
             <br/>
               {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
               <Link to={'/products/add'}>Add A Product</Link>

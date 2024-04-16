@@ -3,8 +3,7 @@ import {  clearCart} from "./cart";
 //?---------------------VARIABLES-----------------------------------------------
 const CREATE_ORDER = 'orders/createOrder'
 const ALL_ORDERS = 'orders/allOrders'
-
-
+const CLEAR_ORDERS='orders/clear'
 
 //&---------------------------------------ACTIONS------------------------------
 
@@ -13,12 +12,14 @@ const newOrder = (order) =>({
     order
 })
 
-// const allOrders = (orders) => ({
-//     type: ALL_ORDERS,
-//     orders
-// })
+const allOrders = (orders) => ({
+    type: ALL_ORDERS,
+    orders
+})
 
-
+export const clearAllOrders = () =>({
+    type: CLEAR_ORDERS
+})
 //!------------------------------------THUNKS-----------------------------------
 
 export const placeOrder = (info) => async (dispatch) =>{
@@ -41,6 +42,23 @@ export const placeOrder = (info) => async (dispatch) =>{
 }
 
 
+export const getAllOrders = async (dispatch) => {
+    const orders = await csrfFetch('/api/orders');
+
+    if (orders.ok){
+        const allCustOrders = await orders.json()
+        dispatch(allOrders(allCustOrders))
+    }
+}
+
+export const myOrders = async (dispatch) => {
+const orders = await csrfFetch('/api/orders/current')
+if(orders.ok){
+    const theOrders = await orders.json()
+    dispatch(allOrders(theOrders))
+}
+}
+
 //^----------------------------------REDUCER------------------------------------
 const orderReducer = (state={},action) => {
     switch(action.type){
@@ -50,6 +68,8 @@ const orderReducer = (state={},action) => {
         case ALL_ORDERS:
             return {...state, orders: action.orders}
 
+        case CLEAR_ORDERS:
+            return {}
         default: return state
     }
 }

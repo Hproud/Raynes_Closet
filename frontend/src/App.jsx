@@ -8,6 +8,7 @@ import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage'
 import AddInventory from './components/Inventory/AddInventory'
 import EditProduct from './components/Inventory/EditProduct';
 import Checkout from './components/Cart/Checkout';
+import OrdersPage from './components/OrderPage/OrdersPage';
 
 
 function Layout() {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/checkout',
         element: <Checkout />
+      },
+      {
+        path:'/orders',
+        element: <OrdersPage />
       }
     ]
   }
