@@ -1,5 +1,5 @@
-// import { csrfFetch } from "./csrf";
-
+import { csrfFetch } from "./csrf";
+import { getCurrCart } from "./cart";
 //?---------------------VARIABLES-----------------------------------------------
 const CREATE_ORDER = 'orders/createOrder'
 const ALL_ORDERS = 'orders/allOrders'
@@ -21,7 +21,23 @@ const allOrders = (orders) => ({
 
 //!------------------------------------THUNKS-----------------------------------
 
+export const placeOrder = (info) => async (dispatch) =>{
+    console.log(info,'info in thunk')
+    const place = await csrfFetch(`/api/orders`,{
+        method: 'POST',
+        body: JSON.stringify(info)
+    });
 
+    if(place.ok){
+        const order = await place.json()
+        dispatch(newOrder(order))
+        dispatch(getCurrCart())
+        return order
+    }else{
+        const data = place.json()
+        return data
+    }
+}
 
 
 //^----------------------------------REDUCER------------------------------------

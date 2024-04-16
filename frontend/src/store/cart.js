@@ -60,9 +60,9 @@ export const createCart = () => async (dispatch)=>{
 }
 
 export const updateCartItem = (cartId,itemId,quant) => async (dispatch) =>{
-    console.log(cartId,'cartid in update func')
-    console.log(itemId,'itemid in update func')
-    console.log(quant,'quant in update func')
+    // console.log(cartId,'cartid in update func')
+    // console.log(itemId,'itemid in update func')
+    // console.log(quant,'quant in update func')
 const res = await csrfFetch(`/api/cart/${cartId}/items/${itemId}`,{
     method: 'PUT',
     body: JSON.stringify(quant)
