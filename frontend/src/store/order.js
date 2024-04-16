@@ -13,10 +13,10 @@ const newOrder = (order) =>({
     order
 })
 
-const allOrders = (orders) => ({
-    type: ALL_ORDERS,
-    orders
-})
+// const allOrders = (orders) => ({
+//     type: ALL_ORDERS,
+//     orders
+// })
 
 
 //!------------------------------------THUNKS-----------------------------------
