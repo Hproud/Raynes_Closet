@@ -3,7 +3,7 @@ import { csrfFetch } from "./csrf";
 //?------------------------------Variables--------------------------------------
 const GET_CART = 'cart/items'
 const GET_ALL_ITEMS = 'cart/getAllItems'
-
+const CLEAR_CART_STATE ='cart/clearCartState'
 //& ------------------------------ACTIONS---------------------------------------
 const getCart = (cart) =>({
     type: GET_CART,
@@ -13,6 +13,11 @@ const getCart = (cart) =>({
 const allItems = (items) =>({
     type: GET_ALL_ITEMS,
     items
+})
+
+
+export const clearCart = () => ({
+    type: CLEAR_CART_STATE
 })
 
 //! -------------------------------THUNKS----------------------------------------
@@ -101,6 +106,9 @@ const cartReducer = (state={}, action) =>{
                 return {...state, cart : action.cart}
         case GET_ALL_ITEMS:
             return {...state, cartItems: action.items}
+
+        case CLEAR_CART_STATE:
+            return {}
     default: return state
     }
 

@@ -1,5 +1,5 @@
 import { csrfFetch } from "./csrf";
-import { getCurrCart } from "./cart";
+import {  clearCart} from "./cart";
 //?---------------------VARIABLES-----------------------------------------------
 const CREATE_ORDER = 'orders/createOrder'
 const ALL_ORDERS = 'orders/allOrders'
@@ -31,7 +31,7 @@ export const placeOrder = (info) => async (dispatch) =>{
     if(place.ok){
         const order = await place.json()
         dispatch(newOrder(order))
-        dispatch(getCurrCart())
+        dispatch(clearCart())
         return order
     }else{
         const data = place.json()
