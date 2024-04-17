@@ -21,10 +21,12 @@ useEffect(() => {
       console.log(data)
       // console.log(data,'this is the error in landing')
     })
-    dispatch(getCurrCart())
-    if(!cart){
-      dispatch(createCart())
-    }
+    dispatch(getCurrCart()).catch(()=>{
+
+      if(!cart){
+        dispatch(createCart())
+      }
+    })
   }, [dispatch,cart?.id]);
 
 
