@@ -17,10 +17,10 @@ router.get("", requireAuth, async (req, res, next) => {
 
 
   if(!cart){
-    const err = Error("Cart Not Found")
-    err.status = 404;
-    err.message = "Cart Not Found"
-    return next(err)
+    const newCart = await Cart.create({
+      user_id: req.user.id,
+    });
+    return res.json(newCart)
   }
   const newcart = cart.dataValues;
   const items = await CartItem.findAll({

@@ -30,8 +30,7 @@ export const getCurrCart = () => async (dispatch) =>{
 
         dispatch(allItems(cart.items))
     }else{
-        const data = res.json()
-        return data
+        dispatch(createCart())
     }
 }
 
