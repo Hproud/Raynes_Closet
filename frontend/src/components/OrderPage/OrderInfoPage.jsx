@@ -35,7 +35,7 @@ export default function OrderInfoPage() {
       <div>
         <h3>Customer: </h3>{" "}
         <p>
-          {/* {order?.user?.firstName} {order?.user?.lastName} */}
+          {order?.user?.firstName} {order?.user?.lastName}
         </p>
       </div>
       <div>
@@ -47,7 +47,7 @@ export default function OrderInfoPage() {
         <p>$ {tax.toFixed(2)}</p>
       </div>
       <div>
-        {/* <h3>Order Total:</h3> <p>$ {order.total.toFixed(2)}</p> */}
+        <h3>Order Total:</h3> <p>$ {order.total.toFixed(2)}</p>
       </div>
       <div>
         <h3>Order Status:</h3>

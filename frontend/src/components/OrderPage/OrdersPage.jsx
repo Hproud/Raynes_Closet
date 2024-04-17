@@ -42,7 +42,7 @@ return (
                 <h4>Total: </h4><p style={{position:'relative',left:'20px',top:'4px'}}>$ {(order.total).toFixed(2)}</p>
             </div>
             <div style={{display:'flex',height:'30px'}}>
-                <h4>Order Status: </h4><p style={{position:'relative',left:'20px',top:'6px'}}>{order.status}{" "}{admin || master && (<button style={{position:'relative', left:'10px'}} disabled={order.status === 'Refunded' || order.status === 'Canceled'} onClick={()=> navigate(`/orders/${order.id}/edit`)}>Update</button>)}</p>
+                <h4>Order Status: </h4><p style={{position:'relative',left:'20px',top:'6px'}}>{order.status}{" "}{(admin || master) && (<button style={{position:'relative', left:'10px'}} disabled={order.status === 'Refunded' || order.status === 'Canceled'} onClick={()=> navigate(`/orders/${order.id}/edit`)}>Update</button>)}</p>
             </div>
             <div style={{display:'flex',height:'30px'}}>
                 <h4>Ordered At: </h4><p style={{position:'relative',left:'20px',top:'6px'}}>{(order.createdAt).slice(0,10)}</p>
