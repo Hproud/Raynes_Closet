@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getAllOrders, myOrders } from "../../store/order"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function OrdersPage() {
     const dispatch = useDispatch()
@@ -9,7 +9,7 @@ export default function OrdersPage() {
 const admin = user.isAdmin
 const master = user.isMaster
 const orders = useSelector(state => state.order?.orders)
-
+const navigate = useNavigate()
 
 useEffect(()=>{
 if(admin || master){
@@ -42,7 +42,7 @@ return (
                 <h4>Total: </h4><p style={{position:'relative',left:'20px',top:'4px'}}>$ {(order.total).toFixed(2)}</p>
             </div>
             <div style={{display:'flex',height:'30px'}}>
-                <h4>Order Status: </h4><p style={{position:'relative',left:'20px',top:'6px'}}>{order.status}{" "}{admin || master && (<button style={{position:'relative', left:'10px'}} disabled={order.status === 'Refunded' || order.status === 'Canceled'}>Update</button>)}</p>
+                <h4>Order Status: </h4><p style={{position:'relative',left:'20px',top:'6px'}}>{order.status}{" "}{admin || master && (<button style={{position:'relative', left:'10px'}} disabled={order.status === 'Refunded' || order.status === 'Canceled'} onClick={()=> navigate(`/orders/${order.id}/edit`)}>Update</button>)}</p>
             </div>
             <div style={{display:'flex',height:'30px'}}>
                 <h4>Ordered At: </h4><p style={{position:'relative',left:'20px',top:'6px'}}>{(order.createdAt).slice(0,10)}</p>

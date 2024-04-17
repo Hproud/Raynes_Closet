@@ -28,11 +28,14 @@ export default function OrderInfoPage() {
   return (
     <div>
         <Link to={'/orders'}>Back</Link>
-      <h1>Order No. # {orderId}</h1>
+        {order && (
+<div>
+
+            <h1>Order No. # {orderId}</h1>
       <div>
         <h3>Customer: </h3>{" "}
         <p>
-          {order?.user?.firstName} {order?.user?.lastName}
+          {/* {order?.user?.firstName} {order?.user?.lastName} */}
         </p>
       </div>
       <div>
@@ -44,7 +47,7 @@ export default function OrderInfoPage() {
         <p>$ {tax.toFixed(2)}</p>
       </div>
       <div>
-        <h3>Order Total:</h3> <p>$ {order.total.toFixed(2)}</p>
+        {/* <h3>Order Total:</h3> <p>$ {order.total.toFixed(2)}</p> */}
       </div>
       <div>
         <h3>Order Status:</h3>
@@ -56,9 +59,9 @@ export default function OrderInfoPage() {
       </div>
       <div>
         <ul>
-          {order &&
+          {order.cart &&
             order.cart.map((item) => (
-              <li key={item.id}>
+                <li key={item.id}>
                 <h5>{item.Product.name}</h5>
                 <p>{item.Product.size}</p>
                 <p>{item.quantity}</p>
@@ -68,6 +71,7 @@ export default function OrderInfoPage() {
         </ul>
       </div>
       <div></div>
+            </div>   )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import EditProduct from './components/Inventory/EditProduct';
 import Checkout from './components/Cart/Checkout';
 import OrdersPage from './components/OrderPage/OrdersPage';
 import OrderInfoPage from './components/OrderPage/OrderInfoPage';
+import UpdateStatus from './components/OrderPage/UpdateStatus';
 
 
 function Layout() {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/orders/:orderId',
         element: <OrderInfoPage />
+      },
+      {
+        path:'/orders/:orderId/edit',
+        element: <UpdateStatus />
       }
     ]
   }

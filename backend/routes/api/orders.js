@@ -123,9 +123,7 @@ router.put("/:orderId", requireAuth, async (req, res, next) => {
   // check that user is an admin
   if (admin || master) {
     //search for Order
-    const order = await Order.findByPk(id,{
-      attributes: ['total','status','createdAt','updatedAt']
-    });
+    const order = await Order.findByPk(id);
     //if no order return error
     if (!order) {
       const err = Error("No Order Found");

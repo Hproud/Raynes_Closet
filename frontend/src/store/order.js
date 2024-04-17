@@ -80,7 +80,22 @@ console.log(id,'this is the id in the thunk')
     }
 }
 
+export const editStatus = (id,status)=> async (dispatch) =>{
+    const edited = await csrfFetch(`/api/orders/${id}`,{
+        method: 'PUT',
+        body: JSON.stringify({status: status})
+    })
 
+    if(edited.ok){
+        const newStatus = await edited.json()
+        dispatch(getTheDetails(newStatus))
+        return newStatus
+    }else{
+        const data = await edited.json()
+        console.log(data,'this is our error in my edit thunk')
+        return data
+    }
+}
 
 
 //^----------------------------------REDUCER------------------------------------
