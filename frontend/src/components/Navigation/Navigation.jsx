@@ -16,7 +16,7 @@ const master = useSelector(state => state.session?.user?.isMaster)
   return (
 
       <div className="navcom">
-        <img className='logo' src="public/raynes_closet_logo.png" onClick={()=> navigate('/')}></img>
+        <img className='logo' src="https://res.cloudinary.com/dxbirmmv1/image/upload/v1713331614/raynes_closet_logo_jciz11.png" onClick={()=> navigate('/')}></img>
       <h1>Raynes Closet</h1>
     {isLoaded && (
     <ul>
