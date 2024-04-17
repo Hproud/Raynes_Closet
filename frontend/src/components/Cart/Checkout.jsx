@@ -25,7 +25,7 @@ const [city, setCity] = useState(user.city)
 const [state, setState] = useState(user.state)
 const [zipCode, setZipCode] = useState(user.zipcode)
 const [errors,setErrors] = useState({})
-console.log(allCartItems,'+++++++++++++++++++++++++++++++++')
+// console.log(allCartItems,'+++++++++++++++++++++++++++++++++')
 
 let subtotal = 0
 if(allCartItems){

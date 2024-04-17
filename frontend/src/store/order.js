@@ -1,9 +1,10 @@
 import { csrfFetch } from "./csrf";
-import { getCurrCart } from "./cart";
+import {  clearCart} from "./cart";
 //?---------------------VARIABLES-----------------------------------------------
 const CREATE_ORDER = 'orders/createOrder'
 const ALL_ORDERS = 'orders/allOrders'
-
+const CLEAR_ORDERS='orders/clear'
+const ORDER_DETAILS = 'orders/details'
 
 
 //&---------------------------------------ACTIONS------------------------------
@@ -13,12 +14,19 @@ const newOrder = (order) =>({
     order
 })
 
-// const allOrders = (orders) => ({
-//     type: ALL_ORDERS,
-//     orders
-// })
+const allOrders = (orders) => ({
+    type: ALL_ORDERS,
+    orders
+})
 
+export const clearAllOrders = () =>({
+    type: CLEAR_ORDERS
+})
 
+const getTheDetails=(order)=>({
+    type: ORDER_DETAILS,
+    order
+})
 //!------------------------------------THUNKS-----------------------------------
 
 export const placeOrder = (info) => async (dispatch) =>{
@@ -31,10 +39,60 @@ export const placeOrder = (info) => async (dispatch) =>{
     if(place.ok){
         const order = await place.json()
         dispatch(newOrder(order))
-        dispatch(getCurrCart())
+        dispatch(clearCart())
+        // dispatch(getCurrCart())
         return order
     }else{
         const data = place.json()
+        return data
+    }
+}
+
+
+export const getAllOrders = async (dispatch) => {
+    const orders = await csrfFetch('/api/orders');
+
+    if (orders.ok){
+        const allCustOrders = await orders.json()
+        dispatch(allOrders(allCustOrders))
+    }
+}
+
+export const myOrders = async (dispatch) => {
+const orders = await csrfFetch('/api/orders/current')
+if(orders.ok){
+    const theOrders = await orders.json()
+    dispatch(allOrders(theOrders))
+}
+}
+
+
+export const getMyOrder = (id) => async (dispatch) =>{
+    const order = await csrfFetch(`/api/orders/${id}`)
+console.log(id,'this is the id in the thunk')
+    if(order.ok){
+        const details = await order.json()
+        dispatch(getTheDetails(details))
+    }else{
+        const data = order.json()
+        console.log(data,'error in the thunk')
+        return data
+    }
+}
+
+export const editStatus = (id,status)=> async (dispatch) =>{
+    const edited = await csrfFetch(`/api/orders/${id}`,{
+        method: 'PUT',
+        body: JSON.stringify({status: status})
+    })
+
+    if(edited.ok){
+        const newStatus = await edited.json()
+        dispatch(getTheDetails(newStatus))
+        return newStatus
+    }else{
+        const data = await edited.json()
+        console.log(data,'this is our error in my edit thunk')
         return data
     }
 }
@@ -49,6 +107,11 @@ const orderReducer = (state={},action) => {
         case ALL_ORDERS:
             return {...state, orders: action.orders}
 
+        case ORDER_DETAILS:
+            return {...state, order: action.order}
+
+        case CLEAR_ORDERS:
+            return {}
         default: return state
     }
 }

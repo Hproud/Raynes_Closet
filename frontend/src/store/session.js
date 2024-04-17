@@ -1,4 +1,6 @@
 import { csrfFetch } from "./csrf";
+import { clearAllOrders } from "./order";
+
 //?------------------------------Variables--------------------------------------
 
 const SET_USER = "session/setUser";
@@ -45,6 +47,7 @@ if(data.ok){
 
 export const logout = () => async (dispatch) => {
   await csrfFetch("/api/session", { method: "DELETE" });
+  dispatch(clearAllOrders())
   return dispatch(endSession());
 };
 

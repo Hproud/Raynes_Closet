@@ -8,7 +8,7 @@ import SignupFormModal from "../SignupFormModal/SignupFormModal";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 // import AddInventory from "../Inventory/AddInventory";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -56,25 +56,34 @@ export default function ProfileButton() {
             {user.firstName} {user.lastName}
           </li>
           <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
+          {user && !isMaster && !admin && (
+            <Link to={'/orders'}>My Orders</Link>
+          )}
           {isMaster && (
-            <>
-              <button onClick={()=> navigate('/products/add')}>Add A Product</button>
+            <div>
+            <Link to='/orders'>Orders</Link>
+            <br/>
+              {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
+              <Link to={'/products/add'}>Add A Product</Link>
               <br />
-              <button>View Inventory</button>
+              <Link>View Inventory</Link>
               <br />
-              <button>Add Admin</button>
-            </>
+              <Link>Add Admin</Link>
+            </div>
           )}
           {!isMaster && admin && (
             <div>
-              <button onClick={()=> navigate('/products/add')}>Add A Product</button>
+              <Link to={'/orders'}>Orders</Link>
+            <br/>
+              {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
+              <Link to={'/products/add'}>Add A Product</Link>
               <br />
-              <button>View Inventory</button>
+              <Link>View Inventory</Link>
             </div>
           )}
+          <li>
+            <button onClick={logout}>Log Out</button>
+          </li>
         </ul>
       )}
       {showMenu && !user && (

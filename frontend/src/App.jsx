@@ -8,6 +8,9 @@ import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage'
 import AddInventory from './components/Inventory/AddInventory'
 import EditProduct from './components/Inventory/EditProduct';
 import Checkout from './components/Cart/Checkout';
+import OrdersPage from './components/OrderPage/OrdersPage';
+import OrderInfoPage from './components/OrderPage/OrderInfoPage';
+import UpdateStatus from './components/OrderPage/UpdateStatus';
 
 
 function Layout() {
@@ -51,6 +54,18 @@ const router = createBrowserRouter([
       {
         path: '/checkout',
         element: <Checkout />
+      },
+      {
+        path:'/orders',
+        element: <OrdersPage />
+      },
+      {
+        path: '/orders/:orderId',
+        element: <OrderInfoPage />
+      },
+      {
+        path:'/orders/:orderId/edit',
+        element: <UpdateStatus />
       }
     ]
   }
