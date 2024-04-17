@@ -4,6 +4,8 @@ import {  clearCart} from "./cart";
 const CREATE_ORDER = 'orders/createOrder'
 const ALL_ORDERS = 'orders/allOrders'
 const CLEAR_ORDERS='orders/clear'
+const ORDER_DETAILS = 'orders/details'
+
 
 //&---------------------------------------ACTIONS------------------------------
 
@@ -19,6 +21,11 @@ const allOrders = (orders) => ({
 
 export const clearAllOrders = () =>({
     type: CLEAR_ORDERS
+})
+
+const getTheDetails=(order)=>({
+    type: ORDER_DETAILS,
+    order
 })
 //!------------------------------------THUNKS-----------------------------------
 
@@ -59,6 +66,23 @@ if(orders.ok){
 }
 }
 
+
+export const getMyOrder = (id) => async (dispatch) =>{
+    const order = await csrfFetch(`/api/orders/${id}`)
+console.log(id,'this is the id in the thunk')
+    if(order.ok){
+        const details = await order.json()
+        dispatch(getTheDetails(details))
+    }else{
+        const data = order.json()
+        console.log(data,'error in the thunk')
+        return data
+    }
+}
+
+
+
+
 //^----------------------------------REDUCER------------------------------------
 const orderReducer = (state={},action) => {
     switch(action.type){
@@ -67,6 +91,9 @@ const orderReducer = (state={},action) => {
 
         case ALL_ORDERS:
             return {...state, orders: action.orders}
+
+        case ORDER_DETAILS:
+            return {...state, order: action.order}
 
         case CLEAR_ORDERS:
             return {}

@@ -1,5 +1,5 @@
 express = require("express");
-const { Order, User, CartItem, Product,Cart } = require("../../db/models");
+const { Order, User, CartItem, Product,Cart, Image } = require("../../db/models");
 const router = express.Router();
 const { requireAuth } = require("../../utils/auth");
 
@@ -62,8 +62,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
 //! ------------------get all orders------------------------------
 router.get("", requireAuth, async (req, res, next) => {
   const admin = req.user.isAdmin;
-
-  if (admin) {
+const master = req.user.master
+  if (admin || master) {
     // find all orders
     const orders = await Order.findAll({
       include: [
@@ -118,9 +118,10 @@ router.put("/:orderId", requireAuth, async (req, res, next) => {
   //pull order Id and user status
   const id = req.params.orderId;
   const admin = req.user.isAdmin;
+  const master = req.user.master
 
   // check that user is an admin
-  if (admin) {
+  if (admin || master) {
     //search for Order
     const order = await Order.findByPk(id,{
       attributes: ['total','status','createdAt','updatedAt']
@@ -202,6 +203,63 @@ if(!prevOrder){
 
 
 return
+
+})
+
+
+
+
+//&------------------GET ORDER BY ID-----------------------------------
+router.get('/:orderId', requireAuth, async (req,res,next) =>{
+//pull order id
+const id = req.params.orderId
+
+//search for the order by its PK
+const order = await Order.findByPk(id,{
+  include:[{
+    model: User,
+    attributes:['firstName','lastName']
+  }]
+})
+
+const cartItems = await CartItem.findAll({
+  where:{
+    cart_id: order.cart_id
+  },
+  include: [{
+    model: Product,
+    include:[{
+      model: Image,
+      where:{
+        imageable_type: 'Product'
+      }
+    }],
+    attributes: ['id','name','description','size','price','type']
+  }],
+})
+// if no order found throw error
+if(!order){
+ const err = Error("Order Not Found")
+ err.status = 404
+ err.message = 'Order Not Found'
+ return next(err)
+}
+
+
+const orderDeets = {
+  id: order.id,
+total: order.total,
+status: order.status,
+user: order.User,
+cart: cartItems,
+createdAt: order.createdAt
+}
+
+
+
+
+ return res.json(orderDeets)
+  //return the orders info
 
 })
 

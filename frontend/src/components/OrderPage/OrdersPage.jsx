@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getAllOrders, myOrders } from "../../store/order"
 import { Link } from "react-router-dom"
+
 export default function OrdersPage() {
     const dispatch = useDispatch()
   const user = useSelector(state => state.session?.user)
 const admin = user.isAdmin
 const master = user.isMaster
 const orders = useSelector(state => state.order?.orders)
+
 
 useEffect(()=>{
 if(admin || master){
@@ -19,6 +21,7 @@ dispatch(myOrders)
 },[admin,master])
 
 
+
 return (
     <div>
 <h1>Orders</h1>
@@ -27,7 +30,7 @@ return (
             <li key={order.id} >
                 <div>
 <hr/>
-            <h3 style={{height:'5px'}}>Order No# : {order.id}</h3> <Link style={{position:'relative',left:'150px',bottom:'23px'}}>View</Link>
+            <h3 style={{height:'5px'}}>Order No# : {order.id}</h3> <Link to={`/orders/${order.id}`} order={order} style={{position:'relative',left:'150px',bottom:'23px'}}>View</Link>
 <hr/>
                </div>
             <div >
