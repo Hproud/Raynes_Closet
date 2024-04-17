@@ -74,7 +74,7 @@ if(!isLoading){
                 {!admin && !master && (
                     <button onClick={addtoCart}>Add to Cart</button>
                 )}
-                {admin || master && (
+                {(admin || master) && (
                     <div>
                         <button onClick={edit}>Edit Product</button>{" "}<button onClick={deleteProd}>Delete Product</button>
                         </div>
