@@ -63,6 +63,7 @@ export default function OrderInfoPage() {
             order.cart.map((item) => (
                 <li key={item.id}>
                 <h5>{item.Product.name}</h5>
+                <img style={{height:'50px',width:'50px'}} src={item.Product.Images[0].url} />
                 <p>{item.Product.size}</p>
                 <p>{item.quantity}</p>
                 <p>$ {(item.Product.price * item.quantity).toFixed(2)}</p>

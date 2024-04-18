@@ -232,7 +232,7 @@ const cartItems = await CartItem.findAll({
         imageable_type: 'Product'
       }
     }],
-    attributes: ['id','name','description','size','price','type']
+    // attributes: ['id','name','description','size','price','type']
   }],
 })
 // if no order found throw error
