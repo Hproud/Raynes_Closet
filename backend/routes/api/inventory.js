@@ -6,7 +6,7 @@ const { requireAuth } = require("../../utils/auth");
 
 //~--------------------Get All Inventory---------------------------
 router.get('', requireAuth, async (req,res,next) => {
-    if(req.user.isAdmin){
+    if(req.user.isAdmin || req.user.master){
 
         //query all inventory
         const all = await Inventory.findAll({
@@ -33,6 +33,7 @@ router.get('', requireAuth, async (req,res,next) => {
             const final ={
                 id: item.id,
                 product: {
+                    id: item.Product.id,
                     name: item.Product.name,
                     size: item.Product.size,
                     type: item.Product.type,
@@ -61,7 +62,7 @@ router.get('', requireAuth, async (req,res,next) => {
 
 router.get('/:itemId',requireAuth, async (req,res,next) => {
     //check if user is an admin
-    if(req.user.isAdmin){
+    if(req.user.isAdmin || req.user.master){
 
         //pull item id
         const id = Number(req.params.itemId)
@@ -123,7 +124,7 @@ if(!item){
 
 
 //if not admin throw error
-if(!admin){
+if(!admin && !req.user.master){
     const err = Error("Not Authorized");
     err.status = 401;
     err.message= "Not Authorized"

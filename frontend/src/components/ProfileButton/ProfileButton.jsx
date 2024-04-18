@@ -66,7 +66,7 @@ export default function ProfileButton() {
               {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
               <Link to={'/products/add'}>Add A Product</Link>
               <br />
-              <Link>View Inventory</Link>
+              <Link to='/inventory'>View Inventory</Link>
               <br />
               <Link>Add Admin</Link>
             </div>
@@ -78,7 +78,7 @@ export default function ProfileButton() {
               {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
               <Link to={'/products/add'}>Add A Product</Link>
               <br />
-              <Link>View Inventory</Link>
+              <Link to='/inventory'>View Inventory</Link>
             </div>
           )}
           <li>
