@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import {  useEffect } from "react";
 import { useSelector } from "react-redux";
 import { allInv } from "../../store/inventory";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 
 

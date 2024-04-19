@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { checkSuggestions, findOneSug, removeSugg } from "../../store/suggestion"
+import { checkSuggestions, removeSugg } from "../../store/suggestion"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import EditSuggestionModal from "./EditSuggestionModal"
 
