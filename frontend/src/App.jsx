@@ -13,6 +13,7 @@ import OrderInfoPage from "./components/OrderPage/OrderInfoPage";
 import UpdateStatus from "./components/OrderPage/UpdateStatus";
 import ViewInventory from "./components/Inventory/ViewInventory";
 import EditInv from "./components/Inventory/EditInv";
+import SuggestionsPage from "./components/Suggestions/SuggestionsPage";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: '/inventory/:itemId',
         element: <EditInv />
+      },
+      {
+        path:'/suggestions',
+        element: <SuggestionsPage />
       }
     ]
   }

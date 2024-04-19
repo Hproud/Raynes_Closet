@@ -4,8 +4,8 @@ import {  useNavigate } from 'react-router-dom';
 import './Navigation.css'
 import CartButton from "../Cart/CartButton";
 import { useSelector } from "react-redux";
-
-
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import SuggestionModal from "../Suggestions/SuggestionModal";
 
 
 export default function Navigation( {isLoaded} ) {
@@ -21,12 +21,21 @@ const master = useSelector(state => state.session?.user?.isMaster)
     {isLoaded && (
     <ul>
       {!master && !admin && user &&  (
+        <div>
+
         <li>
         <CartButton />
       </li>
+<li>
+  <OpenModalButton
+  buttonText='Have a Suggestion?'
+  modalComponent={<SuggestionModal/>}
+  onClick={() => {<SuggestionModal/>}}
+  />
+</li>
+  </div>
 
       )}
-
       <li>
           <ProfileButton />
         </li>
