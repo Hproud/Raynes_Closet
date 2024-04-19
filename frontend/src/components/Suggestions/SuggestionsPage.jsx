@@ -13,7 +13,7 @@ useEffect(()=>{
 
     dispatch(checkSuggestions())
 
-},[dispatch])
+},[dispatch,suggestions?.length])
 
 const remove = (id) =>{
 dispatch(removeSugg(id))
