@@ -136,12 +136,14 @@ export const editTheProuct = (id,info) => async (dispatch)=>{
 
 
 export const deleteProduct = (id) => async (dispatch) => {
-await csrfFetch(`/api/products/${id}`,{
+const remove = await csrfFetch(`/api/products/${id}`,{
     method: 'DELETE'
 })
+if(remove.ok){
 
-   dispatch(getAllProducts())
+    dispatch(getAllProducts())
 
+}
 }
 
 

@@ -14,11 +14,12 @@ export default function OrderInfoPage() {
   }, [dispatch, orderId]);
 
   const cart = order?.cart;
+  console.log(cart,'my cart')
 
   let subtotal = 0;
   if (cart) {
     cart.map((item) => {
-      const price = item.Product.price * item.quantity;
+      const price = (item.price) * (item.quantity);
       subtotal += price;
     });
   }
@@ -62,11 +63,11 @@ export default function OrderInfoPage() {
           {order.cart &&
             order.cart.map((item) => (
                 <li key={item.id}>
-                <h5>{item.Product.name}</h5>
-                <img style={{height:'50px',width:'50px'}} src={item.Product.Images[0].url} />
-                <p>{item.Product.size}</p>
+                <h5>{item.Product?.name}</h5>
+                <img style={{height:'50px',width:'50px'}} src={item.Product?.Images[0].url} />
+                <p>{item.size}</p>
                 <p>{item.quantity}</p>
-                <p>$ {(item.Product.price * item.quantity).toFixed(2)}</p>
+                <p>$ {(item.price * item.quantity).toFixed(2)}</p>
               </li>
             ))}
         </ul>
