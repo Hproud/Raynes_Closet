@@ -37,13 +37,16 @@ const edit = () =>{
 
 
 
-const deleteProd = () =>{
+const deleteProd = (e) =>{
+    e.preventDefault();
+
 dispatch(deleteProduct(product.id))
 
 return navigate('/')
 }
 
 const addtoCart = () =>{
+   
     const item ={
         item_id: product.id,
         size: product.size,
@@ -55,7 +58,7 @@ const addtoCart = () =>{
         console.log(error,'hit in product detail ')
     })
 }
-console.log(cartId,'this is cartid')
+// console.log(cartId,'this is cartid')
 if(!isLoading){
 
     return (

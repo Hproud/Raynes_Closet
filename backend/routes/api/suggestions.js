@@ -3,23 +3,6 @@ const {Suggestion, User} = require('../../db/models')
 const { requireAuth } = require("../../utils/auth");
 
 const router = express.Router();
-/*
-   if(admin){
-    const newGuy=req.user
-    await newGuy.update({isAdmin: false},{
-        where: {
-            id: req.user.id
-        }
-    })}else{
-        const newGuy=req.user
-
-        await newGuy.update({isAdmin: true},{
-            where: {
-                id:req.user.id
-            }
-        })
-    }
-*/
 
 
 //&-------------------Get all suggestions----------------------------------------------
@@ -29,9 +12,9 @@ router.get('',requireAuth,async (req,res,next)=>{
     const admin = req.user.isAdmin
     const user = req.user.id;
     //if admin find all suggestions
-    if(admin || user){
 
-        if(admin){
+
+        if(admin || req.user.master){
 
             //query all suggestions include the user model include only first and last name attribute
             const suggestions = await Suggestion.findAll({
@@ -41,6 +24,7 @@ router.get('',requireAuth,async (req,res,next)=>{
                 }]),
                 // attributes: ['id','suggestion']
             })
+            console.log('hit this guy')
 
             //if no suggestions return error
             if (!suggestions){
@@ -69,14 +53,9 @@ router.get('',requireAuth,async (req,res,next)=>{
 
             //return data found
             return res.json(suggestions)
+
         }
-        }else {
-        //if not admin throw error
-        const err = Error("Not Authorized");
-        err.status = 401;
-        err.message = "Not Authorized";
-        return next(err)
-    }
+
     })
 
 
@@ -202,7 +181,19 @@ router.delete('/:suggestionId',requireAuth,async (req,res,next) => {
 })
 
 
+router.get('/:suggestionId', requireAuth, async (req,res,next) =>{
+    const id = req.params.suggestionId
+    const suggestion = await Suggestion.findByPk(id)
 
+    if(!suggestion){
+        const err = Error('Suggestion Not Found')
+        err.status = 404
+        err.message = 'Suggestion Not Found'
+        return next(err)
+    }
+
+    res.json(suggestion)
+})
 
 
 

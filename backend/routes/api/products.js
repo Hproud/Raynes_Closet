@@ -214,6 +214,8 @@ router.post("", requireAuth, ValidateProduct, async (req, res, next) => {
   }
 });
 
+
+//&--------------------delete product--------------------------------------
 router.delete("/:itemId", requireAuth, async (req, res, next) => {
   const id = req.params.itemId;
   //check if item exists
