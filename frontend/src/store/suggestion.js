@@ -69,7 +69,14 @@ export const editSugg = (id,suggestion) => async (dispatch) =>{
     }
 }
 
-
+export const removeSugg = (id) => async (dispatch) =>{
+    const res = await csrfFetch(`/api/suggestions/${id}`,{
+        method: 'DELETE'
+    })
+    if(res.ok){
+        dispatch(checkSuggestions())
+    }
+}
 
 //^ reducer
 

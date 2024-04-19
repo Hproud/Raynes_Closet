@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { checkSuggestions, findOneSug } from "../../store/suggestion"
+import { checkSuggestions, findOneSug, removeSugg } from "../../store/suggestion"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import EditSuggestionModal from "./EditSuggestionModal"
 
@@ -13,9 +13,11 @@ useEffect(()=>{
 
     dispatch(checkSuggestions())
 
-},[])
+},[dispatch])
 
-
+const remove = (id) =>{
+dispatch(removeSugg(id))
+}
 
 const editing = async (id) =>{
 // dispatch(findOneSug(id))
@@ -51,7 +53,7 @@ return <EditSuggestionModal id={id}/>
         modalComponent={<EditSuggestionModal id={suggestion.id} />}
         onButtonClick={()=> editing(suggestion.id)}
 />{" "}
-<button>Delete Suggestion</button>
+<button onClick={()=>remove(suggestion.id)}>Delete Suggestion</button>
         <hr />
     </div>
 )}
