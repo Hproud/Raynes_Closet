@@ -26,6 +26,7 @@ const res = await csrfFetch('/api/suggestions',{
 if (res.ok){
     const newSugg = await res.json()
     dispatch(OneSuggestion(newSugg))
+    dispatch(checkSuggestions())
 
 }
 }
