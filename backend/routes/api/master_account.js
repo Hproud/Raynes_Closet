@@ -2,6 +2,7 @@ const { requireAuth } = require("../../utils/auth");
 const {User} = require('../../db/models')
 
 const express = require("express");
+const e = require("express");
 
 
 
@@ -69,5 +70,25 @@ router.delete('',requireAuth, async (req,res,next)=>{
         }
     }
 })
+
+
+
+router.get('',requireAuth, async (req,res,next)=>{
+    if(req.user.master){
+const admins = await User.findAll({
+    where:{
+        isAdmin: true
+    }
+})
+
+res.json(admins)
+
+    }else{
+        const err = Error("Not Authorized")
+        err.status = 401;
+        err.message='Not Authorized'
+    }
+})
+
 
 module.exports = router

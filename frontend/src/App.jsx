@@ -14,6 +14,7 @@ import UpdateStatus from "./components/OrderPage/UpdateStatus";
 import ViewInventory from "./components/Inventory/ViewInventory";
 import EditInv from "./components/Inventory/EditInv";
 import SuggestionsPage from "./components/Suggestions/SuggestionsPage";
+import Admins from "./components/Master/Admins";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -80,7 +81,12 @@ const router = createBrowserRouter([
       {
         path:'/suggestions',
         element: <SuggestionsPage />
-      }
+      },
+      {
+        path:'/admins',
+        element:<Admins/>
+      },
+
     ]
   }
 ]);

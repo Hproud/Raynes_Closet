@@ -6,6 +6,7 @@ import cartReducer from './cart';
 import orderReducer from './order';
 import inventoryReducer from './inventory';
 import suggestionReducer from './suggestion';
+import masterReducer from './masterFunc';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   order: orderReducer,
   inventory: inventoryReducer,
-  suggestions: suggestionReducer
+  suggestions: suggestionReducer,
+  admins: masterReducer
 });
 
 let enhancer;
