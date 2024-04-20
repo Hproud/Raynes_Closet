@@ -1,1 +1,15 @@
 /* TODO: Add sitewide styles */
+
+
+
+
+body{
+
+    /* display: flex; */
+    background: linear-gradient(
+        to right,
+        rgb(2, 2, 250),
+        rgb(223, 152, 59)
+    );
+    justify-content: center;
+}

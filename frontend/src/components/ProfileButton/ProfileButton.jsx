@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 // import AddInventory from "../Inventory/AddInventory";
 import { Link } from "react-router-dom";
-
+import './profileButton.css'
 
 
 export default function ProfileButton() {
@@ -45,12 +45,14 @@ export default function ProfileButton() {
   };
 
   return (
-    <>
-      <button>
-        <CgProfile onClick={toggleMenu} />
+    <div>
+      <button className="proButton">
+        <CgProfile size={'2em'} onClick={toggleMenu} />
       </button>
+      <div style={{position:'relative'}}>
+
       {showMenu && user && (
-        <ul>
+        <ul style={{backgroundColor:'bisque',borderRadius: '30px',height:'200px'}}>
           <li>Hello, {user.username}</li>
           <li>
             {user.firstName} {user.lastName}
@@ -58,36 +60,36 @@ export default function ProfileButton() {
           <li>{user.email}</li>
           {user && !isMaster && !admin && (
             <div>
-            <Link to={'/orders'}>My Orders</Link>
+            <Link style={{color:'black'}} to={'/orders'}>My Orders</Link>
             <br/>
-            <Link to={'/suggestions'}>My Suggestions</Link>
+            <Link style={{color:'black'}} to={'/suggestions'}>My Suggestions</Link>
             </div>
           )}
           {isMaster && (
             <div>
-            <Link to='/orders'>Orders</Link>
+            <Link style={{color:'black'}} to='/orders'>Orders</Link>
             <br/>
               {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
-              <Link to={'/products/add'}>Add A Product</Link>
+              <Link style={{color:'black'}} to={'/products/add'}>Add A Product</Link>
               <br />
-              <Link to='/inventory'>View Inventory</Link>
+              <Link style={{color:'black'}} to='/inventory'>View Inventory</Link>
               <br />
-              <Link to={'/suggestions'}>Suggestions</Link>
+              <Link style={{color:'black'}} to={'/suggestions'}>Suggestions</Link>
               <br/>
-              <Link to={'/admins'}>Admins</Link>
+              <Link style={{color:'black'}} to={'/admins'}>Admins</Link>
 
             </div>
           )}
           {!isMaster && admin && (
             <div>
-              <Link to={'/orders'}>Orders</Link>
+              <Link style={{color:'black'}} to={'/orders'}>Orders</Link>
             <br/>
               {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
-              <Link to={'/products/add'}>Add A Product</Link>
+              <Link style={{color:'black'}} to={'/products/add'}>Add A Product</Link>
               <br />
-              <Link to='/inventory'>View Inventory</Link>
+              <Link style={{color:'black'}} to='/inventory'>View Inventory</Link>
               <br/>
-              <Link to={'/suggestions'}>Suggestions</Link>
+              <Link style={{color:'black'}} to={'/suggestions'}>Suggestions</Link>
               <br/>
             </div>
           )}
@@ -102,16 +104,17 @@ export default function ProfileButton() {
             <OpenModalButton
               buttonText='Log In'
               modalComponent={<LoginFormModal />}
-            />
+              />
           </li>
           <li>
             <OpenModalButton
               buttonText='Sign Up'
               modalComponent={<SignupFormModal />}
-            />
+              />
           </li>
         </ul>
       )}
-    </>
+      </div>
+    </div>
   );
 } //end of return

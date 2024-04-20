@@ -1,0 +1,17 @@
+ul{
+    list-style: none;
+}
+
+.proButton{
+    background: none;
+border-radius: 50px;
+position: relative;
+border: none;
+left: 30px;
+}
+
+.profile{
+
+    position: relative;
+    left: 20px;
+}
