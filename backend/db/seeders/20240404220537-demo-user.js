@@ -67,7 +67,8 @@ module.exports = {
         address: '658 awesome rd',
         city: 'Kent',
         state: 'Virginia',
-        zipcode: '60258'
+        zipcode: '60258',
+        isAdmin:true
       },
       {
         email: 'user4@user.io',
@@ -89,7 +90,8 @@ module.exports = {
         address: '2254 drive 500',
         city: 'Jasper',
         state: 'Missouri',
-        zipcode: '65488'
+        zipcode: '65488',
+        isAdmin:true
       },
       {
         email: 'user6@user.io',

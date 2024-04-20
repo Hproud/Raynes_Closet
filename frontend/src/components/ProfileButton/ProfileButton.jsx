@@ -74,7 +74,8 @@ export default function ProfileButton() {
               <br />
               <Link to={'/suggestions'}>Suggestions</Link>
               <br/>
-              <Link>Add Admin</Link>
+              <Link to={'/admins'}>Admins</Link>
+
             </div>
           )}
           {!isMaster && admin && (
