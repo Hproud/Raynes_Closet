@@ -3,7 +3,7 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { removeItem, updateCartItem, addItem } from "../../store/cart";
-
+import './cart.css'
 
 
 
@@ -55,7 +55,7 @@ dispatch(addItem(cart.cart_id,item)).catch(async (res)=>{
 
 
   return (
-    <div>
+    <div className="cartdropDown" style={{position:'absolute',float:'top'}}>
       <h2>Cart</h2>
       <ul>
 

@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { placeOrder } from "../../store/order"
 import {useNavigate} from "react-router-dom"
+import './cart.css'
 
 
 

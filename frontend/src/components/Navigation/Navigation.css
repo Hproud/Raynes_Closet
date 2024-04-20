@@ -6,7 +6,7 @@
 
 .navcom{
     display: flex;
-
+position: relative;
     /* max-width: none; */
     justify-content: center;
     justify-content: space-evenly;

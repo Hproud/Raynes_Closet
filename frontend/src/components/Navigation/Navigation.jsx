@@ -23,10 +23,10 @@ const master = useSelector(state => state.session?.user?.isMaster)
       {!master && !admin && user &&  (
         <div>
 
-        <li>
+        <li style={{position:'relative', bottom:'53px'}}>
         <CartButton />
       </li>
-<li>
+<li style={{position:'relative'}}>
   <OpenModalButton
   buttonText='Have a Suggestion?'
   modalComponent={<SuggestionModal/>}
