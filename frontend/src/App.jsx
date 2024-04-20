@@ -14,7 +14,6 @@ import UpdateStatus from "./components/OrderPage/UpdateStatus";
 import ViewInventory from "./components/Inventory/ViewInventory";
 import EditInv from "./components/Inventory/EditInv";
 import SuggestionsPage from "./components/Suggestions/SuggestionsPage";
-import RemoveAdmin from "./components/Master/RemoveAdmin";
 import Admins from "./components/Master/Admins";
 
 function Layout() {
@@ -87,10 +86,7 @@ const router = createBrowserRouter([
         path:'/admins',
         element:<Admins/>
       },
-      {
-        path: '/RemoveAdmin',
-        element: <RemoveAdmin />
-      }
+
     ]
   }
 ]);
