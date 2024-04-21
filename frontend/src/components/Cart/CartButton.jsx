@@ -87,9 +87,11 @@ export default function CartButton() {
 
           />
           {allCartItems && (
-            <div>
-              <button onClick={checkout}>Checkout</button>{" "}
-              <button onClick={addItems}>Add More Items</button>
+            <div className="checkoutbuttons">
+              <button style={{width:'150px',height:'30px',fontWeight:'bold',
+            backgroundColor:'sandybrown'}} onClick={checkout}>Checkout</button>{" "}
+              {" "}<button style={{width: '150px', height:'30px',position:'relative',left:'20px', fontWeight:'bold',
+            backgroundColor:'sandybrown'}} onClick={addItems}>Add More Items</button>
             </div>
           )}
           {!allCartItems && cart && (

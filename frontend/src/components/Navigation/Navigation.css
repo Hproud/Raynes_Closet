@@ -1,7 +1,9 @@
 .logo {
     height: 130px;
+    /* position: static; */
     position: relative;
-    right:200px
+    
+
 }
 
 .navcom{

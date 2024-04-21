@@ -27,11 +27,13 @@ const master = useSelector(state => state.session?.user?.isMaster)
         <CartButton />
       </li>
 <li style={{position:'relative'}}>
+  <div className="sugg">
   <OpenModalButton
   buttonText='Have a Suggestion?'
   modalComponent={<SuggestionModal/>}
   onClick={() => {<SuggestionModal/>}}
   />
+  </div>
 </li>
   </div>
 

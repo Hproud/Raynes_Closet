@@ -55,29 +55,31 @@ dispatch(addItem(cart.cart_id,item)).catch(async (res)=>{
 
 
   return (
-    <div className="cartdropDown" style={{position:'absolute',float:'top'}}>
-      <h2>Cart</h2>
+    <div className="cartdropDown" style={{position:'absolute',float:'top',borderRadius:'10px'}}>
+      <h2 className="title">Cart</h2>
+      <hr color="black"/>
       <ul>
 
 {cartItems && cartItems.map((item)=>(
 
-<li key={item.prodInfo.id}>
-  <img src={item.prodInfo?.Images[0].url} style={{height:'50px',width:'50px'}}/>
-  <p>{item.prodInfo?.name}</p>
-  <p>{item.prodInfo?.size}</p>
-  <div><button onClick={()=> minus(item.prodInfo.id,item.quantity,)}><BiSolidMinusCircle /></button></div>
-  <p>{item?.quantity}</p>
-  <div><button onClick={()=> plus(item.prodInfo,item.quantity)}><BsFillPlusCircleFill /></button></div>
-  <p>$ {(item?.quantity * item.prodInfo?.price).toFixed(2)}</p>
-  <hr />
+<li key={item.prodInfo.id} style={{display: 'flex', height:'150px'}} className="Item">
+  <img src={item.prodInfo?.Images[0].url} style={{height:'80px',width:'70px',position:'relative',right:'30px'}}/>
+  <p className="itemname">{item.prodInfo?.name}</p>
+  <p className="size">Size: {item.prodInfo?.size}</p>
+  <div className="quants"><button style={{background:'none', border: 'none'}} onClick={()=> minus(item.prodInfo.id,item.quantity,)}><BiSolidMinusCircle size={'1.3em'}/></button>
+  <p style={{position:'relative',bottom:'15px'}}>{item?.quantity}</p>
+  <button style={{background:'none', border:'none',position:'relative',top: '1px'}}   onClick={()=> plus(item.prodInfo,item.quantity)}><BsFillPlusCircleFill size={'1.1em'} /></button></div>
+  <p className="prixe">$ {(item?.quantity * item.prodInfo?.price).toFixed(2)}</p>
+
 </li>
 ))}
 </ul>
 {cartItems && (
 
   <div>
-<h3>Subtotal: </h3>
-<p>$ {subtotal.toFixed(2)}</p>
+<hr color="black"/>
+<h3 style={{fontWeight:'bold',position:'relative',bottom:'15px',left:'20px'}}>Subtotal: </h3>
+<p style={{fontWeight:'bold', position:'relative',left: '330px',bottom:'55px'}}>$ {subtotal.toFixed(2)}</p>
 </div>
 )}
 {!cartItems && (
