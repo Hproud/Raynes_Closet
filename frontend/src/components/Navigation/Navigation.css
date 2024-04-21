@@ -1,7 +1,17 @@
 .logo {
     height: 130px;
+    /* position: static; */
+    position: relative;
+    
+
 }
 
 .navcom{
     display: flex;
+position: relative;
+    /* max-width: none; */
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+
 }
