@@ -8,8 +8,9 @@ body{
     /* display: flex; */
     background: linear-gradient(
         to right,
-        rgb(2, 2, 250),
-        rgb(223, 152, 59)
+        rgba(3, 3, 248, 0.863),
+        rgb(255, 201, 131),
+        whitesmoke
     );
     justify-content: center;
 }

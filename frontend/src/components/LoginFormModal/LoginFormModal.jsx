@@ -27,11 +27,12 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
+    <div className='loginform'>
+      <h1 className='logintitle'>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username or Email
+        <label className='username'>
+          Username or Email:
+          <br/>
           <input
             type="text"
             value={credential}
@@ -39,8 +40,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
-          Password
+        <br/>
+        <label className='password'>
+          Password:
+          <br/>
           <input
             type="password"
             value={password}
@@ -51,26 +54,32 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
-        {<br />}
+          <br/>
+          <div className='buttons'>
 
-<button className='demo' type='submit' onClick={() => {
+        <button type="submit" style={{position:'relative',left:'3px'}} className='login'>Log In</button> {" "}
+
+
+<button className='demo' type='submit' style={{position:'relative',left:'6px'}} onClick={() => {
   setCredential('demo@user.io')
   setPassword('password')
 
-}}>DemoUser</button>
+}}>DemoUser</button> {" "}
+<br/>
 <button className='demo' type='submit' onClick={() => {
   setCredential('master@email.com')
   setPassword('master')
 
-}}>DemoMaster</button>
+}}>DemoMaster</button> {" "}
+
 <button className='demo' type='submit' onClick={() => {
   setCredential('imanadmin')
   setPassword('password')
 
 }}>DemoAdmin</button>
+</div>
       </form>
-    </>
+    </div>
   );
 }
 
