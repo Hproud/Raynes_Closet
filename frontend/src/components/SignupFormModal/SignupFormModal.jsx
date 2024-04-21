@@ -51,119 +51,140 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="sgnupform">
+      <h1 style={{textDecoration:'underline'}}>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        <label className="nmlbl">
+          Email:
+          <br />
+        </label>
           <input
-            type='text'
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
             required
           />
-        </label>
         {errors.email && <p>{errors.email}</p>}
         <br />
-        <label>
-          Username
+        <br />
+        <label className="usrnmlbl">
+          Username:
+          <br />
+        </label>
           <input
-            type='text'
+            type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
             required
           />
-        </label>
         {errors.username && <p>{errors.username}</p>}
         <br />
+        <br />
 
-        <label>
-          First Name
+        <label className="frstnamelbl">
+          First Name:
+          <br />
+        </label>
           <input
-            type='text'
+            type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First Name"
             required
           />
-        </label>
         {errors.firstName && <p>{errors.firstName}</p>}
         <br />
-
-        <label>
-          Last Name
+        <br />
+        <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>
+          Last Name:
+        </label>
+          <br />
           <input
-            type='text'
+            type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            placeholder="Last Name"
             required
           />
-        </label>
         {errors.lastName && <p>{errors.lastName}</p>}
         <br />
-
-        <label>
-          Password
+        <br />
+        <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>
+          Password:
+          <br />
+        </label>
           <input
-            type='password'
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
             required
           />
-        </label>
         {errors.password && <p>{errors.password}</p>}
         <br />
-
-        <label>
-          Confirm Password
+        <label style={{position:'relative',left: '20px', fontWeight:'bold'}}>
+          <br />
+          Confirm Password:
+          <br />
+        </label>
           <input
-            type='password'
+            type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
             required
           />
-        </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <br />
-
-        <label>Address</label>
+        <br />
+        <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>Address: </label>
+        <br />
         <input
-          type='text'
-          placeholder='Address'
+          type="text"
+          placeholder="Address"
           onChange={(e) => setAddress(e.target.value)}
         />
-
         <br />
-        <label>
-          City
+        <br />
+        <label style={{position:'relative',left: '65px', fontWeight:'bold'}}>
+          City:
+          <br />
+        </label>
           <input
-            type='text'
-            placeholder='city'
+            type="text"
+            placeholder="city"
             onChange={(e) => setCity(e.target.value)}
           />
-        </label>
         <br />
-        <label>
-          State
+        <br />
+        <label style={{position:'relative',left: '60px', fontWeight:'bold'}}>
+          State:
+          <br />
+        </label>
           <input
-            type='text'
-            placeholder='state'
+            type="text"
+            placeholder="state"
             onChange={(e) => setState(e.target.value)}
           />
-        </label>
-
         <br />
-        <label>
-          Zipcode
+        <br />
+        <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>
+          Zipcode:
+          <br />
+        </label>
           <input
-            type='text'
-            placeholder='zipcode'
+            type="text"
+            placeholder="zipcode"
             onChange={(e) => setZipcode(e.target.value)}
           />
-        </label>
         <br />
-        <button type='submit'>Sign Up</button>
+        <br />
+        <button type="submit" className="subbutton" style={{fontSize:'20pt',fontStyle:'italic'}}>Sign Up</button>
       </form>
-    </>
+      <br />
+    </div>
   );
 }
 

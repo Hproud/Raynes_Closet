@@ -6,11 +6,12 @@ import { getOneInv, updateQ } from "../../store/inventory"
 export default function EditInv() {
     const {itemId} = useParams()
     const product = useSelector(state => state.inventory?.product)
+    
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [quantity,setQuantity] = useState()
 
-console.log(itemId,'this is the product')
+// console.log(itemId,'this is the product')
 
     useEffect(()=>{
         dispatch(getOneInv(itemId))
@@ -37,6 +38,8 @@ navigate('/inventory')
 
             <form onSubmit={handleSubmit}>
 <label>Product Name: </label> <p>{product?.Product?.name}</p>
+<br/>
+<img src={product?.Product}/>
 <label>Size: </label> <p>{product?.Product?.size}</p>
 <label>New Quantity: </label>
 <br/>

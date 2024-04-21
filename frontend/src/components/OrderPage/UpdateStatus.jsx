@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {  useNavigate, useParams } from "react-router-dom";
 import { editStatus } from "../../store/order";
+import './orders.css'
+
+
 
 export default function UpdateStatus() {
     const order = useSelector((state) => state.order?.order);

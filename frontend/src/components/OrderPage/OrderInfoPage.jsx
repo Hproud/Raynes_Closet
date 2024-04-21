@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getMyOrder } from "../../store/order";
+import './orders.css'
+
 
 export default function OrderInfoPage() {
   const dispatch = useDispatch();

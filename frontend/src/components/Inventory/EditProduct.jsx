@@ -32,16 +32,18 @@ return
 }
 
   return (
-    <div>
-      <div>
-        {/* <img src={product.preview}/> */}
-      </div>
-      <h1>
+    <div style={{display:'flex',flexDirection:'column'}}>
+      <h1 >
         EditProduct
         </h1>
       <form onSubmit={handleSubmit}>
         <h3>Name: {product.name}</h3>
-      <label>Description :</label>
+        <br/>
+      <div>
+        <img style={{height:'200px',width:'200px'}} src={product.images[0].url}/>
+      </div>
+        <br/>
+      <label style={{fontWeight:'bold', position:'relative',left:'40px'}}>Description :</label>
         <br />
         <textarea
           type='textbox'
@@ -51,8 +53,8 @@ return
           required={true}
         />
 
-        <h3>Size: {product.size}</h3>
-
+        <h3 style={{position:'relative',left:'48px'}} >Size:</h3>
+        <p style={{fontWeight:'bold',position:'relative',left:'60px',bottom:'20px',fontSize:'20pt'}}>{product.size}</p>
         {errors && (
           <p
             className='addProdErrors'
@@ -70,7 +72,7 @@ return
             {errors.price}
           </p>
         )}
-        <label>Price :</label>
+        <label style={{fontWeight:'bold',position:'relative',left:'60px'}}>Price :</label>
         <br />
         <input
           type='number'
@@ -84,9 +86,9 @@ return
         />
         <br />
         <br />
-<h3>Type: {product.type}</h3>
+<h3 style={{position:'relative',left:'20px'}}>Type: {product.type}</h3>
 
-<button type="submit">Update</button>
+<button type="submit" style={{height:'50px',width:'150px',borderRadius: '40px', backgroundColor:'rgb(44, 31, 4)',fontWeight:'bold',fontSize:'20pt',color:'white'}}>Update</button>
       </form>
 
 
