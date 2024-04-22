@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { checkSuggestions, removeSugg } from "../../store/suggestion"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import EditSuggestionModal from "./EditSuggestionModal"
+import './suggestion.css'
+
+
 
 export default function SuggestionsPage() {
 const dispatch = useDispatch()
@@ -25,36 +28,47 @@ return <EditSuggestionModal id={id}/>
 }
 
   return (
-    <div>
-        <h1>Submitted Suggestions</h1>
-<ul>
+    <div className="whole">
+        <h1 className="sugtitle">Submitted Suggestions</h1>
+<ul className="lsted">
     {suggestions && suggestions.map((suggestion) => (
-        <li key={suggestion.id}>
+        <li className="sug" key={suggestion.id}>
 {(admin || master) && (
-    <div>
-<h4>User: </h4>
-<p>{suggestion.User.firstName} {suggestion.User.lastName}</p>
+    <div className="user">
+<h4 className="user">User: </h4>
+<p className="user1">{" "}{suggestion.User?.firstName} {suggestion.User?.lastName}</p>
 <h4>Suggestion: </h4>
 <p>{suggestion.suggestion}</p>
 <h4>Submitted On: </h4>
 <p>{(suggestion.updatedAt).slice(0,10)}</p>
-<hr />
+
 
     </div>
 )}
 {!master && !admin && (
-    <div>
+    <div className="consumersuggestions">
         <h3>Suggestion: </h3>
         <p>{suggestion.suggestion}</p>
         <h4>Submitted On: </h4>
         <p>{(suggestion.updatedAt).slice(0,10)}</p>
+    <div style={{position:'relative',left:'30px',bottom:'3px'}}>
+
         <OpenModalButton
         buttonText={'Edit Suggestion'}
-        modalComponent={<EditSuggestionModal id={suggestion.id} />}
+        modalComponent={
+            <EditSuggestionModal id={suggestion.id} />
+        }
         onButtonClick={()=> editing(suggestion.id)}
 />{" "}
-<button onClick={()=>remove(suggestion.id)}>Delete Suggestion</button>
-        <hr />
+<button onClick={()=>remove(suggestion.id)}
+style={{
+    position:'relative',
+    top: '2px'
+
+}}
+>Delete Suggestion</button>
+</div>
+
     </div>
 )}
         </li>

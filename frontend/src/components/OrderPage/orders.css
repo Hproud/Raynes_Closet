@@ -1,0 +1,64 @@
+.Pending{
+    position: relative;
+     left: 20px;
+      top: 6px;
+      font-weight: bold;
+      color:rgb(64, 37, 214)
+}
+
+
+.Canceled{
+    position: relative;
+    left: 20px;
+     top: 6px;
+     font-weight: bold;
+     color: rgb(230, 2, 2)
+}
+
+.Refunded{
+    position: relative;
+    left: 20px;
+     top: 6px;
+     font-weight: bold;
+     color:rgb(231, 3, 3)
+}
+
+.Fufilled{
+    position: relative;
+    left: 20px;
+     top: 6px;
+     font-weight: bold;
+     color: rgb(85, 119, 34)
+}
+
+.orderpage{
+    position: relative;
+    left: 330px
+}
+
+.button{
+    position: relative;
+     left: 10px;
+     bottom: 3px;
+    border-radius: 30px;
+     color: yellow;
+    background-color: rgba(44, 31, 4);
+}
+
+.chgstat{
+    display: flex;
+    justify-content: center;
+}
+
+.status{
+    width: 70px;
+    background-color: sandybrown;
+}
+
+.statbutton{
+    border-radius: 30px;
+    color: yellow;
+    font-weight: bold;
+    font-style: italic;
+   background-color: rgba(44, 31, 4);
+}

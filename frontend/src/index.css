@@ -8,9 +8,10 @@ body{
     /* display: flex; */
     background: linear-gradient(
         to right,
+        rgb(111, 158, 173),
         lightBlue,
-        lightBlue,
-        sandyBrown
+        rgb(218, 145, 81)
+
     );
     justify-content: center;
 }

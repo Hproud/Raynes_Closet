@@ -2,7 +2,7 @@ import {  useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { checkSuggestions, editSugg, findOneSug } from "../../store/suggestion"
 import { useModal } from "../../context/Modal"
-
+import './suggestion.css'
 
 export default function EditSuggestionModal({id}) {
   // const id = useSelector(state => state.suggestions?.suggestion?.id)
@@ -24,19 +24,20 @@ dispatch(editSugg(id, suggestion)).then(closeModal).then(()=>dispatch(checkSugge
 console.log(sugg, 'when i hit the button')
 
   return (
-    <div>
+    <div className="editsugg">
         <h1>Update Your Suggestion!</h1>
         <form onSubmit={handleSubmit}>
-            <label>Please Write Your Updated Suggestion Below!</label>
+            <label style={{position:'relative',bottom:'15px',fontWeight:'bold'}}>Please Write Your Updated Suggestion Below!</label>
             <br/>
             <textarea
             type='textbox'
             value={suggestion}
             placeholder={sugg}
             onChange={(e)=> setSuggestion(e.target.value)}
+            style={{width:'300px',height:'60px',position:'relative',left:'5px'}}
             />
             <br/>
-            <button type="submit" >Submit Update</button>
+            <button className="editsubsug" type="submit" >Submit Update</button>
         </form>
     </div>
   )

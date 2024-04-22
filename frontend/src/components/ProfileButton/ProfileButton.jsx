@@ -57,62 +57,97 @@ export default function ProfileButton() {
               height: "300px",
             }}
           >
-            <li style={{position:'relative',top:'40px'}}>Hello, {user.username}</li>
-            <li style={{position:'relative',top:'40px'}}>
+            <li style={{ position: "relative", top: "40px" }}>
+              Hello, {user.username}
+            </li>
+            <li style={{ position: "relative", top: "40px" }}>
               {user.firstName} {user.lastName}
             </li>
-            <li style={{position:'relative',top:'40px'}}>{user.email}</li>
+            <li style={{ position: "relative", top: "40px" }}>{user.email}</li>
             {user && !isMaster && !admin && (
               <div>
-                <Link style={{ color: "blue",position:'relative', top:'45px' }} to={"/orders"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/orders"}
+                >
                   My Orders
                 </Link>
                 <br />
-                <Link style={{ color: "blue",position:'relative', top:'45px' }} to={"/suggestions"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/suggestions"}
+                >
                   My Suggestions
                 </Link>
               </div>
             )}
             {isMaster && (
               <div>
-                <Link style={{ color: "blue",position:'relative', top: '45px' }} to="/orders">
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to="/orders"
+                >
                   Orders
                 </Link>
                 <br />
                 {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
-                <Link style={{ color: "blue",position:'relative', top: '45px' }} to={"/products/add"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/products/add"}
+                >
                   Add A Product
                 </Link>
                 <br />
-                <Link style={{ color: "blue",position:'relative', top: '45px' }} to="/inventory">
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to="/inventory"
+                >
                   View Inventory
                 </Link>
                 <br />
-                <Link style={{ color: "blue",position:'relative', top: '45px' }} to={"/suggestions"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/suggestions"}
+                >
                   Suggestions
                 </Link>
                 <br />
-                <Link style={{ color: "blue",position:'relative', top: '45px' }} to={"/admins"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/admins"}
+                >
                   Admins
                 </Link>
               </div>
             )}
             {!isMaster && admin && (
               <div>
-                <Link style={{ color: "blue",position:'relative', top:'45px' }} to={"/orders"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/orders"}
+                >
                   Orders
                 </Link>
                 <br />
                 {/* <button onClick={()=> navigate('/products/add')}>Add A Product</button> */}
-                <Link style={{ color: "blue",position:'relative', top:'45px' }} to={"/products/add"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/products/add"}
+                >
                   Add A Product
                 </Link>
                 <br />
-                <Link style={{ color: "blue",position:'relative', top:'45px' }} to="/inventory">
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to="/inventory"
+                >
                   View Inventory
                 </Link>
                 <br />
-                <Link style={{ color: "blue",position:'relative', top:'45px' }} to={"/suggestions"}>
+                <Link
+                  style={{ color: "blue", position: "relative", top: "45px" }}
+                  to={"/suggestions"}
+                >
                   Suggestions
                 </Link>
                 <br />
@@ -137,14 +172,23 @@ export default function ProfileButton() {
           </ul>
         )}
         {showMenu && !user && (
-          <ul>
-            <li>
+          <ul
+            style={{
+              backgroundColor: "bisque",
+              height: "100px",
+              width: "80px",
+              borderRadius: "10px",
+              position: "relative",
+              right: "100px",
+            }}
+          >
+            <li style={{ position: "relative", top: "25px", right: "4px" }}>
               <OpenModalButton
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />
             </li>
-            <li>
+            <li style={{ position: "relative", top: "40px", right: "11px" }}>
               <OpenModalButton
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
 import { useState } from "react"
 import { addAdmin } from "../../store/masterFunc"
-
+import './masters.css'
 
 
 
@@ -25,43 +25,47 @@ if(window.confirm(`You are granting Admin Access to the User ${firstName} ${last
 }
 
   return (
-    <div>
-      <h1>Add Admin Access</h1>
+    <div className="addadminform">
+      <h1 style={{fontWeight:'bolder'}}>Add Admin Access</h1>
       <form onSubmit={handleSubmit}>
-<label>User Email: </label>
+<label className="emal">User Email: </label>
 <br/>
 <input
 type="text"
 value={email}
 onChange={(e)=> setEmail(e.target.value)}
+style={{backgroundColor:'aquamarine'}}
 />
 <br/>
-<label>UserName</label>
+<label className="usernm">UserName: </label>
 <br/>
 <input
 type="text"
 value={userName}
 onChange={(e)=> setUserName(e.target.value)}
+style={{backgroundColor:'aquamarine'}}
 />
 <br/>
-<label>User First Name: </label>
+<label className="nm">User First Name: </label>
 <br/>
 <input
 type="text"
 value={firstName}
 onChange={(e)=> setFirstName(e.target.value)}
+style={{backgroundColor:'aquamarine'}}
 />
 <br/>
-<label>User Last Name: </label>
+<label className="lstnm">User Last Name: </label>
 <br/>
 <input
 type="text"
 value={lastName}
 onChange={(e)=> setLastName(e.target.value)}
+style={{backgroundColor:'aquamarine'}}
 />
 <br/>
 <br/>
-<button type="submit">Add Admin</button>
+<button type="submit" className="fin">Add Admin</button>
       </form>
     </div>
   )

@@ -1,0 +1,78 @@
+ .invtype{
+    position: relative;
+    left: 200px;
+    bottom:81px;
+    font-weight: bold;
+ }
+
+
+ .invquant{
+    position: relative;
+    bottom: 60px;
+    left: 100px;
+    font-weight: bold;
+ }
+
+ .qnt{
+    position: relative;
+    left:90px;
+    bottom: 40px;
+ }
+
+.invsize{
+position: relative;
+left: 80px;
+font-weight: bold;
+}
+
+ .lst{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+ .updtbuttons{
+    position: relative;
+    bottom: 100px;
+    width: 150px;
+    height: 30px;
+    border-style:groove;
+    border-radius: 25px;
+    font-weight: bold;
+    color:yellow
+ }
+
+
+ .addbutton{
+width: 120px;
+height: 25px;
+position: relative;
+right: 40px;
+font-weight: bold;
+background-color: greenyellow;
+color: rgba(75, 36, 13, 0.993);
+border-radius: 20px;
+ }
+
+ .cnclbutton{
+width: 120px;
+height: 25px;
+position: relative;
+right: 20px;
+font-weight: bold;
+background-color: gray;
+border-radius: 20px;
+color:rgb(203, 218, 207)
+ }
+
+ .udi{
+   position: relative;
+   top: 20px;
+   width: 200px;
+   height: 25px;
+   font-weight: bolder;
+   background-color: saddlebrown;
+   color: yellow
+ }
