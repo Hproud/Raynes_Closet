@@ -1,5 +1,5 @@
 import { csrfFetch } from "./csrf";
-
+import { findOneProduct } from "./products";
 
 //? Variables------------------------------------------------------------------
 const GET_FULL_INV = 'inventory/getAllInv'
@@ -36,6 +36,7 @@ export const getOneInv = (id) => async (dispatch)=>{
     if(inv.ok){
         const product = await inv.json()
         dispatch(singleItem(product))
+        dispatch(findOneProduct(id))
     }
 
 

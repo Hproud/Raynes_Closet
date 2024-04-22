@@ -2,7 +2,7 @@
     height: 130px;
     /* position: static; */
     position: relative;
-    
+
 
 }
 
@@ -13,5 +13,5 @@ position: relative;
     justify-content: center;
     justify-content: space-evenly;
     align-items: center;
-
+background-color: rgb(244, 164, 96);
 }

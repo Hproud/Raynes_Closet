@@ -44,7 +44,7 @@ export default function ProfileButton() {
   };
 
   return (
-    <div style={{ position: "absolute",position:'relative' }}>
+    <div style={{ position: "absolute" }}>
       <button className="proButton">
         <CgProfile size={"2em"} onClick={toggleMenu} />
       </button>

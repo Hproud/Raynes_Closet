@@ -82,7 +82,7 @@ if(pic4){
     setPic4();
   };
 
-  console.log(proposed);
+  // console.log(proposed);
 
   // useEffect(() => {
   //   const err = {};
@@ -99,30 +99,35 @@ if(pic4){
   // }, [size, type]);
 
   return (
-    <div>
+    <div style={{display:'flex',flexDirection:'column',position:'relative'
+    , left:'280px'}}>
       <h1>Add A Product</h1>
       <form onSubmit={handleSubmit}>
         {errors && (
           <p
           style={{ color: "red", fontWeight: "bold" }} >{errors.message}</p>
         )}
-        <br />
-        <label>Name :</label>
+
+        <label style={{fontWeight:'bold',position:'relative',left:'70px'}}>Name :</label>
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='text'
           value={name}
           onChange={(e) => setName(e.target.value)}
+          placeholder="Give the Product a Name"
           required={true}
         />
         <br />
         <br />
-        <label>Description :</label>
+        <label style={{fontWeight:'bold',position:'relative', left:'50px'}}>Description :</label>
         <br />
         <textarea
           type='textbox'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          placeholder="Please enter a description of this item"
+          style={{backgroundColor:'sandybrown',minHeight:'100px',minWidth:'180px', fontWeight:'bold'}}
           required={true}
         />
         <br />
@@ -135,13 +140,15 @@ if(pic4){
             {errors.size}
           </p>
         )}
-        <label>Size :</label>
+        <label style={{fontWeight:'bold'}}>Size :</label>
+
         <select
           value={size}
           onChange={(e) => setSize(e.target.value)}
+          style={{backgroundColor:'sandybrown',position:'relative', fontWeight:'bold', left:'20px'}}
           required={true}
         >
-          <option>Select Size</option>
+          <option style={{backgroundColor:'sandybrown', fontWeight:'bold'}}>Select Size</option>
           <option value={"YS"}>YS</option>
           <option value={"YM"}>YM</option>
           <option value={"YL"}>YL</option>
@@ -162,9 +169,10 @@ if(pic4){
             {errors.price}
           </p>
         )}
-        <label>Price :</label>
+        <label style={{fontWeight:'bold'}}>Price :</label>
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='number'
           min={0}
           placeholder={0}
@@ -183,12 +191,16 @@ if(pic4){
             {errors.type}
           </p>
         )}
-        <label>Type :</label>
-        <br />
+        <label style={{fontWeight:'bold'}}>Type :</label>
+
         <select
           onChange={(e) => {
             setType(e.target.value);
           }}
+          style={{backgroundColor:'sandybrown', fontWeight:'bold',
+        position:'relative',
+        left:'20px'
+        }}
           required={true}
         >
           <option>Select Type</option>
@@ -206,9 +218,10 @@ if(pic4){
             {errors.quantity}
           </p>
         )}
-        <label>Available Quantity</label>
+        <label style={{fontWeight:'bold'}}>Available Quantity</label>
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='number'
           min={1}
           value={quantity}
@@ -226,12 +239,13 @@ if(pic4){
             {errors.preview}
           </p>
         )}
-        <label>Primary Photo:</label>
+        <label style={{fontWeight:'bold'}}>Primary Photo:</label>
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='text'
           // required={true}
-
+placeholder="Photo URL"
           value={preview}
           onChange={(e) => {
             setPreview(e.target.value);
@@ -239,11 +253,13 @@ if(pic4){
         />
         <br />
         <hr />
-        <label>Additional Photos:</label>
+        <label style={{fontWeight:'bold'}}>Additional Photos: (OPTIONAL)</label>
         <br />
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='text'
+          placeholder="Photo URL"
 
           value={pic1}
           onChange={(e) => setPic1(e.target.value)}
@@ -251,28 +267,37 @@ if(pic4){
         <br />
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='text'
 
           value={pic2}
           onChange={(e) => setPic2(e.target.value)}
+placeholder="Photo URL"
+
         />
         <br />
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='text'
           value={pic3}
           onChange={(e) => setPic3(e.target.value)}
+placeholder="Photo URL"
+
         />
         <br />
         <br />
         <input
+        style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='text'
           value={pic4}
           onChange={(e) => setPic4(e.target.value)}
+placeholder="Photo URL"
+
         />
         <br />
         <br />
-        <button type='submit'>Add Prouduct</button> <button>Cancel</button>
+        <button type='submit' className="addbutton">Add Prouduct</button> <button className="cnclbutton" onClick={()=> navigate('/')}>Cancel</button>
         <br />
       </form>
     </div>

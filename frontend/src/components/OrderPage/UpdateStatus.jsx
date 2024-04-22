@@ -39,17 +39,20 @@ const handleSubmit = (e) =>{
 
 
   return (
-    <div>
+    <div className="chgstat">
         {order && (
             <div>
-            <h1> Order No # {orderId}</h1>
+            <h1 style={{textDecoration:'underline'}}> Order No # {orderId}</h1>
         <form onSubmit={handleSubmit}>
-            <label>User: {order.user.firstName} {order.user.lastName}</label>
+            <label style={{fontWeight:'bold'}}>User: {order.user.firstName} {order.user.lastName}</label>
             <br/>
-    <label>Order Total: $ {order.total}</label>
+            <br/>
+    <label style={{fontWeight:'bold'}}>Order Total: $ {(order.total).toFixed(2)}</label>
     <br/>
-    <label>Order Status: </label>
+    <br/>
+    <label style={{fontWeight:'bold'}}>Order Status: </label>
     <select
+    className="status"
     value={status}
     onChange={(e)=> setStatus(e.target.value)}
     >
@@ -58,7 +61,8 @@ const handleSubmit = (e) =>{
         <option>Refunded</option>
         <option>Canceled</option>
     </select>
-    <button type="submit">Update</button>
+    {" "}
+    <button type="submit" className="statbutton">Update</button>
         </form>
         </div>
     )}

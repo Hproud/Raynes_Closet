@@ -40,9 +40,25 @@
     position: relative;
      left: 10px;
      bottom: 3px;
-    border-Radius: 30px;
+    border-radius: 30px;
      color: yellow;
-    background-Color: rgba(44, 31, 4);
+    background-color: rgba(44, 31, 4);
 }
 
+.chgstat{
+    display: flex;
+    justify-content: center;
+}
 
+.status{
+    width: 70px;
+    background-color: sandybrown;
+}
+
+.statbutton{
+    border-radius: 30px;
+    color: yellow;
+    font-weight: bold;
+    font-style: italic;
+   background-color: rgba(44, 31, 4);
+}

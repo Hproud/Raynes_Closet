@@ -1,0 +1,84 @@
+.whole{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sugtitle{
+    align-self: center;
+}
+
+.sug{
+    width: 200px;
+    background-color: beige;
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    border-radius: 30px;
+    border-style:double;
+    padding: 5px;
+}
+
+.lsted{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 2000px;
+
+}
+
+.user{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.user1{
+    position: relative;
+
+}
+
+.consumersuggestions{
+    align-content: center;
+
+}
+
+
+.suggy{
+    display: flex;
+    flex-direction: column;
+padding: 10px;
+background-color: rgba(5, 253, 220, 0.801);
+}
+
+.subsugg{
+    width: 250px;
+    height: 40px;
+    position: relative;
+    bottom: 20px;
+    font-weight: bold;
+    font-size: larger;
+    background-color: saddlebrown;
+    color: yellow
+}
+
+.editsugg{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: sandybrown;
+}
+
+.editsubsug{
+    height: 40px;
+    width: 270px;
+    position: relative;
+    left: 15px;
+    top: 6px;
+    background-color: saddlebrown;
+    color: yellow;
+    font-size: larger;
+    font-weight: bold;
+    font-style: italic;
+}

@@ -19,10 +19,10 @@ const dispatch = useDispatch()
 // }
 // console.log(quant,'this is the cart in the dropdown')
 const minus = (itemId,quant) => {
-  console.log(quant,'this is the quant in minus')
-  console.log(itemId,'this is the itemid in the minus')
+  // console.log(quant,'this is the quant in minus')
+  // console.log(itemId,'this is the itemid in the minus')
   if(quant > 1){
-const newnum =quant - 1;
+const newnum = quant - 1;
     const newQ= {quantity: newnum}
     dispatch(updateCartItem(cart.cart_id,itemId,newQ)).catch(async(res)=>{
       const error = await res.json()
@@ -63,7 +63,7 @@ dispatch(addItem(cart.cart_id,item)).catch(async (res)=>{
 {cartItems && cartItems.map((item)=>(
 
 <li key={item.prodInfo.id} style={{display: 'flex', height:'150px'}} className="Item">
-  <img src={item.prodInfo?.Images[0].url} style={{height:'80px',width:'70px',position:'relative',right:'30px'}}/>
+  <img src={item.prodInfo?.Images[0].url} style={{height:'80px',width:'70px',position:'relative',right:'30px',padding:'10px'}}/>
   <p className="itemname">{item.prodInfo?.name}</p>
   <p className="size">Size: {item.prodInfo?.size}</p>
   <div className="quants"><button style={{background:'none', border: 'none'}} onClick={()=> minus(item.prodInfo.id,item.quantity,)}><BiSolidMinusCircle size={'1.3em'}/></button>

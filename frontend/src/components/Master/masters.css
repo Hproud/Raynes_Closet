@@ -1,0 +1,62 @@
+.empl{
+    background-color: rgb(40, 211, 202);
+    width: fit-content;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    flex-wrap: wrap;
+}
+
+
+.removeadmin{
+    height: 30px;
+    font-weight: bold;
+    width: auto;
+    border-radius: 20px;
+    background-color: red;
+    color: yellow
+}
+
+
+.addadminform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: sandybrown
+}
+
+.emal{
+    position: relative;
+    font-weight: bold;
+    left: 45px;
+}
+
+.usernm{
+    font-weight: bold;
+    position: relative;
+    left: 45px;
+}
+
+.nm{
+    font-weight: bold;
+    position: relative;
+    left: 25px
+}
+
+.lstnm{
+    font-weight: bold;
+    position: relative;
+    left: 25px
+}
+
+.fin{
+    width: 150px;
+    height: 30px;
+    position: relative;
+    left: 10px;
+    font-size: larger;
+    font-weight: bold;
+    background-color: rgb(223, 199, 172);
+}

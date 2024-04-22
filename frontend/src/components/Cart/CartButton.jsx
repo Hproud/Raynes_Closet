@@ -73,7 +73,7 @@ export default function CartButton() {
   return (
     <div>
       <button onClick={toggleMenu} style={{background:'none', border:'none',position:'absolute',top:'58px'}}>
-        <p style={{ fontWeight: "bold", background:'none' }}>
+        <p style={{ fontWeight: "bold", background:'none', position:'relative', right:'25px' }}>
           <FaShoppingCart style={{position:'relative',top:'6px'}} size={"1.5em"} /> · {totalItems}
         </p>
       </button>

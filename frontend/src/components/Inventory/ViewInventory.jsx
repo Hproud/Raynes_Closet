@@ -3,7 +3,7 @@ import {  useEffect } from "react";
 import { useSelector } from "react-redux";
 import { allInv } from "../../store/inventory";
 import {  useNavigate } from "react-router-dom";
-
+import './inventory.css'
 
 
 
@@ -26,15 +26,18 @@ navigate(`/inventory/${id}`)
         <ul>
 
         {inventory && inventory.map((item)=>(
-            <li key={item.id}>
+            <li key={item.id} className="lst">
                 <div>
-                    <h3>{item.product.name}</h3>
-                    <div><h4>Size</h4><p>{item.product.size}</p></div>
-                    <div><h4>type</h4><p>{item.product.type}</p></div>
-                    <div><h4>Quantity:</h4><p>{item.quantity}</p></div>
-                    <button onClick={()=>editQ(item.product.id)}>Update Quantity</button>{" "}
-                    <button>delete</button>
+                    <h3 style={{textDecoration:'underline',fontSize:'25pt',display:'flex',justifyContent:'center'}}>{item.product.name}</h3>
+                    <div className="invsize"><h4 style={{fontSize:'13pt'}}>Size:</h4><p style={{position:'relative',left:'12px'}}>{item.product.size}</p></div>
+                    <div className="invtype">
+                        <h4>Type:</h4><p>{item.product.type}</p></div>
+                    <div className="invquant"><h4>Quantity:</h4><p className="qnt">{item.quantity}</p></div>
+                    <button className="updtbuttons"  onClick={()=>editQ(item.product.id)} style={{background:'saddlebrown'}} >Update Quantity</button>{" "}
+                    <button className="updtbuttons" style={{background:'red',fontSize:'12pts',position:'relative'}}>Delete</button>
                 </div>
+                <br/>
+                <br/>
             </li>
         ))}
         </ul>
