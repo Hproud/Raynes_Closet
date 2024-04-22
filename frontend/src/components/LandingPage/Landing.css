@@ -1,16 +1,25 @@
 .item {
-    border-style: dotted;
+    background: linear-gradient(
+        to left,
+        rgb(53, 175, 216),
+        lightBlue,
+        rgb(243, 140, 56)
+    );
+    width: 250px;
+    border-radius: 10px;
     margin: 5px;
     padding: 10px;
 }
 
 .productlist {
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
 
 }
 
 .itempic {
-    height: 200px;
+    height: 300px;
+    width: 250px;
+    border-radius: 10px;
 }
-
-
