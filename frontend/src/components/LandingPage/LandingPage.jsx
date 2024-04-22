@@ -38,10 +38,10 @@ useEffect(() => {
             products.map((item) => (
               <li key={item.id} className='item' onClick={()=>{navigate(`/products/${item.id}`)}}>
                 <div>
-                  <img className='itempic' src={item.preview} />
-                  <p>{item.name}</p>
-                  <p>{item.description}</p>
-                  <p>$ {item.price.toFixed(2)}</p>
+                  <img className='itempic' src={item.preview}  />
+                  <p style={{fontWeight:'bold'}}>{item.name}</p>
+                  <p style={{fontWeight:'bold'}}>{item.description}</p>
+                  <p style={{fontWeight:'bold',fontSize:'16pt'}}>$ {item.price.toFixed(2)}</p>
                 </div>
               </li>
             ))}
