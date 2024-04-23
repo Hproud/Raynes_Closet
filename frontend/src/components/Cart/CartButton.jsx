@@ -37,7 +37,7 @@ export default function CartButton() {
   useEffect(() => {
     dispatch(getCurrCart()).catch(async (res) => {
       const error = await res.json();
-      console.log(error, "this is an error");
+      // console.log(error, "this is an error");
     });
     if (!cart) {
       dispatch(createCart);

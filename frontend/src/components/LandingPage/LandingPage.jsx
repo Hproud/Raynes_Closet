@@ -16,11 +16,11 @@ const cart = useSelector(state => state.cart?.cart)
 useEffect(() => {
     dispatch(getAllProducts())
     .then(() => {setIsLoading(false)})
-    .catch(async (res) =>{
-      const data = await res.json();
-      console.log(data)
+    // .catch(async (res) =>{
+    //   const data = await res.json();
+      // console.log(data)
       // console.log(data,'this is the error in landing')
-    })
+    // })
     dispatch(getCurrCart()).catch(()=>{
 
       if(!cart){

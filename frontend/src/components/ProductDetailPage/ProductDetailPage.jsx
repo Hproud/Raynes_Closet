@@ -23,6 +23,7 @@ const reviews = useSelector((state) => state.products?.reviews)
 const master = useSelector((state)=> state.session?.user?.isMaster)
 const admin = useSelector((state)=> state.session?.user?.isAdmin)
 const cartId = useSelector((state) => state.cart?.cart?.cart_id)
+const user = useSelector(state => state.session?.user)
 // const cart = useSelector((state)=> state.cart?.cart)
 const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
@@ -46,17 +47,18 @@ return navigate('/')
 }
 
 const addtoCart = () =>{
-   
+
     const item ={
         item_id: product.id,
         size: product.size,
         price: product.price,
         quantity: 1
     }
-    dispatch(addItem(cartId,item)).catch(async (res)=>{
-        const error = await res.json()
-        console.log(error,'hit in product detail ')
-    })
+    dispatch(addItem(cartId,item))
+    // .catch(async (res)=>{
+    //     const error = await res.json()
+    //     console.log(error,'hit in product detail ')
+    // })
 }
 // console.log(cartId,'this is cartid')
 if(!isLoading){
@@ -74,7 +76,7 @@ if(!isLoading){
                     <p>{product.size}</p>
 
                 </div>
-                {!admin && !master && (
+                {!admin && !master && user && (
                     <button onClick={addtoCart}>Add to Cart</button>
                 )}
                 {(admin || master) && (
@@ -87,7 +89,7 @@ if(!isLoading){
             {reviews && reviews.map((review)=>(
                 <div key={review.id}>
                 <p>{review.review}</p>
-                <p>{review.stars}</p>
+                <p>{review.stars} out of 5!</p>
                 <p>{review.User.firstName} {review.User.lastName}</p>
                 <img src={review.imageUrl} style={{height: '50px',width:'50px',borderRadius:'20px'}} />
                 <hr />

@@ -57,7 +57,7 @@ export const getProductReview = (itemId) => async (dispatch)=> {
 
     if (actual.ok){
         const reviews = await actual.json();
-        console.log(reviews)
+        // console.log(reviews)
 
 dispatch(productReviews(reviews))
 
@@ -81,7 +81,7 @@ export const addNewItem = (proposed) => async(dispatch) =>{
 
 if(res.ok){
     const product = await res.json()
-    console.log(product,'you got the product')
+    // console.log(product,'you got the product')
      await csrfFetch(`/api/products/${product.id}/images`,{
         method: 'POST',
         body: JSON.stringify({

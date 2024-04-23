@@ -24,16 +24,18 @@ const minus = (itemId,quant) => {
   if(quant > 1){
 const newnum = quant - 1;
     const newQ= {quantity: newnum}
-    dispatch(updateCartItem(cart.cart_id,itemId,newQ)).catch(async(res)=>{
-      const error = await res.json()
-      console.log(error,'error in minus')
-    })
+    dispatch(updateCartItem(cart.cart_id,itemId,newQ))
+    // .catch(async(res)=>{
+      // const error = await res.json()
+      // console.log(error,'error in minus')
+    // })
   }
   if(quant === 1){
-    dispatch(removeItem(cart.cart_id,itemId)).catch(async(res)=>{
-      const error = await res.json()
-      console.log(error,'error in minus1')
-    })
+    dispatch(removeItem(cart.cart_id,itemId))
+    // .catch(async(res)=>{
+    //   const error = await res.json()
+    //   console.log(error,'error in minus1')
+    // })
   }
 }
 
@@ -46,11 +48,12 @@ const plus=(prod,quantity)=> {
     quantity: quantity +1
   }
 
-  console.log(cart,'this is the prod in plus')
-dispatch(addItem(cart.cart_id,item)).catch(async (res)=>{
-    const error = await res.json()
-    console.log(error)
-})
+  // console.log(cart,'this is the prod in plus')
+dispatch(addItem(cart.cart_id,item))
+// .catch(async (res)=>{
+//     const error = await res.json()
+//     console.log(error)
+// })
 }
 
 

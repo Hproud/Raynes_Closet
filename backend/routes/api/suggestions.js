@@ -24,7 +24,7 @@ router.get('',requireAuth,async (req,res,next)=>{
                 }]),
                 // attributes: ['id','suggestion']
             })
-            console.log('hit this guy')
+            // console.log('hit this guy')
 
             //if no suggestions return error
             if (!suggestions){
