@@ -16,27 +16,27 @@ export default function AddInventory() {
   const [type, setType] = useState("Select Type");
   const [quantity, setQuantity] = useState(0);
   const [preview, setPreview] = useState("");
-  const [pic1, setPic1] = useState("");
-  const [pic2, setPic2] = useState("");
-  const [pic3, setPic3] = useState("");
-  const [pic4, setPic4] = useState("");
+  // const [pic1, setPic1] = useState("");
+  // const [pic2, setPic2] = useState("");
+  // const [pic3, setPic3] = useState("");
+  // const [pic4, setPic4] = useState("");
   const [errors, setErrors] = useState({});
 
 const pictures =[]
 
-if(pic1){
-  pictures.push(pic1)
-}
-if(pic2){
-  pictures.push(pic2)
-}
-if(pic3){
-  pictures.push(pic3)
-}
+// if(pic1){
+//   pictures.push(pic1)
+// }
+// if(pic2){
+//   pictures.push(pic2)
+// }
+// if(pic3){
+//   pictures.push(pic3)
+// }
 
-if(pic4){
-  pictures.push(pic4)
-}
+// if(pic4){
+//   pictures.push(pic4)
+// }
 
   const proposed = {
     name,
@@ -54,33 +54,31 @@ if(pic4){
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (size === "Select Size") {
-          setErrors({size : "You Must Select a size for this product."});
-        }
+if(!(Object.values(errors).length)){
 
-        if (type === "Select Type") {
-          setErrors({type : "You must select a type for this product"});
-        }
-
-    dispatch(addNewItem(proposed))
-    // .then((res)=>{dispatch(addPreviewPic(res,preview))})
-      .then((res) => navigate(`/products/${res}`))
-      .catch(async (res) => {
-        const data = await res.json()
-        console.log(data, "this is the error we got");
-       setErrors(data)
-      });
-    setName("");
-    setDescription("");
-    setSize("Select Size");
-    setPrice(0);
-    setQuantity(0);
-    setPreview("");
-    setPic1();
-    setPic2();
-    setPic3();
-    setPic4();
-  };
+  dispatch(addNewItem(proposed))
+  // .then((res)=>{dispatch(addPreviewPic(res,preview))})
+  .then((res) => navigate(`/products/${res}`))
+  .catch(async (res) => {
+    const data = await res.json()
+    // console.log(data, "this is the error we got");
+    setErrors(data)
+  });
+  setName("");
+  setDescription("");
+  setSize("Select Size");
+  setPrice(0);
+  setQuantity(0);
+  setPreview("");
+  // setPic1();
+  // setPic2();
+  // setPic3();
+  // setPic4();
+}else{
+  setErrors(errors)
+  return errors
+}
+}
 
   // console.log(proposed);
 
@@ -97,17 +95,16 @@ if(pic4){
 
   //   setErrors(err);
   // }, [size, type]);
-
+// console.log(errors,'errors')
   return (
     <div style={{display:'flex',flexDirection:'column',position:'relative'
     , left:'280px'}}>
       <h1>Add A Product</h1>
       <form onSubmit={handleSubmit}>
-        {errors && (
-          <p
-          style={{ color: "red", fontWeight: "bold" }} >{errors.message}</p>
-        )}
-
+  {errors && (
+    <p
+    style={{ color: "red", fontWeight: "bold" }} >{errors.errors?.name}</p>
+  )}
         <label style={{fontWeight:'bold',position:'relative',left:'70px'}}>Name :</label>
         <br />
         <input
@@ -120,6 +117,10 @@ if(pic4){
         />
         <br />
         <br />
+        {errors && (
+    <p
+    style={{ color: "red", fontWeight: "bold" }} >{errors.errors?.description}</p>
+  )}
         <label style={{fontWeight:'bold',position:'relative', left:'50px'}}>Description :</label>
         <br />
         <textarea
@@ -137,7 +138,7 @@ if(pic4){
             className='addProdErrors'
             style={{ color: "red", fontWeight: "bold" }}
           >
-            {errors.size}
+            {errors.errors?.size}
           </p>
         )}
         <label style={{fontWeight:'bold'}}>Size :</label>
@@ -148,16 +149,17 @@ if(pic4){
           style={{backgroundColor:'sandybrown',position:'relative', fontWeight:'bold', left:'20px'}}
           required={true}
         >
-          <option style={{backgroundColor:'sandybrown', fontWeight:'bold'}}>Select Size</option>
-          <option value={"YS"}>YS</option>
-          <option value={"YM"}>YM</option>
-          <option value={"YL"}>YL</option>
-          <option value={"S"}>S</option>
-          <option value={"M"}>M</option>
-          <option value={"L"}>L</option>
-          <option value={"XL"}>XL</option>
-          <option value={"XXL"}>XXL</option>
-          <option value={"XXL"}>3X</option>
+          <option style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
+          >Select Size</option>
+          <option  >YS</option>
+          <option  >YM</option>
+          <option  >YL</option>
+          <option  >S</option>
+          <option  >M</option>
+          <option  >L</option>
+          <option  >XL</option>
+          <option  >XXL</option>
+          <option  >3X</option>
         </select>
         <br />
         <br />
@@ -166,7 +168,7 @@ if(pic4){
             className='addProdErrors'
             style={{ color: "red", fontWeight: "bold" }}
           >
-            {errors.price}
+            {errors.errors?.price}
           </p>
         )}
         <label style={{fontWeight:'bold'}}>Price :</label>
@@ -174,11 +176,11 @@ if(pic4){
         <input
         style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           type='number'
-          min={0}
+          value={price}
           placeholder={0}
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
+          onChange={(e) =>
+            setPrice(e.target.value)
+          }
           required={true}
         />
         <br />
@@ -188,7 +190,7 @@ if(pic4){
             className='addProdErrors'
             style={{ color: "red", fontWeight: "bold" }}
           >
-            {errors.type}
+            {errors.errors?.type}
           </p>
         )}
         <label style={{fontWeight:'bold'}}>Type :</label>
@@ -215,7 +217,7 @@ if(pic4){
             className='addProdErrors'
             style={{ color: "red", fontWeight: "bold" }}
           >
-            {errors.quantity}
+            {errors.errors?.quantity}
           </p>
         )}
         <label style={{fontWeight:'bold'}}>Available Quantity</label>
@@ -236,9 +238,10 @@ if(pic4){
             className='addProdErrors'
             style={{ color: "red", fontWeight: "bold" }}
           >
-            {errors.preview}
+            {errors.errors?.url}
           </p>
         )}
+
         <label style={{fontWeight:'bold'}}>Primary Photo:</label>
         <br />
         <input
@@ -248,11 +251,11 @@ if(pic4){
 placeholder="Photo URL"
           value={preview}
           onChange={(e) => {
-            setPreview(e.target.value);
+           setErrors({}); setPreview(e.target.value);
           }}
         />
         <br />
-        <hr />
+        {/* <hr />
         <label style={{fontWeight:'bold'}}>Additional Photos: (OPTIONAL)</label>
         <br />
         <br />
@@ -294,10 +297,10 @@ placeholder="Photo URL"
           onChange={(e) => setPic4(e.target.value)}
 placeholder="Photo URL"
 
-        />
+        /> */}
         <br />
         <br />
-        <button type='submit' className="addbutton">Add Prouduct</button> <button className="cnclbutton" onClick={()=> navigate('/')}>Cancel</button>
+        <button type='submit' className="addbutton">Add Product</button> <button className="cnclbutton" onClick={()=> navigate('/')}>Cancel</button>
         <br />
       </form>
     </div>

@@ -16,47 +16,47 @@ await Order.bulkCreate([
 {
   user_id: 1,
   cart_id: 1,
-  total: 10.23,
+  total: 23.98,
   status: 'Fufilled'
    },
 {
   user_id: 2,
   cart_id: 2,
-  total: 14.44,
+  total: 15.26,
   status: 'Pending'
 },
    {
   user_id: 3,
   cart_id: 3,
-  total: 5.24,
+  total: 10.09,
   status: 'Fufilled'
 
 },
 {
   user_id: 4,
   cart_id: 4,
-  total: 9.40,
+  total: 13.08,
   status: 'Refunded'
 
 },
 {
   user_id: 5,
   cart_id: 5,
-  total: 23.70,
+  total: 15.26,
   status: 'Canceled'
 
 },
 {
   user_id: 6,
   cart_id: 6,
-  total: 48.20,
+  total: 10.09,
   status: 'Fufilled'
 
 },
 {
   user_id: 7,
   cart_id: 7,
-  total: 12.10,
+  total: 13.08,
   status: 'Fufilled'
    },
 

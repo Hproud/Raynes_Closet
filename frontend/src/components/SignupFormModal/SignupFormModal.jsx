@@ -50,6 +50,12 @@ function SignupFormModal() {
     });
   };
 
+
+
+console.log(errors,'this is the errors')
+
+
+
   return (
     <div className="sgnupform">
       <h1 style={{textDecoration:'underline'}}>Sign Up</h1>
@@ -65,7 +71,7 @@ function SignupFormModal() {
             placeholder="Email"
             required
           />
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p style={{fontWeight:'bold',color: 'red'}}>{errors.email}</p>}
         <br />
         <br />
         <label className="usrnmlbl">
@@ -79,7 +85,7 @@ function SignupFormModal() {
             placeholder="Username"
             required
           />
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p style={{fontWeight:'bold',color: 'red'}}>{errors.username}</p>}
         <br />
         <br />
 
@@ -94,9 +100,11 @@ function SignupFormModal() {
             placeholder="First Name"
             required
           />
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p style={{fontWeight:'bold',color: 'red'}}>{errors.firstName}</p>}
         <br />
         <br />
+        {errors.lastName && <p style={{fontWeight:'bold',color: 'red'}}>{errors.lastName}</p>}
+
         <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>
           Last Name:
         </label>
@@ -108,9 +116,10 @@ function SignupFormModal() {
             placeholder="Last Name"
             required
           />
-        {errors.lastName && <p>{errors.lastName}</p>}
+
         <br />
         <br />
+        {errors.password && <p style={{fontWeight:'bold',color: 'red'}}>{errors.password}</p>}
         <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>
           Password:
           <br />
@@ -122,8 +131,8 @@ function SignupFormModal() {
             placeholder="Password"
             required
           />
-        {errors.password && <p>{errors.password}</p>}
         <br />
+        {errors.confirmPassword && <p style={{fontWeight:'bold',color: 'red'}}>{errors.confirmPassword}</p>}
         <label style={{position:'relative',left: '20px', fontWeight:'bold'}}>
           <br />
           Confirm Password:
@@ -136,9 +145,9 @@ function SignupFormModal() {
             placeholder="Confirm Password"
             required
           />
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <br />
         <br />
+        {errors.address && <p style={{fontWeight:'bold',color: 'red'}}>{errors.address}</p>}
         <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>Address: </label>
         <br />
         <input
@@ -148,6 +157,7 @@ function SignupFormModal() {
         />
         <br />
         <br />
+        {errors.city && <p style={{fontWeight:'bold',color: 'red'}}>{errors.city}</p>}
         <label style={{position:'relative',left: '65px', fontWeight:'bold'}}>
           City:
           <br />
@@ -159,6 +169,7 @@ function SignupFormModal() {
           />
         <br />
         <br />
+        {errors.state && <p style={{fontWeight:'bold',color: 'red'}}>{errors.state}</p>}
         <label style={{position:'relative',left: '60px', fontWeight:'bold'}}>
           State:
           <br />
@@ -170,6 +181,7 @@ function SignupFormModal() {
           />
         <br />
         <br />
+        {errors.zipcode && <p style={{fontWeight:'bold',color: 'red'}}>{errors.zipcode}</p>}
         <label style={{position:'relative',left: '50px', fontWeight:'bold'}}>
           Zipcode:
           <br />

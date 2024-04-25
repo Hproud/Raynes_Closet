@@ -9,16 +9,17 @@ import './orders.css'
 
 export default function UpdateStatus() {
     const order = useSelector((state) => state.order?.order);
+    const stat = useSelector(state => state.order?.order?.status)
     const dispatch = useDispatch();
     const { orderId } = useParams();
-    const [status,setStatus] = useState(order?.status)
+    const [status,setStatus] = useState(stat)
 const navigate = useNavigate()
 
 
 
     useEffect(() => {
         dispatch(getMyOrder(orderId));
-      }, [dispatch, orderId]);
+      }, [dispatch, orderId,stat]);
 
 
 
@@ -55,6 +56,7 @@ const handleSubmit = (e) =>{
     className="status"
     value={status}
     onChange={(e)=> setStatus(e.target.value)}
+
     >
         <option>Pending</option>
         <option>Fufilled</option>

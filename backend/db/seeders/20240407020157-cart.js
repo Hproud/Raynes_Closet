@@ -15,48 +15,48 @@ try{
 await Cart.bulkCreate([
 {
   user_id: 1,
-  subtotal: 8.25,
-  total: 10.23,
+  subtotal: 22.00,
+  total: 23.98,
   purchased: true
    },
 {
   user_id: 2,
-  subtotal: 12.00,
-  total: 14.44,
+  subtotal: 14.00,
+  total: 15.26,
   purchased: true
 },
    {
   user_id: 3,
-  subtotal: 4.99,
-  total: 5.24,
+  subtotal: 10.00,
+  total: 10.09,
   purchased: true
 
 },
 {
   user_id: 4,
-  subtotal: 8.56,
-  total: 9.40,
+  subtotal: 12.00,
+  total: 13.08,
   purchased: true
 
 },
 {
   user_id: 5,
-  subtotal: 22.00,
-  total: 23.70,
+  subtotal: 14.00,
+  total: 15.26,
   purchased: true
 
 },
 {
   user_id: 6,
-  subtotal: 44.00,
-  total: 48.20,
+  subtotal: 10.00,
+  total: 10.09,
   purchased: true
 
 },
 {
   user_id: 7,
-  subtotal: 9.00,
-  total: 12.10,
+  subtotal: 12.00,
+  total: 13.08,
   purchased: true
    },
 {

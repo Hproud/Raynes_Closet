@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { findOneProduct, getProductReview,deleteProduct } from "../../store/products";
+import { findOneProduct,deleteProduct } from "../../store/products";
 import { useSelector } from "react-redux";
 // import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
@@ -15,11 +15,21 @@ export default function ProductDetailPage() {
 const product = useSelector((state) => state.products?.product)
 const navigate = useNavigate()
     useEffect(()=>{
-        dispatch(findOneProduct(itemId)).then(()=>{ dispatch(getProductReview(itemId))}).then(()=> setIsLoading(false))
+        dispatch(findOneProduct(itemId))
+        // dispatch(getProductReview(itemId))
+        .catch(async (res)=>{
+            const data = await res.json()
+              return data
+          })
+        setIsLoading(false)
+        // .catch(async (res)=>{
+        //   const data = await res.json()
+        //     return data
+        // })
     },[dispatch,itemId])
 
-const url = product?.images
-const reviews = useSelector((state) => state.products?.reviews)
+const url = product?.images?.url
+// const reviews = useSelector((state) => state.products?.reviews)
 const master = useSelector((state)=> state.session?.user?.isMaster)
 const admin = useSelector((state)=> state.session?.user?.isAdmin)
 const cartId = useSelector((state) => state.cart?.cart?.cart_id)
@@ -28,6 +38,10 @@ const user = useSelector(state => state.session?.user)
 const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
 }
+
+
+
+// console.log(url,'url')
 
 
 // useEffect(()=>{
@@ -66,14 +80,14 @@ if(!isLoading){
     return (
         <div>
 
-            {url && url.map((pic) => (
-                <img src={pic.url} style={{height: '500px',maxWidth: '500px',minWidth:'200px'}} key={pic.url}/>
-            ))}
-                 <h1>{product.name}</h1>
+            {url &&  (
+                <img src={url} style={{height: '500px',maxWidth: '500px',minWidth:'200px'}} key={url}/>
+            )}
+                 <h1>{product?.name}</h1>
                 <div>
-                    <p>{product.description}</p>
-                    <p>$ {product.price.toFixed(2)}</p>
-                    <p>{product.size}</p>
+                    <p>{product?.description}</p>
+                    <p>$ {product?.price.toFixed(2)}</p>
+                    <p>{product?.size}</p>
 
                 </div>
                 {!admin && !master && user && (
@@ -85,19 +99,19 @@ if(!isLoading){
                         </div>
                 )}
                 <hr />
-                <h2>Reviews</h2>
-            {reviews && reviews.map((review)=>(
-                <div key={review.id}>
-                <p>{review.review}</p>
-                <p>{review.stars} out of 5!</p>
-                <p>{review.User.firstName} {review.User.lastName}</p>
-                <img src={review.imageUrl} style={{height: '50px',width:'50px',borderRadius:'20px'}} />
+                {/* <h2>Reviews</h2>
+            {reviews && reviews.length && reviews.map((review)=>(
+                <div key={review?.id}>
+                <p>{review?.review}</p>
+                <p>{review?.stars} out of 5!</p>
+                <p>{review?.User.firstName} {review?.User.lastName}</p>
+                <img src={review?.imageUrl} style={{height: '50px',width:'50px',borderRadius:'20px'}} />
                 <hr />
                 </div>
             ))}
             {!reviews && (
                 <h3>No Reviews For this Product!</h3>
-            )}
+            )} */}
         </div>
         )
     }else{

@@ -23,20 +23,20 @@ await CartItem.bulkCreate([
   {
     cart_id: 8,
     item_id: 2,
-    size: 'S',
+    size: 'L',
     price: 12.00,
     quantity: 1
   },
   {
     cart_id: 8,
     item_id: 7,
-    size: 'M',
+    size: 'XS',
     price: 14.00,
     quantity: 1
   },{
     cart_id: 1,
     item_id: 1,
-    size: 'XS',
+    size: 'M',
     price: 10.00,
     quantity: 2
   },
@@ -50,7 +50,7 @@ await CartItem.bulkCreate([
   {
     cart_id: 2,
     item_id: 7,
-    size: 'M',
+    size: 'XS',
     price: 14.00,
     quantity: 1
   },{
@@ -63,14 +63,14 @@ await CartItem.bulkCreate([
   {
     cart_id: 4,
     item_id: 2,
-    size: 'S',
+    size: 'L',
     price: 12.00,
     quantity: 1
   },
   {
     cart_id: 5,
     item_id: 7,
-    size: 'M',
+    size: 'XS',
     price: 14.00,
     quantity: 1
   },{
@@ -83,17 +83,10 @@ await CartItem.bulkCreate([
   {
     cart_id: 7,
     item_id: 2,
-    size: 'S',
+    size: 'L',
     price: 12.00,
     quantity: 1
-  },
-  {
-    cart_id: 8,
-    item_id: 7,
-    size: 'M',
-    price: 14.00,
-    quantity: 1
-  },
+  }
 
 
 ],{validate:true})

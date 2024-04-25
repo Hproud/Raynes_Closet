@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllOrders, myOrders } from "../../store/order";
+import { getAllOrders, myOrders,getMyOrder } from "../../store/order";
 import { Link, useNavigate } from "react-router-dom";
 import "./orders.css";
 
@@ -72,7 +72,7 @@ export default function OrdersPage() {
                           order.status === "Refunded" ||
                           order.status === "Canceled"
                         }
-                        onClick={() => navigate(`/orders/${order.id}/edit`)}
+                        onClick={() => dispatch(getMyOrder(order.id)).then(()=>navigate(`/orders/${order.id}/edit`))}
                       >
                         Update
                       </button>

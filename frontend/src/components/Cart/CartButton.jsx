@@ -35,10 +35,11 @@ export default function CartButton() {
   };
 
   useEffect(() => {
-    dispatch(getCurrCart()).catch(async (res) => {
-      const error = await res.json();
+    dispatch(getCurrCart())
+    // .catch(async (res) => {
+    //   const error = await res.json();
       // console.log(error, "this is an error");
-    });
+    // });
     if (!cart) {
       dispatch(createCart);
     }
@@ -72,26 +73,73 @@ export default function CartButton() {
 
   return (
     <div>
-      <button onClick={toggleMenu} style={{background:'none', border:'none',position:'absolute',top:'58px'}}>
-        <p style={{ fontWeight: "bold", background:'none', position:'relative', right:'25px' }}>
-          <FaShoppingCart style={{position:'relative',top:'6px'}} size={"1.5em"} /> · {totalItems}
+      <button
+        onClick={toggleMenu}
+        style={{
+          background: "none",
+          border: "none",
+          position: "absolute",
+          top: "58px",
+        }}
+      >
+        <p
+          style={{
+            fontWeight: "bold",
+            background: "none",
+            position: "relative",
+            right: "25px",
+          }}
+        >
+          <FaShoppingCart
+            style={{ position: "relative", top: "6px" }}
+            size={"1.5em"}
+          />{" "}
+          · {totalItems}
         </p>
       </button>
       {showMenu && (
-        <div className={ulClassName} hidden={!showMenu} ref={ulRef} style={{position:'absolute'}}>
+        <div
+          className={ulClassName}
+          hidden={!showMenu}
+          ref={ulRef}
+          style={{ position: "absolute" }}
+        >
           <Cart
             cart={cart}
             cartItems={allCartItems}
             subtotal={subtotal}
             product={product}
-
           />
           {allCartItems && (
             <div className="checkoutbuttons">
-              <button style={{width:'150px',height:'30px',fontWeight:'bold',
-            backgroundColor:'sandybrown'}} onClick={checkout}>Checkout</button>{" "}
-              {" "}<button style={{width: '150px', height:'30px',position:'relative',left:'20px', fontWeight:'bold',
-            backgroundColor:'sandybrown'}} onClick={addItems}>Add More Items</button>
+              <button
+                style={{
+                  width: "150px",
+                  height: "30px",
+                  fontWeight: "bold",
+                  backgroundColor: "sandybrown",
+                  position: "relative",
+                  right: "20px",
+                  borderRadius: "10px",
+                }}
+                onClick={checkout}
+              >
+                Checkout
+              </button>{" "}
+              <button
+                style={{
+                  width: "150px",
+                  height: "30px",
+                  position: "relative",
+                  fontWeight: "bold",
+                  backgroundColor: "sandybrown",
+                  left: "50px",
+                  borderRadius: "10px",
+                }}
+                onClick={addItems}
+              >
+                Add More Items
+              </button>
             </div>
           )}
           {!allCartItems && cart && (

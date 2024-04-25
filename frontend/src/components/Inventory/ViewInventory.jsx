@@ -21,6 +21,8 @@ const editQ = (id) =>{
 navigate(`/inventory/${id}`)
 }
 
+
+
     return (
     <div>
         <ul>
@@ -29,12 +31,15 @@ navigate(`/inventory/${id}`)
             <li key={item.id} className="lst">
                 <div>
                     <h3 style={{textDecoration:'underline',fontSize:'25pt',display:'flex',justifyContent:'center'}}>{item.product.name}</h3>
+                    <div style={{position:'relative',right:'80px'}}>
+
                     <div className="invsize"><h4 style={{fontSize:'13pt'}}>Size:</h4><p style={{position:'relative',left:'12px'}}>{item.product.size}</p></div>
                     <div className="invtype">
                         <h4>Type:</h4><p>{item.product.type}</p></div>
                     <div className="invquant"><h4>Quantity:</h4><p className="qnt">{item.quantity}</p></div>
+                    </div>
                     <button className="updtbuttons"  onClick={()=>editQ(item.product.id)} style={{background:'saddlebrown'}} >Update Quantity</button>{" "}
-                    <button className="updtbuttons" style={{background:'red',fontSize:'12pts',position:'relative'}}>Delete</button>
+                    {/* <button className="updtbuttons" style={{background:'red',fontSize:'12pts',position:'relative'}}>Delete</button> */}
                 </div>
                 <br/>
                 <br/>
