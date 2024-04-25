@@ -60,3 +60,10 @@
     font-weight: bold;
     background-color: rgb(223, 199, 172);
 }
+
+.adminerr{
+    color: red;
+    font-weight: bolder;
+    font-size: large;
+   text-decoration: double;
+}

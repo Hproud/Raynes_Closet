@@ -22,19 +22,27 @@ const validateReview = [
 
 const ValidateProduct = [
    check('name')
+   .trim('')
   .exists({checkFalsy: true})
   .withMessage("Item must have a name"),
   check('description')
+  .trim()
   .exists({checkFalsy: true})
   .withMessage("Item must have a description"),
   check('size')
   .exists({checkFalsy: true})
+  .custom((value) =>{
+    if(value !== 'Select Size' ) return true
+  })
   .withMessage("Size is required"),
    check('price')
   .exists({checkFalsy: true})
   .withMessage("Price Must be greater than 0"),
   check('type')
   .exists({checkFalsy: true})
+  .custom((value) =>{
+    if(value !== 'Select Type' ) return true
+  })
   .withMessage("Type of product is required"),
   handleValidationErrors
 ]
@@ -48,6 +56,18 @@ const ValidateEdit =[
   .withMessage("Price Must be greater than 0"),
   handleValidationErrors
 ]
+
+
+const ValidatePic = [
+  check('url')
+  .exists()
+  .custom((value) =>{
+    if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
+  })
+  .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
+  handleValidationErrors
+]
+
 
 
 //TODO--------------------------------------GET ALL PRODUCTS--------------------------------------------
@@ -73,9 +93,9 @@ if(!products.length){
         where: {
           imageable_id: products[i].id,
           imageable_type: "Product",
-          preview: true,
+          // preview: true,
         },
-        attributes: ["id", "url", "preview"],
+        attributes: ["id", "url"],
       });
       // console.log(pic,'this is pic *****************************************************************************')
       const newItem = {
@@ -129,43 +149,66 @@ const revs = []
       item_id: id
     },
   })
-  for (let i=0;i < reviews.length;i++){
-    const rev = reviews[i]
-    const pics = await Image.findAll({
-      where:{
-        imageable_id: rev.id,
-        imageable_type: 'Review'
+  if(reviews ){
+
+    for (let i=0;i < reviews.length;i++){
+      const rev = reviews[i]
+      const pics = await Image.findAll({
+        where:{
+          imageable_id: rev.id,
+          imageable_type: 'Review'
+        }
+      })
+      // console.log(pics,"dfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfafsd")
+      const newrev={
+        id: rev.id,
+        user_id: rev.user_id,
+        review: rev.review,
+        stars: rev.stars,
+        item_id: rev.itemId,
+        images: pics,
+        createdAt: rev.createdAt,
+        updatedAt: rev.updatedAt
       }
-    })
-    // console.log(pics,"dfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfafsd")
-    const newrev={
-      id: rev.id,
-      user_id: rev.user_id,
-      review: rev.review,
-      stars: rev.stars,
-      item_id: rev.itemId,
-      images: pics,
-      createdAt: rev.createdAt,
-      updatedAt: rev.updatedAt
+      revs.push(newrev)
     }
-    revs.push(newrev)
-  }
+
+
+
   // console.log(reviews)
-  const final= {
-    id: id,
-    name: prod.name,
-    description: prod.description,
-    size: prod.size,
-    price: prod.price,
-    images: prod.Images,
-    reviews: revs,
-    type: prod.type,
-    preview: prod.preview,
-    createdAt: prod.createdAt,
-    updatedAt: prod.updatedAt
-  }
-  // return all info for the product to the front end
+
+
+    const final= {
+      id: id,
+      name: prod.name,
+      description: prod.description,
+      size: prod.size,
+      price: prod.price,
+      images: prod.Images[0],
+      reviews: revs,
+      type: prod.type,
+      preview: prod.preview,
+      createdAt: prod.createdAt,
+      updatedAt: prod.updatedAt
+    }
   return res.json(final);
+
+  }else{
+    const final= {
+      id: id,
+      name: prod.name,
+      description: prod.description,
+      size: prod.size,
+      price: prod.price,
+      images: prod.Images[0],
+      type: prod.type,
+      preview: prod.preview,
+      createdAt: prod.createdAt,
+      updatedAt: prod.updatedAt
+    }
+    // return all info for the product to the front end
+    return res.json(final);
+  }
 }
 
 });
@@ -313,13 +356,13 @@ finalRevs.push(rev)
   //include the pictures for that review
   // console.log(finalRevs,'----------------------------------------')
 
-  if( reviews.length === 0){
+  if( (reviews.length === 0)){
     const err = Error("Product Not Found");
     err.status = 404;
     err.message = "Product Not Found";
     return next(err);
 
-
+return
   }else{
     //return all reviews
     return res.json(finalRevs);
@@ -382,7 +425,7 @@ router.post("/:itemId/reviews",validateReview, requireAuth, async (req, res, nex
 
 //^-------------Add Image for a product----------------
 
-router.post("/:itemId/images", requireAuth, async (req, res, next) => {
+router.post("/:itemId/images", requireAuth,ValidatePic, async (req, res, next) => {
   if (req.user.isAdmin || req.user.master) {
     //pull product id
     const id = Number(req.params.itemId);

@@ -101,7 +101,7 @@ router.post("", requireAuth, async (req, res, next) => {
       user_id: user,
     });
     //pull the new cart id
-    console.log(newCart);
+    // console.log(newCart);
 
     //return new cart
     return res.json(newCart);

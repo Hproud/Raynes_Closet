@@ -30,7 +30,7 @@ const getTheDetails=(order)=>({
 //!------------------------------------THUNKS-----------------------------------
 
 export const placeOrder = (info) => async (dispatch) =>{
-    console.log(info,'info in thunk')
+    // console.log(info,'info in thunk')
     const place = await csrfFetch(`/api/orders`,{
         method: 'POST',
         body: JSON.stringify(info)
@@ -69,13 +69,13 @@ if(orders.ok){
 
 export const getMyOrder = (id) => async (dispatch) =>{
     const order = await csrfFetch(`/api/orders/${id}`)
-console.log(id,'this is the id in the thunk')
+// console.log(id,'this is the id in the thunk')
     if(order.ok){
         const details = await order.json()
         dispatch(getTheDetails(details))
     }else{
         const data = order.json()
-        console.log(data,'error in the thunk')
+        // console.log(data,'error in the thunk')
         return data
     }
 }
@@ -92,7 +92,7 @@ export const editStatus = (id,status)=> async (dispatch) =>{
         return newStatus
     }else{
         const data = await edited.json()
-        console.log(data,'this is our error in my edit thunk')
+        // console.log(data,'this is our error in my edit thunk')
         return data
     }
 }

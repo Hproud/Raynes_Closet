@@ -9,15 +9,18 @@ const router = express.Router();
 
 const validateSignUp = [
     check('firstName')
+    .trim()
     .exists({checkFalsy: true})
     .withMessage('First Name is required.'),
     check('lastName')
+    .trim()
     .exists({checkFalsy: true})
     .withMessage('Last Name is required.'),
     check('email')
     .isEmail()
     .withMessage('Invalid email.'),
     check('username')
+    .trim()
     .exists({ checkFalsy: true})
     .isLength({min: 4})
     .withMessage('Username is required.'),
@@ -29,6 +32,21 @@ const validateSignUp = [
     .exists({ checkFalsy: true })
     .isLength({min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+    check('zipcode')
+    .isLength({min: 5, max: 5})
+    .withMessage('ZipCode Must be 5 digits long'),
+    check(`address`)
+    .trim()
+    .exists({ checkFalsy: true})
+    .withMessage('Address is required'),
+    check('city')
+    .trim()
+    .exists({checkFalsy: true})
+    .withMessage('City is Required'),
+    check('state')
+    .trim()
+    .exists({checkFalsy: true})
+    .withMessage('State is Required'),
     handleValidationErrors
 ];
 

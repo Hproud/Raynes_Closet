@@ -13,21 +13,29 @@ const [email,setEmail] = useState()
 const [firstName,setFirstName]= useState();
 const [lastName,setLastName]= useState();
 const [userName, setUserName] = useState();
-
+const [errors,setErrors] = useState({});
 
 
 const handleSubmit = (e) =>{
   e.preventDefault();
 if(window.confirm(`You are granting Admin Access to the User ${firstName} ${lastName} Would You Like to Continue?`)){
  dispatch(addAdmin(email,userName,firstName,lastName)).then(closeModal)
+ .catch(async (res) => {
+const err = await res.json()
+return setErrors(err)
+ })
 }
 
 }
 
+// console.log(errors,' this is the error')
   return (
     <div className="addadminform">
       <h1 style={{fontWeight:'bolder'}}>Add Admin Access</h1>
       <form onSubmit={handleSubmit}>
+        {errors && (
+          <p className="adminerr">{errors.message}</p>
+        )}
 <label className="emal">User Email: </label>
 <br/>
 <input

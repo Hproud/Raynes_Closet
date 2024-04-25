@@ -37,6 +37,7 @@ export const getOneInv = (id) => async (dispatch)=>{
         const product = await inv.json()
         dispatch(singleItem(product))
         dispatch(findOneProduct(id))
+        
     }
 
 

@@ -12,21 +12,28 @@ export default function LandingPage() {
   const products = useSelector((state) => state.products?.products);
 const navigate= useNavigate()
 const cart = useSelector(state => state.cart?.cart)
+const user = useSelector((state) => state.session?.user)
+
+const url = useSelector((state) => state.products?.products?.preview);
+
 
 useEffect(() => {
     dispatch(getAllProducts())
     .then(() => {setIsLoading(false)})
-    .catch(async (res) =>{
-      const data = await res.json();
-      console.log(data)
+    // .catch(async (res) =>{
+    //   const data = await res.json();
+      // console.log(data)
       // console.log(data,'this is the error in landing')
-    })
-    dispatch(getCurrCart()).catch(()=>{
+    // })
+    if(user && !user.isAdmin && !user.isMaster){
 
-      if(!cart){
-        dispatch(createCart())
-      }
-    })
+      dispatch(getCurrCart()).catch(()=>{
+
+        if(!cart){
+          dispatch(createCart())
+        }
+      })
+    }
   }, [dispatch,cart?.id]);
 
 
@@ -38,7 +45,13 @@ useEffect(() => {
             products.map((item) => (
               <li key={item.id} className='item' onClick={()=>{navigate(`/products/${item.id}`)}}>
                 <div>
-                  <img className='itempic' src={item.preview}  />
+                  {item.preview && (
+
+                    <img className='itempic' src={item.preview}  />
+                  )}
+                  {url && (
+                    <img className='itempic' src={url}  />
+                  )}
                   <p style={{fontWeight:'bold'}}>{item.name}</p>
                   <p style={{fontWeight:'bold'}}>{item.description}</p>
                   <p style={{fontWeight:'bold',fontSize:'16pt'}}>$ {item.price.toFixed(2)}</p>

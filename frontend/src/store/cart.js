@@ -74,10 +74,10 @@ const res = await csrfFetch(`/api/cart/${cartId}/items/${itemId}`,{
 
 if(res.ok){
     await res.json();
-    console.log('hit')
+    // console.log('hit')
 dispatch(getCurrCart())
 }else{
-    console.log('hit2')
+    // console.log('hit2')
     const data = await res.json()
     return data
 }

@@ -35,14 +35,14 @@ await Product.bulkCreate([
   type: 'hoodie'
 },
 {
-  name: 'Light Cotton Hoodie',
+  name: 'Cotton Hoodie',
   description: 'This hoodie is made with a thin breathable material. This would be Great for spring or fall!',
   size: 'XXL',
   price: 15.00,
   type: 'hoodie'
 },
 {
-  name: 'Form Fitting Racerback Tank',
+  name: 'Racerback Tank',
   description: 'This tank top is light weight and form fitting',
   size: 'S',
   price: 4.00,
