@@ -98,9 +98,9 @@ if(!(Object.values(errors).length)){
 // console.log(errors,'errors')
   return (
     <div style={{display:'flex',flexDirection:'column',position:'relative'
-    , left:'280px'}}>
+    , left:'280px', width:'250px'}}>
       <h1>Add A Product</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{width:'200px'}}>
   {errors && (
     <p
     style={{ color: "red", fontWeight: "bold" }} >{errors.errors?.name}</p>
