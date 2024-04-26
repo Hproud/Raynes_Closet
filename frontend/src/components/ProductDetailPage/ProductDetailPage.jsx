@@ -39,7 +39,7 @@ const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
 }
 
-
+const cost = (product?.price)
 
 // console.log(url,'url')
 
@@ -86,7 +86,7 @@ if(!isLoading){
                  <h1>{product?.name}</h1>
                 <div>
                     <p>{product?.description}</p>
-                    <p>$ {product?.price.toFixed(2)}</p>
+                    <p>$ {cost}.00</p>
                     <p>{product?.size}</p>
 
                 </div>
