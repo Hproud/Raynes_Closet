@@ -50,7 +50,7 @@ navigate('/inventory')
 <br/>
 <input
 type='number'
-value={quantity}
+// value={quantity}
 onChange={(e)=> setQuantity(e.target.value)}
 style={{backgroundColor:'sandybrown'}}
 />

@@ -253,6 +253,7 @@ placeholder="Photo URL"
           onChange={(e) => {
            setErrors({}); setPreview(e.target.value);
           }}
+          required={true}
         />
         <br />
         {/* <hr />
