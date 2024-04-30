@@ -117,6 +117,7 @@ function SignupFormModal() {
             required
           />
 
+
         <br />
         <br />
         {errors.password && <p style={{fontWeight:'bold',color: 'red'}}>{errors.password}</p>}
