@@ -93,12 +93,17 @@ if(!isLoading){
                 {!admin && !master && user && (
                     <button onClick={addtoCart}>Add to Cart</button>
                 )}
-                {(admin || master) && (
+                {master && (
                     <div>
                         <button onClick={edit}>Edit Product</button>{" "}<button onClick={deleteProd}>Delete Product</button>
                         </div>
                 )}
                 <hr />
+                {admin && (
+                    <div>
+                        <button onClick={edit}>Edit Product</button>{" "}<button onClick={deleteProd}>Delete Product</button>
+                        </div>
+                )}
                 {/* <h2>Reviews</h2>
             {reviews && reviews.length && reviews.map((review)=>(
                 <div key={review?.id}>
