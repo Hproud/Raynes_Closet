@@ -9,13 +9,14 @@ import { createCart, getCurrCart } from "../../store/cart";
 export default function LandingPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const products = useSelector((state) => state.products?.products);
+  const products = useSelector((state) => state.products?.data);
 const navigate= useNavigate()
 const cart = useSelector(state => state.cart?.cart)
 const user = useSelector((state) => state.session?.user)
-
+const normalizedProducts = useSelector((state) => state.products?.data)
 const url = useSelector((state) => state.products?.products?.preview);
-
+const allItems = Object.values(products)
+console.log(allItems,' on landing')
 
 useEffect(() => {
     dispatch(getAllProducts())
@@ -41,8 +42,8 @@ useEffect(() => {
     return (
       <div>
         <ul className='productlist'>
-          {products &&
-            products.map((item) => (
+          {allItems &&
+            allItems.map((item) => (
               <li key={item.id} className='item' onClick={()=>{navigate(`/products/${item.id}`)}}>
                 <div>
                   {item.preview && (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { findOneProduct,deleteProduct } from "../../store/products";
+import { findOneProduct,deleteProduct, getAllProducts } from "../../store/products";
 import { useSelector } from "react-redux";
 // import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
@@ -55,7 +55,9 @@ const cost = (product?.price)
 const deleteProd = (e) =>{
     e.preventDefault();
 
-dispatch(deleteProduct(product.id))
+dispatch(deleteProduct(product.id)
+)
+dispatch(getAllProducts())
 
 return navigate('/')
 }
