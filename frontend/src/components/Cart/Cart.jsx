@@ -2,18 +2,16 @@
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { updateCartItem, addItem } from "../../store/cart";
+import { addItem } from "../../store/cart";
 import { getAllCartItems, removeCartItem,updateTheCartItem } from "../../store/cartItems";
 import "./cart.css";
 
 export default function Cart({ cartItems, subtotal, cart }) {
 
   const dispatch = useDispatch();
-console.log(cart.cart_id)
+
   const minus = (itemId, quant) => {
-const cartId = cart.cart_id
-console.log(itemId,'itemId')
-console.log(quant,'quant')
+
 if (quant > 1) {
 
       const newnum = quant - 1;

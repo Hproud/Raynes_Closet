@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 // import EditProduct from "../Inventory/EditProduct";
 import "./ProductDetailPage.css"
 import { useNavigate } from "react-router-dom";
-import { addItem, updateCartItem} from "../../store/cart";
+import { addItem} from "../../store/cart";
 
 export default function ProductDetailPage() {
     const  {itemId } = useParams()
@@ -16,7 +16,7 @@ const product = useSelector((state) => state.products?.product)
 const navigate = useNavigate()
     useEffect(()=>{
         dispatch(findOneProduct(itemId))
-        
+
         // dispatch(getProductReview(itemId))
         .catch(async (res)=>{
             const data = await res.json()
