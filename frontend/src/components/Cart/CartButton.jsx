@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import { createCart, getCurrCart } from "../../store/cart";
 import { useNavigate } from "react-router-dom";
 import "./cart.css";
+import { getAllCartItems } from "../../store/cartItems";
 
 export default function CartButton() {
   const navigate = useNavigate();
@@ -15,19 +16,23 @@ export default function CartButton() {
   // const user = useSelector(state => state.session?.user)
   const product = useSelector((state) => state.products?.product);
   const cart = useSelector((state) => state.cart?.cart);
-  const allCartItems = useSelector((state) => state.cart?.cartItems);
+  // const allCartItems = useSelector((state) => state.cart?.cartItems);
+  const crtItms = useSelector((state) => state.cartItems?.data)
   // const products = useSelector(state => state.products?.products)
+  const allitms = Object.values(crtItms)
   let totalItems = 0;
   let subtotal = 0;
-  if (allCartItems) {
-    allCartItems.map((item) => {
+  if (allitms) {
+    allitms.map((item) => {
       totalItems += item.quantity;
       subtotal += item.prodInfo.price * item.quantity;
     });
   }
   // console.log(subtotal,'this is the subtotal')
 
-  // console.log(totalItems,'------------------')
+
+
+  // console.log(allitms,'------------------')
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -36,6 +41,7 @@ export default function CartButton() {
 
   useEffect(() => {
     dispatch(getCurrCart())
+    dispatch(getAllCartItems())
     // .catch(async (res) => {
     //   const error = await res.json();
       // console.log(error, "this is an error");
@@ -43,7 +49,7 @@ export default function CartButton() {
     if (!cart) {
       dispatch(createCart);
     }
-  }, [dispatch, allCartItems?.length]);
+  }, [dispatch, allitms?.length]);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -106,11 +112,11 @@ export default function CartButton() {
         >
           <Cart
             cart={cart}
-            cartItems={allCartItems}
+            cartItems={allitms}
             subtotal={subtotal}
             product={product}
           />
-          {allCartItems && (
+          {allitms && (
             <div className="checkoutbuttons">
               <button
                 style={{
@@ -142,7 +148,7 @@ export default function CartButton() {
               </button>
             </div>
           )}
-          {!allCartItems && cart && (
+          {!allitms && cart && (
             <button onClick={addItems}>Add Prouducts</button>
           )}
         </div>

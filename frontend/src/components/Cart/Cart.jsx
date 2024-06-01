@@ -2,37 +2,28 @@
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { removeItem, updateCartItem, addItem } from "../../store/cart";
+import { updateCartItem, addItem } from "../../store/cart";
+import { removeCartItem,updateTheCartItem } from "../../store/cartItems";
 import "./cart.css";
 
 export default function Cart({ cartItems, subtotal, cart }) {
-  // const navigate = useNavigate();
+
   const dispatch = useDispatch();
-  // let quant = 0
-  // if(cartItems){
-  //   cartItems.map((item)=>{
-  //     quant += item.quantity
-  //   })
-  // }
-  // console.log(quant,'this is the cart in the dropdown')
+console.log(cart.cart_id)
   const minus = (itemId, quant) => {
-    // console.log(quant,'this is the quant in minus')
-    // console.log(itemId,'this is the itemid in the minus')
-    if (quant > 1) {
+const cartId = cart.cart_id
+console.log(itemId,'itemId')
+console.log(quant,'quant')
+if (quant > 1) {
+
       const newnum = quant - 1;
       const newQ = { quantity: newnum };
-      dispatch(updateCartItem(cart.cart_id, itemId, newQ));
-      // .catch(async(res)=>{
-      // const error = await res.json()
-      // console.log(error,'error in minus')
-      // })
+      dispatch(updateTheCartItem(cart.cart_id, itemId, newQ));
+
     }
     if (quant === 1) {
-      dispatch(removeItem(cart.cart_id, itemId));
-      // .catch(async(res)=>{
-      //   const error = await res.json()
-      //   console.log(error,'error in minus1')
-      // })
+      dispatch(removeCartItem(cart.cart_id, itemId));
+
     }
   };
 
@@ -44,12 +35,9 @@ export default function Cart({ cartItems, subtotal, cart }) {
       quantity: quantity + 1,
     };
 
-    // console.log(cart,'this is the prod in plus')
+
     dispatch(addItem(cart.cart_id, item));
-    // .catch(async (res)=>{
-    //     const error = await res.json()
-    //     console.log(error)
-    // })
+
   };
 
   return (
@@ -87,7 +75,8 @@ export default function Cart({ cartItems, subtotal, cart }) {
               <div className="quants">
                 <button
                   style={{ background: "none", border: "none" }}
-                  onClick={() => minus(item.prodInfo.id, item.quantity)}
+                  onClick={() =>{
+                    console.log(item.quantity);minus(item.prodInfo.id, item.quantity)}}
                 >
                   <BiSolidMinusCircle size={"1.3em"} />
                 </button>
