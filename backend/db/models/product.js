@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
           hooks:true
         }
       )
-      //?-------------------------------commented in the ondelete cascade ^^~~~~~~~~~~~~~
+      
 
         Product.hasOne(
           models.Inventory,{

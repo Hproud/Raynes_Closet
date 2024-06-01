@@ -16,6 +16,7 @@ const product = useSelector((state) => state.products?.product)
 const navigate = useNavigate()
     useEffect(()=>{
         dispatch(findOneProduct(itemId))
+
         // dispatch(getProductReview(itemId))
         .catch(async (res)=>{
             const data = await res.json()
