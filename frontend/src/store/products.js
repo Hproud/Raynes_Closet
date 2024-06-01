@@ -4,14 +4,16 @@ import { csrfFetch } from "./csrf";
 const ALL_PRODUCTS = 'products/allProducts'
 const GET_ONE = 'products/getOne'
 const GET_PRODREVIEWS = 'products/prodReviews'
-
+const DELETE_PRODUCT = 'products/delete'
 
 
 //& ------------------------------ACTIONS---------------------------------------
+
+
 const allProducts = (products) => ({
     type: ALL_PRODUCTS,
-    products
-});
+    payload: products
+})
 
 const onlyOne = (product) => ({
     type: GET_ONE,
@@ -25,7 +27,10 @@ const productReviews = (reviews) => ({
 
 })
 
-
+const deleteTheProduct = (id) =>({
+    type: DELETE_PRODUCT,
+    payload: id
+})
 
 //! -------------------------------THUNKS----------------------------------------
 
@@ -36,7 +41,7 @@ export const getAllProducts = () => async (dispatch) => {
         const products = await all.json()
 
         dispatch(allProducts(products))
-
+// dispatch(test1(products))
     }
 }
 
@@ -147,7 +152,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     })
     if (remove.ok) {
 
-        dispatch(getAllProducts())
+        dispatch(deleteTheProduct(id))
 
     }
 }
@@ -157,13 +162,26 @@ export const deleteProduct = (id) => async (dispatch) => {
 
 //TODO-------------------------------REDUCER--------------------------------------
 
+const initialState = {
+    data: {},
+    isLoading:true
+}
 
-const productReducer = (state = {}, action) => {
+const productReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case ALL_PRODUCTS:
-            return { ...state, products: action.products }
+        case ALL_PRODUCTS:{
+            console.log(action.payload,'this is the payload')
+            const normalized = {}
+            action.payload.forEach((product)=>
+            normalized[product.id]=product
+        )
+        console.log(normalized,'this is normalized')
+        return{
+            ...state, data: normalized
+        }
+        }
 
         case GET_ONE:
             return { ...state, product: action.product }
@@ -173,8 +191,13 @@ const productReducer = (state = {}, action) => {
                 ...state, reviews: action.reviews
             }
 
-
-
+        case DELETE_PRODUCT:{
+            const normState = {...state}
+            delete normState.data[action.payload]
+            return{
+                ...normState, isLoading: false
+            }
+        }
         default: return state
     }
 
