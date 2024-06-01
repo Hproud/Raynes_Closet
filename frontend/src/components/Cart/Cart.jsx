@@ -3,7 +3,7 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import { BiSolidMinusCircle } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { updateCartItem, addItem } from "../../store/cart";
-import { removeCartItem,updateTheCartItem } from "../../store/cartItems";
+import { getAllCartItems, removeCartItem,updateTheCartItem } from "../../store/cartItems";
 import "./cart.css";
 
 export default function Cart({ cartItems, subtotal, cart }) {
@@ -19,6 +19,7 @@ if (quant > 1) {
       const newnum = quant - 1;
       const newQ = { quantity: newnum };
       dispatch(updateTheCartItem(cart.cart_id, itemId, newQ));
+      dispatch(getAllCartItems())
 
     }
     if (quant === 1) {
@@ -37,6 +38,7 @@ if (quant > 1) {
 
 
     dispatch(addItem(cart.cart_id, item));
+    dispatch(getAllCartItems())
 
   };
 

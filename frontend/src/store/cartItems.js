@@ -34,8 +34,8 @@ export const getAllCartItems = () => async (dispatch) =>{
     const res = await csrfFetch(`/api/cart`)
     if(res.ok){
         const cart = await res.json()
-        const itms = cart.items
-        // console.log(itms,'in the thunk chking crt items')
+
+      
         dispatch(allCartItems(cart.items))
         return cart.items
     }
@@ -54,8 +54,18 @@ export const updateTheCartItem = (cartId,itemId,quant) => async (dispatch) =>{
 
     if(res.ok){
         const itm = await res.json()
-        console.log(itm,'itm')
-        dispatch(updateCartItem(itm))
+
+        const res1 = await csrfFetch(`/api/cart`)
+        if(res1.ok){
+            const crtitm = await res1.json()
+            const cartItems = crtitm.items
+
+            const oneItem = cartItems.filter(item => item.id === itm.id)
+
+
+            dispatch(updateCartItem(oneItem[0]))
+
+        }
         return itm
     }
 }
@@ -99,7 +109,7 @@ switch(action.type){
         return {
             data: {
                 ...state.data,
-            [action.payload.id]: payload
+            [action.payload.id]: action.payload
             },
             isLoading: false
         }
