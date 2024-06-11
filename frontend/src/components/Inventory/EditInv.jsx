@@ -19,12 +19,12 @@ const prod = useSelector(state => state.products?.product)
         dispatch(findOneProduct(itemId))
     },[dispatch,itemId])
 
-// console.log(prod,'this is the product')
+
 
 
 const handleSubmit = (e) =>{
 e.preventDefault();
-// console.log(quantity)
+
 dispatch(updateQ(itemId,{quantity: quantity}))
 navigate('/inventory')
 }

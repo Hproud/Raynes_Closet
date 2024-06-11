@@ -49,7 +49,7 @@ const pictures =[]
     pictures
   };
 
-// console.log(pics)
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +61,7 @@ if(!(Object.values(errors).length)){
   .then((res) => navigate(`/products/${res}`))
   .catch(async (res) => {
     const data = await res.json()
-    // console.log(data, "this is the error we got");
+
     setErrors(data)
   });
   setName("");
@@ -80,7 +80,7 @@ if(!(Object.values(errors).length)){
 }
 }
 
-  // console.log(proposed);
+
 
   // useEffect(() => {
   //   const err = {};
@@ -95,7 +95,7 @@ if(!(Object.values(errors).length)){
 
   //   setErrors(err);
   // }, [size, type]);
-// console.log(errors,'errors')
+
   return (
     <div style={{display:'flex',flexDirection:'column',position:'relative'
     , left:'280px', width:'250px'}}>

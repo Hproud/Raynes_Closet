@@ -76,7 +76,7 @@ if (quant > 1) {
                 <button
                   style={{ background: "none", border: "none" }}
                   onClick={() =>{
-                    console.log(item.quantity);minus(item.prodInfo.id, item.quantity)}}
+                    minus(item.prodInfo.id, item.quantity)}}
                 >
                   <BiSolidMinusCircle size={"1.3em"} />
                 </button>

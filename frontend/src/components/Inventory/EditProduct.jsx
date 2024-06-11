@@ -17,7 +17,7 @@ const [errors,setErrors] = useState({})
 
 const url = useSelector(state => state.products?.product?.images?.url)
 
-// console.log(url,'this is the url')
+
 
 
 useEffect(()=>{

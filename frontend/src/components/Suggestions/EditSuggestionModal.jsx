@@ -21,7 +21,7 @@ const handleSubmit = (e) =>{
 dispatch(editSugg(id, suggestion)).then(closeModal).then(()=>dispatch(checkSuggestions()))
 }
 
-// console.log(sugg, 'when i hit the button')
+
 
   return (
     <div className="editsugg">

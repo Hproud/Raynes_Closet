@@ -35,21 +35,14 @@ const master = useSelector((state)=> state.session?.user?.isMaster)
 const admin = useSelector((state)=> state.session?.user?.isAdmin)
 const cartId = useSelector((state) => state.cart?.cart?.cart_id)
 const user = useSelector(state => state.session?.user)
-// const cart = useSelector((state)=> state.cart?.cart)
+
 const edit = () =>{
     return navigate(`/products/${product.id}/edit`)
 }
 
 const cost = (product?.price)
 
-// console.log(url,'url')
 
-
-// useEffect(()=>{
-//     if(!cart){
-//         dispatch(createCart()).then(()=> dispatch(getCurrCart()))
-//     }
-// },[dispatch])
 
 
 
@@ -72,12 +65,9 @@ const addtoCart = () =>{
         quantity: 1
     }
     dispatch(addItem(cartId,item))
-    // .catch(async (res)=>{
-    //     const error = await res.json()
-    //     console.log(error,'hit in product detail ')
-    // })
+
 }
-// console.log(cartId,'this is cartid')
+
 if(!isLoading){
 
     return (

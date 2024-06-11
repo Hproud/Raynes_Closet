@@ -23,7 +23,7 @@ export default function Checkout() {
   const [state, setState] = useState(user.state);
   const [zipCode, setZipCode] = useState(user.zipcode);
   const [errors, setErrors] = useState({});
-  // console.log(allCartItems,'+++++++++++++++++++++++++++++++++')
+
 
   let subtotal = 0;
   if (allCartItems) {
@@ -88,9 +88,7 @@ export default function Checkout() {
     return setErrors(errs);
   }, [cardNumber, expMonth, expYear, cvv, zipCode]);
 
-  // console.log(subtotal,'this is the subtotal in checkout ')
-  // console.log(tax,'tax')
-  // console.log(total,'this is the total in checkout')
+
 
   return (
     <div className="chkout">
