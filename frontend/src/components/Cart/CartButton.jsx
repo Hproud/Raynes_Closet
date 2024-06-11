@@ -28,11 +28,7 @@ export default function CartButton() {
       subtotal += item.prodInfo.price * item.quantity;
     });
   }
-  // console.log(subtotal,'this is the subtotal')
 
-
-
-  // console.log(allitms,'------------------')
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -42,10 +38,8 @@ export default function CartButton() {
   useEffect(() => {
     dispatch(getCurrCart())
     dispatch(getAllCartItems())
-    // .catch(async (res) => {
-    //   const error = await res.json();
-      // console.log(error, "this is an error");
-    // });
+
+   
     if (!cart) {
       dispatch(createCart);
     }

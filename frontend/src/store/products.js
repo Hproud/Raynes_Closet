@@ -50,7 +50,7 @@ export const findOneProduct = (itemId) => async (dispatch) => {
 
     if (first.ok) {
         const product = await first.json();
-        // console.log(product,"this is product")
+
 
         dispatch(onlyOne(product))
     }
@@ -62,7 +62,7 @@ export const getProductReview = (itemId) => async (dispatch) => {
 
     if (actual.ok) {
         const reviews = await actual.json();
-        // console.log(reviews)
+
 if(reviews.length){
 
     dispatch(productReviews(reviews))
@@ -92,7 +92,7 @@ export const addNewItem = (proposed) => async (dispatch) => {
 
     if (res.ok) {
         const product = await res.json()
-        // console.log(product,'you got the product')
+
         await csrfFetch(`/api/products/${product.id}/images`, {
             method: 'POST',
             body: JSON.stringify({
@@ -172,12 +172,12 @@ const productReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case ALL_PRODUCTS:{
-            console.log(action.payload,'this is the payload')
+
             const normalized = {}
             action.payload.forEach((product)=>
             normalized[product.id]=product
         )
-        console.log(normalized,'this is normalized')
+       
         return{
             ...state, data: normalized
         }

@@ -15,6 +15,8 @@ import ViewInventory from "./components/Inventory/ViewInventory";
 import EditInv from "./components/Inventory/EditInv";
 import SuggestionsPage from "./components/Suggestions/SuggestionsPage";
 import Admins from "./components/Master/Admins";
+import Footerlinks from "./components/Footer/Footerlinks";
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -30,6 +32,8 @@ function Layout() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
+      <hr/>
+    <Footerlinks />
     </>
   );
 }

@@ -17,7 +17,7 @@ export default function ProfileButton() {
   const user = useSelector((state) => state.session.user);
   const navigate = useNavigate();
   const isMaster = user?.isMaster;
-  // console.log(isMaster,'masterrrrr')
+ 
   const admin = useSelector((state) => state.session?.user?.isAdmin);
 
   const logout = (e) => {

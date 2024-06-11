@@ -1,0 +1,20 @@
+.linkscontainer{
+    display: flex;
+
+}
+
+.logoscontainer{
+position: relative;
+left: 50px
+}
+
+.profile{
+    height: 200px;
+    width: 150px;
+    border-radius: 60px;
+}
+
+.myname{
+    text-decoration: underline;
+
+}

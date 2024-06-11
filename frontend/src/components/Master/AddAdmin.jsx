@@ -28,7 +28,6 @@ return setErrors(err)
 
 }
 
-// console.log(errors,' this is the error')
   return (
     <div className="addadminform">
       <h1 style={{fontWeight:'bolder'}}>Add Admin Access</h1>

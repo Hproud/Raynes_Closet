@@ -9,14 +9,14 @@ export default function OrderInfoPage() {
   const dispatch = useDispatch();
   const { orderId } = useParams();
   const order = useSelector((state) => state.order?.order);
-  // console.log(orderId, "orderid");
+  
 
   useEffect(() => {
     dispatch(getMyOrder(orderId));
   }, [dispatch, orderId]);
 
   const cart = order?.cart;
-  // console.log(cart,'my cart')
+
 
   let subtotal = 0;
   if (cart) {

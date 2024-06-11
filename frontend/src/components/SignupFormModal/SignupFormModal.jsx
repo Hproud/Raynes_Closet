@@ -52,7 +52,7 @@ function SignupFormModal() {
 
 
 
-// console.log(errors,'this is the errors')
+
 
 
 
