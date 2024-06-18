@@ -101,9 +101,7 @@ router.post("", requireAuth, async (req, res, next) => {
       user_id: user,
     });
     //pull the new cart id
-    // console.log(newCart);
 
-    //return new cart
     return res.json(newCart);
   }
 });
@@ -141,10 +139,7 @@ router.post("/:cartId/items", requireAuth, async (req, res, next) => {
       }
     })
 return res.json(item)
-    // const err = Error("Item already in cart");
-    // err.status = 400;
-    // err.message = "Item already in cart";
-    // return next(err);
+    
   } else {
     //if not in cart already create cartitem with req.body
     const newItem = await CartItem.create({

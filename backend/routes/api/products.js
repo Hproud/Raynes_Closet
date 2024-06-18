@@ -97,7 +97,7 @@ if(!products.length){
         },
         attributes: ["id", "url"],
       });
-      // console.log(pic,'this is pic *****************************************************************************')
+
       const newItem = {
         id: products[i].id,
         name: products[i].name,
@@ -159,7 +159,7 @@ const revs = []
           imageable_type: 'Review'
         }
       })
-      // console.log(pics,"dfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfafsd")
+
       const newrev={
         id: rev.id,
         user_id: rev.user_id,
@@ -172,10 +172,6 @@ const revs = []
       }
       revs.push(newrev)
     }
-
-
-
-  // console.log(reviews)
 
 
     const final= {
@@ -251,7 +247,7 @@ router.post("", requireAuth, ValidateProduct, async (req, res, next) => {
       item_id: prod.id,
       quantity: proposed.quantity,
     });
-    // console.log(newProduct,'this is my new product')
+
 
     return res.json(newProduct);
   }
@@ -309,7 +305,6 @@ if(req.user.isAdmin || req.user.master){
 router.get("/:itemId/reviews", async (req, res, next) => {
   // pull id from params
   const id = Number(req.params.itemId);
-// console.log(id)
   //query all reviews
   const reviews = await Review.findAll({
 
@@ -339,7 +334,7 @@ const finalRevs = []
         },
         as: "ReviewImages",
   })
-// console.log(pictures,"787878787878787878e7r8w67e87r56qwe876rq87wetyfugasdjfgvasjhdgfjksahdfvah")
+
 
   const rev = {
     id: review.id,
@@ -354,7 +349,7 @@ finalRevs.push(rev)
 }
 
   //include the pictures for that review
-  // console.log(finalRevs,'----------------------------------------')
+
 
   if( (reviews.length === 0)){
     const err = Error("Product Not Found");
