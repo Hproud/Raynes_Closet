@@ -24,7 +24,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
   const user = req.user.id;
   //search for review by PK
   const review = await Review.findByPk(id);
-  // console.log(review.dataValues)
+  
   //if doesnt exist throw error
   if (!review) {
     const err = Error("Review Not Found");
