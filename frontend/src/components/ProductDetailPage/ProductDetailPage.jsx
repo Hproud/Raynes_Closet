@@ -91,7 +91,7 @@ if(!isLoading){
                         <button onClick={edit}>Edit Product</button>{" "}<button onClick={deleteProd}>Delete Product</button>
                         </div>
                 )}
-                <hr />
+                {/* <hr /> */}
                 {admin && (
                     <div>
                         <button onClick={edit}>Edit Product</button>{" "}<button onClick={deleteProd}>Delete Product</button>
