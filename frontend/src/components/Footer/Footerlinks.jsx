@@ -13,7 +13,7 @@ export default function Footerlinks() {
       <div className='linkscontainer'>
 <div>
 
-      <img className='profile' src="/headshot.jpg" alt='headshot' />
+      <img className='profile' src='https://havinproud.com/images/headshot.jpg' alt='headshot' />
 </div>
       <div className='logoscontainer'>
         <h4 className='myname'><Link style={{color:'black'}}>Havin Proud</Link></h4>
