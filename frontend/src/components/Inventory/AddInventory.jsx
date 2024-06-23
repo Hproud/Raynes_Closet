@@ -2,6 +2,7 @@ import {  useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addNewItem } from "../../store/products";
+
 // import * as productActions from "../../store/products";
 
 
@@ -141,9 +142,9 @@ if(!(Object.values(errors).length)){
             {errors.errors?.size}
           </p>
         )}
-        <label style={{fontWeight:'bold'}}>Size :</label>
+        <label style={{fontWeight:'bold'}}>Size and Available Amount:</label>
 
-        <select
+        {/* <select
           value={size}
           onChange={(e) => setSize(e.target.value)}
           style={{backgroundColor:'sandybrown',position:'relative', fontWeight:'bold', left:'20px'}}
@@ -151,7 +152,7 @@ if(!(Object.values(errors).length)){
         >
           <option style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
           >Select Size</option>
-          <option  >YS</option>
+          <option  ></option>
           <option  >YM</option>
           <option  >YL</option>
           <option  >S</option>
@@ -160,9 +161,23 @@ if(!(Object.values(errors).length)){
           <option  >XL</option>
           <option  >XXL</option>
           <option  >3X</option>
-        </select>
+        </select> */}
         <br />
+        <input type="checkbox" value={'XS'}/>YS <input  className="avail"></input>
+
+        <input type="checkbox" value={'XS'}/>YM
+        <input type="checkbox" value={'XS'}/>YL
+        <input type="checkbox" value={'XS'}/>S
+        <input type="checkbox" value={'XS'}/>M
+        <br/>
+        <input type="checkbox" value={'XS'}/>L
+        <input type="checkbox" value={'XS'}/>XL
+        <input type="checkbox" value={'XS'}/>XS
+        <input type="checkbox" value={'XS'}/>XS
+        <input type="checkbox" value={'XS'}/>XS
+
         <br />
+
         {errors && (
           <p
             className='addProdErrors'
