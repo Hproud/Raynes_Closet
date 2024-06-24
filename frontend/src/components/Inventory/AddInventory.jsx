@@ -12,11 +12,34 @@ export default function AddInventory() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [size, setSize] = useState("Select Size");
+  // const [size, setSize] = useState("Select Size");
   const [price, setPrice] = useState(0);
   const [type, setType] = useState("Select Type");
   const [quantity, setQuantity] = useState(0);
   const [preview, setPreview] = useState("");
+  const [youthSmall,setYouthSmall] = useState(false)
+  const [youthMedium,setYouthMedium] = useState(false)
+  const [youthLarge,setYouthLarge] = useState(false)
+  const [small,setSmall] = useState(false)
+  const [medium,setMedium] = useState(false)
+  const [large,setLarge] = useState(false)
+  const [xlarge, setXLarge] = useState(false)
+  const [xxLarge,setXXLarge] = useState(false);
+
+
+
+
+
+  const [YSquant,setYSquant] = useState(0)
+  const [YMquant,setYMquant] = useState(0)
+  const [YLquant,setYLquant] = useState(0)
+  const [Squant,setSquant] = useState(0)
+  const [Mquant,setMquant] = useState(0)
+  const [Lquant,setLquant] = useState(0)
+  const [XLquant,setXLquant] = useState(0)
+  const [XXLquant,setXXLquant] = useState(0)
+
+
   // const [pic1, setPic1] = useState("");
   // const [pic2, setPic2] = useState("");
   // const [pic3, setPic3] = useState("");
@@ -39,32 +62,177 @@ const pictures =[]
 //   pictures.push(pic4)
 // }
 
-  const proposed = {
-    name,
-    description,
-    size,
-    price,
-    type,
-    quantity,
-    preview,
-    pictures
-  };
+  // const proposed = {
+  //   name,
+  //   description,
+  //   size,
+  //   price,
+  //   type,
+  //   quantity,
+  //   preview,
+  //   pictures
+  // };
 
-
+console.log('youth Small:',youthSmall, 'quant:',YSquant )
+console.log('youth Medium:',youthMedium, 'quant:',YMquant)
+console.log('youth Large:',youthLarge, 'quant:',YLquant)
+console.log('Small:',small, 'quant:',Squant)
+console.log('Medium:',medium, 'quant:',Mquant)
+console.log('Large:',large, 'quant:',Lquant)
+console.log('XLarge:',xlarge, 'quant:',XLquant)
+console.log('XXLarge:',xxLarge, 'quant:',XXLquant)
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
 if(!(Object.values(errors).length)){
 
-  dispatch(addNewItem(proposed))
+  // dispatch(addNewItem(proposed))
   // .then((res)=>{dispatch(addPreviewPic(res,preview))})
-  .then((res) => navigate(`/products/${res}`))
-  .catch(async (res) => {
-    const data = await res.json()
+  if(youthSmall){
+
+    const proposed = {
+      name,
+      description,
+      size: 'YS',
+      price,
+      type,
+      quantity: YSquant,
+      preview,
+      pictures
+    };
+    dispatch(addNewItem(proposed))
+  };
+
+
+  if(youthMedium){
+
+    const proposed = {
+      name,
+      description,
+      size: 'YM',
+      price,
+      type,
+      quantity: YMquant,
+      preview,
+      pictures
+    };
+
+    dispatch(addNewItem(proposed))
+  }
+
+
+
+
+  if(youthLarge){
+
+    const proposed = {
+      name,
+      description,
+      size: 'YL',
+      price,
+      type,
+      quantity: YLquant,
+      preview,
+      pictures
+    };
+
+    dispatch(addNewItem(proposed))
+  };
+
+
+
+  if(small){
+
+    const proposed = {
+      name,
+      description,
+      size: 'S',
+      price,
+      type,
+      quantity: Squant,
+      preview,
+      pictures
+    };
+    dispatch(addNewItem(proposed))
+  }
+
+
+  if(medium){
+
+    const proposed = {
+      name,
+      description,
+      size: 'M',
+      price,
+      type,
+      quantity: Mquant,
+      preview,
+      pictures
+    };
+    dispatch(addNewItem(proposed))
+  }
+
+
+
+  if(large){
+
+    const proposed = {
+      name,
+      description,
+      size: 'L',
+      price,
+      type,
+      quantity: Lquant,
+      preview,
+      pictures
+    };
+    dispatch(addNewItem(proposed))
+  }
+
+
+
+  if(xlarge){
+
+    const proposed = {
+      name,
+      description,
+      size: 'XL',
+      price,
+      type,
+      quantity: XLquant,
+      preview,
+      pictures
+    };
+    dispatch(addNewItem(proposed))
+  }
+
+
+  if(xxLarge){
+
+    const proposed = {
+      name,
+      description,
+      size: 'XXL',
+      price,
+      type,
+      quantity: XXLquant,
+      preview,
+      pictures
+    };
+    dispatch(addNewItem(proposed))
+  }
+
+
+
+
+  // .then((res) => navigate(`/products/${res}`))
+  // .catch(async (res) => {
+  //   const data = await res.json()
 
     setErrors(data)
-  });
+  // }
+// );
   setName("");
   setDescription("");
   setSize("Select Size");
@@ -163,18 +331,24 @@ if(!(Object.values(errors).length)){
           <option  >3X</option>
         </select> */}
         <br />
-        <input type="checkbox" value={'XS'}/>YS <input  className="avail"></input>
+        <input type="checkbox" value={youthSmall} onChange={(e)=> setYouthSmall(!youthSmall)}/>YS <input value={YSquant} onChange={(e) => setYSquant(e.target.value)} className="avail"></input>
+        <br />
 
-        <input type="checkbox" value={'XS'}/>YM
-        <input type="checkbox" value={'XS'}/>YL
-        <input type="checkbox" value={'XS'}/>S
-        <input type="checkbox" value={'XS'}/>M
+        <input type="checkbox" value={youthMedium} onChange={(e)=> setYouthMedium(!youthMedium)} />YM <input value={YMquant} onChange={(e) => setYMquant(e.target.value)} className="avail"></input>
+        <br />
+        <input type="checkbox" value={youthLarge} onChange={(e)=> setYouthLarge(!youthLarge)} />YL <input value={YLquant} onChange={(e) => setYLquant(e.target.value)} className="avail"></input>
+        <br />
+        <input type="checkbox" value={small} onChange={(e)=> setSmall(!small)}/>S <input value={Squant} onChange={(e) => setSquant(e.target.value)} className="avail"></input>
+        <br />
+        <input type="checkbox" value={medium} onChange={(e)=> setMedium(!medium)} />M <input value={Mquant} onChange={(e) => setMquant(e.target.value)} className="avail"></input>
         <br/>
-        <input type="checkbox" value={'XS'}/>L
-        <input type="checkbox" value={'XS'}/>XL
-        <input type="checkbox" value={'XS'}/>XS
-        <input type="checkbox" value={'XS'}/>XS
-        <input type="checkbox" value={'XS'}/>XS
+        <input type="checkbox" value={large} onChange={(e)=> setLarge(!large)} />L <input value={Lquant} onChange={(e) => setLquant(e.target.value)} className="avail"></input>
+        <br />
+        <input type="checkbox" value={xlarge} onChange={(e)=> setXLarge(!xlarge)} />XL <input value={XLquant} onChange={(e) => setXLquant(e.target.value)} className="avail"></input>
+        <br />
+        <input type="checkbox" value={xxLarge} onChange={(e)=> setXXLarge(!xxLarge)} />XS <input value={XXLquant} onChange={(e) => setXXLquant(e.target.value)} className="avail"></input>
+
+
 
         <br />
 
@@ -235,7 +409,7 @@ if(!(Object.values(errors).length)){
             {errors.errors?.quantity}
           </p>
         )}
-        <label style={{fontWeight:'bold'}}>Available Quantity</label>
+        {/* <label style={{fontWeight:'bold'}}>Available Quantity</label>
         <br />
         <input
         style={{backgroundColor:'sandybrown', fontWeight:'bold'}}
@@ -245,9 +419,9 @@ if(!(Object.values(errors).length)){
           onChange={(e) => {
             setQuantity(e.target.value);
           }}
-        />
-        <br />
-        <br />
+        /> */}
+        {/* <br /> */}
+        {/* <br /> */}
         {errors && (
           <p
             className='addProdErrors'
