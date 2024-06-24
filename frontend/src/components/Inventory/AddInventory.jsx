@@ -26,8 +26,7 @@ export default function AddInventory() {
   const [xlarge, setXLarge] = useState(false)
   const [xxLarge,setXXLarge] = useState(false);
 
-
-
+//& need to find way to redirect to product page now that there are multiples!!!
 
 
   const [YSquant,setYSquant] = useState(0)
@@ -226,7 +225,7 @@ if(!(Object.values(errors).length)){
 
 
 
-  // .then((res) => navigate(`/products/${res}`))
+
   // .catch(async (res) => {
   //   const data = await res.json()
 
