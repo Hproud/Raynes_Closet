@@ -24,6 +24,10 @@ export default function AddInventory() {
 
 const pictures =[]
 
+
+//& lets make sure we do go ahead and merge!
+
+
 // if(pic1){
 //   pictures.push(pic1)
 // }
