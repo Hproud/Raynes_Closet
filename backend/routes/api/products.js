@@ -104,10 +104,21 @@ if(!products.length){
         description: products[i].description,
         size: products[i].size,
         price: products[i].price,
-        type: products[i].price,
+        type: products[i].type, //!----------------------------
         preview: pic?.dataValues?.url,
       };
-      final.push(newItem);
+      let found = false
+
+      final.map((prod) => {
+        const name = prod.name
+        if(name === newItem.name){
+          found = true
+        }
+      })
+      if(!found){
+        final.push(newItem);
+
+      }
     }
 
     return res.json(final);
@@ -116,6 +127,46 @@ if(!products.length){
 });
 
 
+//TODO--------------------------------GET PRODUCT BY NAME---------------------------------------------------
+router.get('/item', async (req, res, next) =>{
+//get the name from the body of the request
+const {name} = req.body
+// search for all items with the same name
+const allItems = await Product.findAll({
+  where:{
+    name: name
+  },
+  include: [
+    {
+      model: Image,
+      where: {
+        imageable_type: "Product",
+      },
+    },
+  ]
+})
+//return all found items with preview image
+const finalProduct=[]
+
+allItems.map((item)=>{
+  const final = {
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    size: item.size,
+    price: item.price,
+    type: item.price,
+    preview: item.Images[0].url,
+    images: item.Images,
+    createdAt: item.createdAt,
+    updatedAt: item.createdAt
+  }
+  finalProduct.push(final)
+})
+
+return res.json(finalProduct)
+// return res.json(allItems)
+})
 
 
 //TODO--------------------------------GET PRODUCT BY ID--------------------------------------------

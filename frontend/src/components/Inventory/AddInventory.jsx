@@ -85,7 +85,11 @@ export default function AddInventory() {
           pictures,
         };
 
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
       if (youthLarge) {
@@ -100,7 +104,11 @@ export default function AddInventory() {
           pictures,
         };
 
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
       if (small) {
@@ -114,7 +122,11 @@ export default function AddInventory() {
           preview,
           pictures,
         };
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
       if (medium) {
@@ -128,7 +140,11 @@ export default function AddInventory() {
           preview,
           pictures,
         };
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
       if (large) {
@@ -142,9 +158,14 @@ export default function AddInventory() {
           preview,
           pictures,
         };
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
+      
       if (xlarge) {
         const proposed = {
           name,
@@ -156,7 +177,11 @@ export default function AddInventory() {
           preview,
           pictures,
         };
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
       if (xxLarge) {
@@ -170,12 +195,16 @@ export default function AddInventory() {
           preview,
           pictures,
         };
-        dispatch(addNewItem(proposed));
+        dispatch(addNewItem(proposed))
+        .catch((res)=>{
+          const data = res.json()
+          setErrors(data)
+        })
       }
 
 
 
-      setErrors(data);
+
 
       setName("");
       setDescription("");

@@ -5,7 +5,7 @@ const ALL_PRODUCTS = 'products/allProducts'
 const GET_ONE = 'products/getOne'
 const GET_PRODREVIEWS = 'products/prodReviews'
 const DELETE_PRODUCT = 'products/delete'
-
+const GET_SIZES = 'products/getSizes'
 
 //& ------------------------------ACTIONS---------------------------------------
 
@@ -32,6 +32,11 @@ const deleteTheProduct = (id) =>({
     payload: id
 })
 
+const allSizesHere = (products) =>({
+type: GET_SIZES,
+payload: products
+})
+
 //! -------------------------------THUNKS----------------------------------------
 
 export const getAllProducts = () => async (dispatch) => {
@@ -43,6 +48,11 @@ export const getAllProducts = () => async (dispatch) => {
         dispatch(allProducts(products))
 // dispatch(test1(products))
     }
+}
+
+export const findAllSizes = (name) => async (dispatch) =>{
+
+
 }
 
 export const findOneProduct = (itemId) => async (dispatch) => {
@@ -177,7 +187,7 @@ const productReducer = (state = initialState, action) => {
             action.payload.forEach((product)=>
             normalized[product.id]=product
         )
-       
+
         return{
             ...state, data: normalized
         }
