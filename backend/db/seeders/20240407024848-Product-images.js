@@ -16,7 +16,7 @@ await Image.bulkCreate([
 {
   imageable_id: 1,
   imageable_type: 'Product',
-  url: 'https://fridaystuff.com/wp-content/uploads/2021/06/The-first-time-you-meet-me-youll-think-Im-crazy-Grumpy-milk-cow.jpg',
+  url: 'https://m.media-amazon.com/images/I/61Edt3hX1LL.jpg',
   preview: true
 },
 {
