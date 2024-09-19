@@ -16,7 +16,7 @@ await Image.bulkCreate([
 {
   imageable_id: 1,
   imageable_type: 'Product',
-  url: 'https://m.media-amazon.com/images/I/61Edt3hX1LL.jpg',
+  url: 'https://ih1.redbubble.net/image.5526441122.4982/gptr,1265x,front,black-c,330,402,600,600-bg,f8f8f8.u2.jpg',
   preview: true
 },
 {
