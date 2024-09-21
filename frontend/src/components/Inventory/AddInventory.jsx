@@ -228,6 +228,8 @@ export default function AddInventory() {
       setLquant(0);
       setXLquant(0);
       setXXLquant(0);
+
+      navigate('/')
     } else {
       setErrors(errors);
       return errors;
