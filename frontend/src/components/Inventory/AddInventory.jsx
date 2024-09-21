@@ -45,14 +45,14 @@ export default function AddInventory() {
   //   pictures
   // };
 
-  console.log("youth Small:", youthSmall, "quant:", YSquant);
-  console.log("youth Medium:", youthMedium, "quant:", YMquant);
-  console.log("youth Large:", youthLarge, "quant:", YLquant);
-  console.log("Small:", small, "quant:", Squant);
-  console.log("Medium:", medium, "quant:", Mquant);
-  console.log("Large:", large, "quant:", Lquant);
-  console.log("XLarge:", xlarge, "quant:", XLquant);
-  console.log("XXLarge:", xxLarge, "quant:", XXLquant);
+  // console.log("url", preview, "youth Small:", youthSmall, "quant:", YSquant);
+  // console.log("youth Medium:", youthMedium, "quant:", YMquant);
+  // console.log("youth Large:", youthLarge, "quant:", YLquant);
+  // console.log("Small:", small, "quant:", Squant);
+  // console.log("Medium:", medium, "quant:", Mquant);
+  // console.log("Large:", large, "quant:", Lquant);
+  // console.log("XLarge:", xlarge, "quant:", XLquant);
+  // console.log("XXLarge:", xxLarge, "quant:", XXLquant);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -165,7 +165,7 @@ export default function AddInventory() {
         })
       }
 
-      
+
       if (xlarge) {
         const proposed = {
           name,
