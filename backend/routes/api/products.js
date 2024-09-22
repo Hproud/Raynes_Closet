@@ -612,7 +612,12 @@ router.put('/:itemId/images/:imageId',requireAuth,async (req,res,next) =>{
 })
 
 
+//&----------------- GET ALL SIZES FOR A PRODUCT ----------------------
+// router.get('/sizes', async (req,res,next)=>{
+// const {message} = res.body
 
+//   res.json(message)
+// }) //--------end
 
 
 module.exports = router;
