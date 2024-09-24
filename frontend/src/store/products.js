@@ -50,8 +50,14 @@ export const getAllProducts = () => async (dispatch) => {
     }
 }
 
-export const findAllSizes = (name) => async (dispatch) =>{
-
+export const findAllSizes = (prodname) => async (dispatch) =>{
+    const {name} = prodname
+const res = await csrfFetch('/api/products/item',{
+    method: 'GET',
+    body: JSON.stringify({
+        name: name
+    })
+})
 
 }
 
