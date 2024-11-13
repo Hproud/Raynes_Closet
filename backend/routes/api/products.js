@@ -175,6 +175,10 @@ router.get("/:itemId", async (req, res, next) => {
   // get the id from params
   const id = Number(req.params.itemId);
   //query the db to find the item
+
+  //set a place to save sizes
+  const sizes = []
+
   const prod = await Product.findByPk(id, {
     // attributes: ["id", "name", "description", "size", "price", "type"],
     include: [
@@ -194,6 +198,21 @@ if(!prod){
   err.message = "No Item Found"
   return next(err)
 }else{
+
+  const pro = await Product.findAll({where:{
+    name: prod.name,
+
+  }})
+
+  // console.log(sizes,'this is the sizes you requested for this')
+  if(pro.length){
+    for (let i=0; i < pro.length; i++){
+      const single = pro[i]
+      // console.log(single.size,'this is what i get for the sizes +++++++++++++=================================================')
+      sizes.push(single.size)
+    }
+    // console.log(sizes,'my size array*///////////////////////////////////')
+  }
 const revs = []
   const reviews = await Review.findAll({
     where:{
@@ -229,7 +248,7 @@ const revs = []
       id: id,
       name: prod.name,
       description: prod.description,
-      size: prod.size,
+      sizes: sizes,
       price: prod.price,
       images: prod.Images[0],
       reviews: revs,
@@ -239,13 +258,14 @@ const revs = []
       updatedAt: prod.updatedAt
     }
   return res.json(final);
+  // return res.json(sizes);
 
   }else{
     const final= {
       id: id,
       name: prod.name,
       description: prod.description,
-      size: prod.size,
+      sizes: sizes,
       price: prod.price,
       images: prod.Images[0],
       type: prod.type,

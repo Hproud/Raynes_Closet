@@ -42,9 +42,9 @@ const edit = () =>{
 
 const cost = (product?.price)
 
+const availableSizes = product?.sizes
 
-
-
+console.log(availableSizes,'lklk')
 
 const deleteProd = (e) =>{
     e.preventDefault();
@@ -80,7 +80,10 @@ if(!isLoading){
                 <div>
                     <p>{product?.description}</p>
                     <p>$ {cost}.00</p>
-                    <p>{product?.size}</p>
+                    <div style={{display:'flex',justifyContent:'space-around',maxWidth:'200px',height:'30px'}}>
+
+                   {availableSizes && availableSizes.map(si=><button key={si}>{si}</button>)}
+                    </div>
 
                 </div>
                 {!admin && !master && user && (
