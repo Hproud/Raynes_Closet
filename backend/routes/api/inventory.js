@@ -23,6 +23,7 @@ router.get('', requireAuth, async (req,res,next) => {
         }
         const inventory= [];
 
+        
         //loop through your inventory to send the correct structured data to the array
         for (let i = 0; i < all.length; i++){
 

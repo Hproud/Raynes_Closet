@@ -104,10 +104,21 @@ if(!products.length){
         description: products[i].description,
         size: products[i].size,
         price: products[i].price,
-        type: products[i].price,
+        type: products[i].type, //!----------------------------
         preview: pic?.dataValues?.url,
       };
-      final.push(newItem);
+      let found = false
+
+      final.map((prod) => {
+        const name = prod.name
+        if(name === newItem.name){
+          found = true
+        }
+      })
+      if(!found){
+        final.push(newItem);
+
+      }
     }
 
     return res.json(final);
@@ -116,6 +127,46 @@ if(!products.length){
 });
 
 
+//TODO--------------------------------GET PRODUCT BY NAME---------------------------------------------------
+router.get('/item', async (req, res, next) =>{
+//get the name from the body of the request
+const {name} = req.body
+// search for all items with the same name
+const allItems = await Product.findAll({
+  where:{
+    name: name
+  },
+  include: [
+    {
+      model: Image,
+      where: {
+        imageable_type: "Product",
+      },
+    },
+  ]
+})
+//return all found items with preview image
+const finalProduct=[]
+
+allItems.map((item)=>{
+  const final = {
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    size: item.size,
+    price: item.price,
+    type: item.price,
+    preview: item.Images[0].url,
+    images: item.Images,
+    createdAt: item.createdAt,
+    updatedAt: item.createdAt
+  }
+  finalProduct.push(final)
+})
+
+return res.json(finalProduct)
+// return res.json(allItems)
+})
 
 
 //TODO--------------------------------GET PRODUCT BY ID--------------------------------------------
@@ -124,6 +175,10 @@ router.get("/:itemId", async (req, res, next) => {
   // get the id from params
   const id = Number(req.params.itemId);
   //query the db to find the item
+
+  //set a place to save sizes
+  const sizes = []
+
   const prod = await Product.findByPk(id, {
     // attributes: ["id", "name", "description", "size", "price", "type"],
     include: [
@@ -143,6 +198,21 @@ if(!prod){
   err.message = "No Item Found"
   return next(err)
 }else{
+
+  const pro = await Product.findAll({where:{
+    name: prod.name,
+
+  }})
+
+  // console.log(sizes,'this is the sizes you requested for this')
+  if(pro.length){
+    for (let i=0; i < pro.length; i++){
+      const single = pro[i]
+      // console.log(single.size,'this is what i get for the sizes +++++++++++++=================================================')
+      sizes.push(single.size)
+    }
+    // console.log(sizes,'my size array*///////////////////////////////////')
+  }
 const revs = []
   const reviews = await Review.findAll({
     where:{
@@ -178,7 +248,7 @@ const revs = []
       id: id,
       name: prod.name,
       description: prod.description,
-      size: prod.size,
+      sizes: sizes,
       price: prod.price,
       images: prod.Images[0],
       reviews: revs,
@@ -188,13 +258,14 @@ const revs = []
       updatedAt: prod.updatedAt
     }
   return res.json(final);
+  // return res.json(sizes);
 
   }else{
     const final= {
       id: id,
       name: prod.name,
       description: prod.description,
-      size: prod.size,
+      sizes: sizes,
       price: prod.price,
       images: prod.Images[0],
       type: prod.type,
@@ -561,7 +632,12 @@ router.put('/:itemId/images/:imageId',requireAuth,async (req,res,next) =>{
 })
 
 
+//&----------------- GET ALL SIZES FOR A PRODUCT ----------------------
+// router.get('/sizes', async (req,res,next)=>{
+// const {message} = res.body
 
+//   res.json(message)
+// }) //--------end
 
 
 module.exports = router;
