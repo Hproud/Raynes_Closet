@@ -11,6 +11,7 @@ import { addItem} from "../../store/cart";
 export default function ProductDetailPage() {
     const  {itemId } = useParams()
     const [isLoading,setIsLoading] = useState(true)
+    const [selectedSize,setSelectedSize] = useState('')
     const dispatch = useDispatch()
 const product = useSelector((state) => state.products?.product)
 const navigate = useNavigate()
@@ -28,6 +29,10 @@ const navigate = useNavigate()
         //     return data
         // })
     },[dispatch,itemId])
+
+
+
+console.log(selectedSize,'this is the selected size')
 
 const url = product?.images?.url
 // const reviews = useSelector((state) => state.products?.reviews)
@@ -82,7 +87,7 @@ if(!isLoading){
                     <p>$ {cost}.00</p>
                     <div style={{display:'flex',justifyContent:'space-around',maxWidth:'200px',height:'30px'}}>
 
-                   {availableSizes && availableSizes.map(si=><button key={si}>{si}</button>)}
+                   {availableSizes && availableSizes.map(si=><button key={si} onClick={()=> setSelectedSize(si)}>{si}</button>)}
                     </div>
 
                 </div>

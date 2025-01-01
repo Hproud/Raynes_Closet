@@ -333,9 +333,23 @@ router.delete("/:itemId", requireAuth, async (req, res, next) => {
 
   //if item exists remove it
   if (item) {
-    await item.destroy();
+    // await item.destroy(); //!------- want to delete all of this product for the time being, deleting sizing may come later.
 
-    //return success message
+    // go through and delete all the prods found with that name
+    const allItems = await Product.findAll({
+      where: {
+        name: item.name
+      }
+    })
+
+if  (allItems){
+  allItems.forEach(async (prod) =>{
+    await prod.destroy()
+  })
+}
+
+
+//return success message
     return res.json({ message: "Successfully Deleted!" });
   } else {
     //if item does not exist return the item not found error
