@@ -236,6 +236,7 @@ export default function AddInventory() {
     }
   };
 
+//?-------------------------------------------------------------------------------------------------------------------------------------------------------
 
   return (
     <div
@@ -330,6 +331,8 @@ export default function AddInventory() {
 
         <input
           value={YSquant}
+          type="number"
+          min={0}
           onChange={(e) => setYSquant(e.target.value)}
           className="avail"
         ></input>
@@ -344,6 +347,8 @@ export default function AddInventory() {
 
         <input
           value={YMquant}
+          type="number"
+          min={0}
           onChange={(e) => setYMquant(e.target.value)}
           className="avail"
         ></input>
@@ -359,6 +364,8 @@ export default function AddInventory() {
 
         <input
           value={YLquant}
+          type="number"
+          min={0}
           onChange={(e) => setYLquant(e.target.value)}
           className="avail"
         ></input>
@@ -373,6 +380,8 @@ export default function AddInventory() {
 
         <input
           value={Squant}
+          type="number"
+          min={0}
           onChange={(e) => setSquant(e.target.value)}
           className="avail"
         ></input>
@@ -387,6 +396,8 @@ export default function AddInventory() {
 
         <input
           value={Mquant}
+          type="number"
+          min={0}
           onChange={(e) => setMquant(e.target.value)}
           className="avail"
         ></input>
@@ -401,6 +412,8 @@ export default function AddInventory() {
 
         <input
           value={Lquant}
+          type="number"
+          min={0}
           onChange={(e) => setLquant(e.target.value)}
           className="avail"
         ></input>
@@ -415,6 +428,8 @@ export default function AddInventory() {
 
         <input
           value={XLquant}
+          type="number"
+          min={0}
           onChange={(e) => setXLquant(e.target.value)}
           className="avail"
         ></input>
@@ -429,6 +444,8 @@ export default function AddInventory() {
 
         <input
           value={XXLquant}
+          type="number"
+          min={0}
           onChange={(e) => setXXLquant(e.target.value)}
           className="avail"
         ></input>
